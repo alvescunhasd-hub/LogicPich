@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Logiciel Plomberie</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#185FA5;--blue-l:#E6F1FB;--blue-m:#378ADD;
+  --green:#2E6B0E;--green-l:#EAF3DE;--green-m:#5A9E2F;
+  --amber:#854F0B;--amber-l:#FAEEDA;
+  --red:#A32D2D;--red-l:#FCEBEB;
+  --gray:#F4F3EE;--gray-m:#888780;--border:#E0DDD5;
+  --wa:#25D366;--wa-d:#128C7E;
+  --bg:#F4F3EE;--card:#FFFFFF;--text:#1A1917;--text2:#6B6960;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;padding-bottom:70px}
+/* HEADER */
+.header{background:var(--blue);color:#fff;padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.header-title{font-size:17px;font-weight:600;letter-spacing:.3px}
+.header-sub{font-size:11px;opacity:.75;margin-top:1px}
+/* NAV */
+.nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:56px;z-index:40;overflow-x:auto}
+.nav-btn{flex:1;min-width:62px;padding:10px 4px 8px;border:none;background:none;cursor:pointer;font-size:11px;font-weight:500;color:var(--text2);border-bottom:2px solid transparent;display:flex;flex-direction:column;align-items:center;gap:2px;transition:color .15s;white-space:nowrap}
+.nav-btn i{font-size:20px}
+.nav-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+/* SECTIONS */
+.section{display:none;padding:.75rem}
+.section.active{display:block}
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;margin-bottom:.6rem}
+.card-clickable{cursor:pointer;transition:box-shadow .15s}
+.card-clickable:active{box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.card-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.card-title{font-size:15px;font-weight:600}
+.card-sub{font-size:12px;color:var(--text2)}
+/* BADGES */
+.badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.b-green{background:var(--green-l);color:var(--green)}
+.b-amber{background:var(--amber-l);color:var(--amber)}
+.b-blue{background:var(--blue-l);color:var(--blue)}
+.b-red{background:var(--red-l);color:var(--red)}
+/* STATS */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:.75rem}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem .9rem}
+.stat-label{font-size:11px;color:var(--text2);margin-bottom:3px}
+.stat-val{font-size:22px;font-weight:700}
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:13px;font-weight:500;color:var(--text);transition:background .15s}
+.btn:hover{background:var(--gray)}
+.btn-primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn-primary:hover{background:#0C447C}
+.btn-wa{background:var(--wa);color:#fff;border-color:var(--wa)}
+.btn-sm{padding:6px 10px;font-size:12px}
+.btn-icon{padding:7px;border-radius:8px}
+/* SECTION HEADER */
+.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.sec-title{font-size:16px;font-weight:600}
+/* DIVIDER */
+hr.div{border:none;border-top:1px solid var(--border);margin:.6rem 0}
+/* ROW DETAIL */
+.row-d{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:13px;border-bottom:1px solid var(--border)}
+.row-d:last-child{border-bottom:none}
+.row-d .lbl{color:var(--text2)}
+.row-d .val{font-weight:500}
+/* PROGRESS */
+.prog{height:5px;background:var(--gray);border-radius:3px;margin-top:7px}
+.prog-fill{height:100%;border-radius:3px;background:var(--blue-m)}
+/* INPUTS */
+input,select,textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;background:var(--card);color:var(--text);margin-bottom:7px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue)}
+label{font-size:12px;color:var(--text2);display:block;margin-bottom:3px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* TOTAL BOX */
+.total-box{background:var(--blue-l);border-radius:10px;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;margin-top:.6rem}
+.total-box .t-lbl{font-size:13px;font-weight:600;color:var(--blue)}
+.total-box .t-val{font-size:19px;font-weight:700;color:var(--blue)}
+/* NOTA */
+.nota{background:var(--amber-l);border-radius:8px;padding:.65rem .9rem;font-size:12px;color:var(--amber);margin-top:.6rem}
+.nota-red{background:var(--red-l);color:var(--red)}
+/* TAG */
+.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;background:var(--gray);color:var(--text2);margin:1px}
+/* CHECKLIST */
+.chk-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.chk-item:last-child{border-bottom:none}
+.chk-item input[type=checkbox]{width:17px;height:17px;cursor:pointer;flex-shrink:0;accent-color:var(--blue)}
+.chk-item.done span{text-decoration:line-through;color:var(--text2)}
+.chk-qty{font-size:11px;color:var(--text2);margin-left:auto;padding-left:8px;white-space:nowrap}
+/* BACK BTN */
+.back-btn{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--blue);cursor:pointer;background:none;border:none;padding:0;margin-bottom:.75rem;font-weight:500}
+/* TABS INNER */
+.tabs-inner{display:flex;gap:6px;margin-bottom:.75rem;flex-wrap:wrap}
+.tabs-inner button{padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--card);font-size:12px;cursor:pointer;color:var(--text2);transition:all .15s}
+.tabs-inner button.active{background:var(--blue-l);color:var(--blue);border-color:var(--blue)}
+/* CATALOGUE SEARCH */
+.search-box{position:relative;margin-bottom:.75rem}
+.search-box input{padding-left:38px;margin:0}
+.search-box i{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text2);font-size:18px}
+.prod-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem}
+.prod-info{flex:1;min-width:0}
+.prod-ref{font-size:11px;font-weight:700;color:var(--blue);font-family:monospace}
+.prod-desc{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prod-meta{font-size:11px;color:var(--text2);margin-top:2px}
+.prod-preco{font-size:13px;font-weight:700;color:var(--blue);white-space:nowrap;text-align:right}
+.prod-preco.vazio{font-size:11px;color:var(--text2)}
+.add-btn{background:var(--blue);color:#fff;border:none;border-radius:7px;padding:6px 10px;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.add-btn:active{background:#0C447C}
+/* CAT GROUP HEADER */
+.cat-header{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;padding:.5rem 0 .25rem;border-bottom:1px solid var(--border);margin-bottom:.4rem}
+/* DOCUMENT */
+.doc-header{border-bottom:2px solid var(--blue);padding-bottom:.9rem;margin-bottom:.9rem}
+.empresa-nome{font-size:17px;font-weight:700;color:var(--blue)}
+.empresa-info{font-size:11px;color:var(--text2);line-height:1.8;margin-top:3px}
+.doc-title{font-size:20px;font-weight:700;text-align:right}
+.doc-meta{font-size:11px;color:var(--text2);text-align:right;line-height:1.8}
+.cli-block{background:var(--gray);border-radius:8px;padding:.7rem .9rem;margin-bottom:.75rem}
+.cli-block .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:3px}
+.cli-block .nome{font-size:14px;font-weight:600}
+.cli-block .sub{font-size:12px;color:var(--text2)}
+table.linhas{width:100%;border-collapse:collapse;font-size:12px;margin-top:.5rem}
+table.linhas th{font-size:10px;font-weight:700;color:var(--text2);padding:5px 3px;border-bottom:1px solid var(--border);text-align:left}
+table.linhas th:nth-child(n+3){text-align:right}
+table.linhas td{padding:7px 3px;border-bottom:1px solid var(--border);vertical-align:top}
+table.linhas td:nth-child(n+3){text-align:right;font-weight:500;white-space:nowrap}
+table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:200;padding:0}
+.modal{background:var(--card);border-radius:16px 16px 0 0;padding:1.25rem;width:100%;max-width:520px}
+.modal-title{font-size:15px;font-weight:600;margin-bottom:.75rem}
+.modal-preview{background:var(--gray);border-radius:8px;padding:.75rem;font-size:12px;line-height:1.8;max-height:180px;overflow-y:auto;margin-bottom:.75rem;white-space:pre-wrap}
+/* ORC LINE */
+.orc-line{background:var(--gray);border-radius:8px;padding:.7rem;margin-bottom:6px;position:relative}
+.orc-line-remove{position:absolute;top:6px;right:6px;background:none;border:none;cursor:pointer;color:var(--red);font-size:16px}
+/* NON FISCAL BANNER */
+.non-fiscal{font-size:10px;font-weight:700;letter-spacing:.8px;color:var(--text2);border:1px solid var(--border);display:inline-block;padding:2px 9px;border-radius:4px;margin-bottom:8px}
+/* PAGINAÇÃO */
+.pag-info{font-size:12px;color:var(--text2);text-align:center;padding:.5rem 0}
+/* EMPTY */
+.empty{text-align:center;padding:2rem;color:var(--text2)}
+.empty i{font-size:40px;display:block;margin-bottom:.75rem;opacity:.3}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-title"><i class="ti ti-tool" style="margin-right:5px"></i>Logiciel Plomberie</div>
+    <div class="header-sub">Gestão de Obras · Sanitop Portugal</div>
+  </div>
+  <div style="font-size:11px;text-align:right;opacity:.8">João Ferreira<br>Canalizador</div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="showSec('dashboard')"><i class="ti ti-home"></i>Início</button>
+  <button class="nav-btn" onclick="showSec('obras')"><i class="ti ti-building"></i>Obras</button>
+  <button class="nav-btn" onclick="showSec('orcamentos')"><i class="ti ti-file-text"></i>Orçamentos</button>
+  <button class="nav-btn" onclick="showSec('materiais')"><i class="ti ti-package"></i>Materiais</button>
+  <button class="nav-btn" onclick="showSec('catalogo')"><i class="ti ti-list-search"></i>Catálogo</button>
+</nav>
+
+<!-- ======================== DASHBOARD ======================== -->
+<div id="dashboard" class="section active">
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Obras em curso</div><div class="stat-val" style="color:var(--blue)">3</div></div>
+    <div class="stat"><div class="stat-label">Obras concluídas</div><div class="stat-val" style="color:var(--green)">12</div></div>
+    <div class="stat"><div class="stat-label">Orçamentos abertos</div><div class="stat-val" style="color:var(--amber)">2</div></div>
+    <div class="stat"><div class="stat-label">A faturar (€)</div><div class="stat-val">4.850</div></div>
+  </div>
+  <div class="sec-title" style="margin-bottom:.6rem">Obras recentes</div>
+  <div class="card card-clickable" onclick="openObra(0)">
+    <div class="card-row"><span class="card-title">Apartamento Av. da Boavista</span><span class="badge b-amber">Em curso</span></div>
+    <div class="card-sub">Porto · Sr. Carvalho</div>
+    <div class="prog"><div class="prog-fill" style="width:65%"></div></div>
+    <div class="card-sub" style="margin-top:4px;font-size:11px">65% concluído</div>
+  </div>
+  <div class="card card-clickable" onclick="openObra(1)">
+    <div class="card-row"><span class="card-title">Moradia Braga Norte</span><span class="badge b-blue">A iniciar</span></div>
+    <div class="card-sub">Braga · Família Sousa</div>
+    <div class="prog"><div class="prog-fill" style="width:10%"></div></div>
+    <div class="card-sub" style="margin-top:4px;font-size:11px">10% concluído</div>
+  </div>
+  <div class="card card-clickable" onclick="openObra(2)">
+    <div class="card-row"><span class="card-title">Escritório Rua do Loureiro</span><span class="badge b-amber">Em curso</span></div>
+    <div class="card-sub">Braga · Lda. Monteiro</div>
+    <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
+    <div class="card-sub" style="margin-top:4px;font-size:11px">80% concluído</div>
+  </div>
+  <div class="nota"><i class="ti ti-bell" style="margin-right:5px"></i><strong>Lembrete:</strong> Encomenda pendente para "Braga Norte" — ver Materiais.</div>
+</div>
+
+<!-- ======================== OBRAS ======================== -->
+<div id="obras" class="section">
+  <div id="obras-lista">
+    <div class="sec-header"><span class="sec-title">Obras</span><button class="btn btn-primary btn-sm" onclick="showNovaObra()"><i class="ti ti-plus"></i>Nova</button></div>
+    <div class="tabs-inner">
+      <button class="active" onclick="filtrarObras('todas',this)">Todas</button>
+      <button onclick="filtrarObras('curso',this)">Em curso</button>
+      <button onclick="filtrarObras('iniciar',this)">A iniciar</button>
+      <button onclick="filtrarObras('concluida',this)">Concluídas</button>
+    </div>
+    <div id="obras-container"></div>
+  </div>
+  <div id="obra-detalhe" style="display:none"></div>
+  <div id="obra-form" style="display:none">
+    <button class="back-btn" onclick="document.getElementById('obra-form').style.display='none';document.getElementById('obras-lista').style.display='block'"><i class="ti ti-arrow-left"></i>Voltar</button>
+    <div class="card">
+      <div class="sec-title" style="margin-bottom:.75rem">Nova Obra</div>
+      <label>Nome da obra</label><input type="text" placeholder="Ex: Moradia Sr. Silva">
+      <label>Cliente</label><input type="text" placeholder="Nome do cliente">
+      <label>Morada / Localização</label><input type="text" placeholder="Cidade ou morada">
+      <div class="form-row"><div><label>Data início</label><input type="text" placeholder="dd/mm/aaaa"></div><div><label>Valor est. (€)</label><input type="number" placeholder="0"></div></div>
+      <label>Notas</label><textarea rows="3" placeholder="Descrição dos trabalhos..."></textarea>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px"><i class="ti ti-check"></i>Criar Obra</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== ORÇAMENTOS ======================== -->
+<div id="orcamentos" class="section">
+  <div id="orc-lista">
+    <div class="sec-header"><span class="sec-title">Orçamentos</span><button class="btn btn-primary btn-sm" onclick="showOrcForm()"><i class="ti ti-plus"></i>Novo</button></div>
+    <div class="card card-clickable" onclick="showOrcDoc('orc007')">
+      <div class="card-row"><span class="card-title">ORC-2024-008</span><span class="badge b-amber">Pendente</span></div>
+      <div class="card-sub">Família Sousa · Moradia Braga Norte</div>
+      <div class="card-sub" style="margin-top:3px;font-size:12px;color:var(--blue)">802,50 € · Ver documento →</div>
+    </div>
+    <div class="card card-clickable" onclick="showOrcDoc('orc008')">
+      <div class="card-row"><span class="card-title">ORC-2024-007</span><span class="badge b-green">Aceite</span></div>
+      <div class="card-sub">Lda. Monteiro · Escritório Rua do Loureiro</div>
+      <div class="card-sub" style="margin-top:3px;font-size:12px;color:var(--blue)">1.085,00 € · Ver documento →</div>
+    </div>
+  </div>
+  <div id="orc-form" style="display:none">
+    <button class="back-btn" onclick="showOrcLista()"><i class="ti ti-arrow-left"></i>Voltar</button>
+    <div class="card">
+      <div class="sec-title" style="margin-bottom:.75rem">Novo Orçamento</div>
+      <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Dados do cliente</div>
+      <label>Nome / Empresa</label><input type="text" id="cli-nome" placeholder="Sr. Manuel Silva / Lda. Sousa">
+      <label>Morada</label><input type="text" id="cli-morada" placeholder="Rua, nº, código postal, cidade">
+      <div class="form-row"><div><label>NIF</label><input type="text" id="cli-nif" placeholder="123 456 789"></div><div><label>Telefone</label><input type="text" id="cli-tel" placeholder="9xx xxx xxx"></div></div>
+      <label>Obra / Descrição</label><input type="text" id="cli-obra" placeholder="Ex: Instalação canalização moradia">
+      <hr class="div">
+      <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Linhas do orçamento</div>
+      <div id="orc-linhas"></div>
+      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addLinhaManual()"><i class="ti ti-pencil"></i>Linha manual</button>
+      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:.75rem;background:var(--blue-l);color:var(--blue);border-color:var(--blue)" onclick="showCatalogoPicker()"><i class="ti ti-list-search"></i>Adicionar do catálogo</button>
+      <div class="total-box" id="orc-total-preview"><span class="t-lbl">Total</span><span class="t-val">0,00 €</span></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.75rem" onclick="gerarOrc()"><i class="ti ti-eye"></i>Visualizar orçamento</button>
+    </div>
+  </div>
+  <div id="orc-doc" style="display:none"></div>
+  <div id="orc-gerado" style="display:none"></div>
+</div>
+
+<!-- ======================== MATERIAIS ======================== -->
+<div id="materiais" class="section">
+  <div class="sec-title" style="margin-bottom:.75rem">Materiais por obra</div>
+  <div class="card">
+    <div class="card-row"><span class="card-title">Moradia Braga Norte</span><span class="badge b-red">Encomenda pendente</span></div>
+    <div class="card-sub" style="margin-bottom:.6rem">Cliente: Família Sousa</div>
+    <div id="items-braga">
+      <div class="chk-item" data-item="Tubo multicamada 16x2mm" data-qty="20 m" data-forn="Sanitop Portugal"><input type="checkbox" onchange="updateMatStatus('braga')"><span>Tubo multicamada 16x2mm (MCTB16B5)</span><span class="chk-qty">20 m</span></div>
+      <div class="chk-item" data-item="Cotovelo multicamada 16mm 90°" data-qty="10 un" data-forn="Sanitop Portugal"><input type="checkbox" onchange="updateMatStatus('braga')"><span>Cotovelo multicamada 16mm 90° (MCC916)</span><span class="chk-qty">10 un</span></div>
+      <div class="chk-item" data-item="Torneira misturadora monocomando" data-qty="2 un" data-forn="Bruma"><input type="checkbox" onchange="updateMatStatus('braga')"><span>Torneira misturadora monocomando</span><span class="chk-qty">2 un</span></div>
+      <div class="chk-item done" data-item="Silicone sanitário branco 280ml" data-qty="2 un" data-forn="Sanitop Portugal"><input type="checkbox" checked onchange="updateMatStatus('braga')"><span>Silicone sanitário branco 280ml (SILSIL00)</span><span class="chk-qty">2 un</span></div>
+      <div class="chk-item done" data-item="Válvula corte latão 1/2\" F/F" data-qty="4 un" data-forn="Sanitop Portugal"><input type="checkbox" checked onchange="updateMatStatus('braga')"><span>Válvula corte latão 1/2" (LATVC12)</span><span class="chk-qty">4 un</span></div>
+    </div>
+    <hr class="div">
+    <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Enviar encomenda</div>
+    <div style="background:var(--gray);border-radius:8px;padding:.7rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0">
+        <div><div style="font-size:13px;font-weight:600">Sanitop Portugal</div><div style="font-size:11px;color:var(--text2)">sanitop@sanitop.pt · +351 258 105 400</div></div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-wa btn-sm" onclick="enviarWA('braga','Sanitop Portugal','351258105400')"><i class="ti ti-brand-whatsapp"></i>WA</button>
+          <button class="btn btn-primary btn-sm" onclick="enviarEmail('braga','Sanitop Portugal','sanitop@sanitop.pt')"><i class="ti ti-mail"></i>Email</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-row"><span class="card-title">Apartamento Av. da Boavista</span><span class="badge b-green">Materiais OK</span></div>
+    <div class="card-sub" style="margin-bottom:.6rem">Cliente: Sr. Carvalho</div>
+    <div class="chk-item done"><input type="checkbox" checked><span>Caldeira mural a gás 24kW (AQSTAC24)</span><span class="chk-qty">1 un</span></div>
+    <div class="chk-item done"><input type="checkbox" checked><span>Tubo cobre rígido 18x1mm (CUTB18B5)</span><span class="chk-qty">8 m</span></div>
+    <div class="chk-item done"><input type="checkbox" checked><span>Kit ligação termoacumulador 3/4\" (AQSKIT34)</span><span class="chk-qty">1 kit</span></div>
+  </div>
+</div>
+
+<!-- ======================== CATÁLOGO ======================== -->
+<div id="catalogo" class="section">
+  <div class="sec-header"><span class="sec-title">Catálogo Sanitop</span><span style="font-size:11px;color:var(--text2)" id="cat-count"></span></div>
+  <div class="search-box"><i class="ti ti-search"></i><input type="text" id="cat-search" placeholder="Pesquisar ref., descrição, dim... ex: MCC9, PPR 20mm" oninput="filtrarCatalogo()"></div>
+  <div class="tabs-inner" id="cat-filtros" style="overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px">
+    <button class="active" onclick="setCatFiltro('',this)">Todos</button>
+    <button onclick="setCatFiltro('Multicamada',this)">Multicamada</button>
+    <button onclick="setCatFiltro('PPR',this)">PPR</button>
+    <button onclick="setCatFiltro('Pex',this)">Pex</button>
+    <button onclick="setCatFiltro('Cobre',this)">Cobre</button>
+    <button onclick="setCatFiltro('Inox',this)">Inox</button>
+    <button onclick="setCatFiltro('PVC',this)">PVC/Sanea.</button>
+    <button onclick="setCatFiltro('Válvulas',this)">Válvulas</button>
+    <button onclick="setCatFiltro('Sifões',this)">Sifões</button>
+    <button onclick="setCatFiltro('Fixações',this)">Fixações</button>
+    <button onclick="setCatFiltro('AQS',this)">AQS</button>
+  </div>
+  <div id="cat-lista"></div>
+  <div id="cat-pag" class="pag-info"></div>
+</div>
+
+<!-- MODAL PICKER CATÁLOGO -->
+<div id="modal-picker" class="modal-ov" style="display:none" onclick="if(event.target===this)closeModalPicker()">
+  <div class="modal" style="max-height:80vh;overflow-y:auto">
+    <div class="modal-title"><i class="ti ti-list-search" style="margin-right:6px"></i>Selecionar produto do catálogo</div>
+    <div class="search-box"><i class="ti ti-search"></i><input type="text" id="picker-search" placeholder="Pesquisar..." oninput="filtrarPicker()" style="margin:0"></div>
+    <div id="picker-lista" style="margin-top:8px;max-height:350px;overflow-y:auto"></div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:.5rem" onclick="closeModalPicker()">Cancelar</button>
+  </div>
+</div>
+
+<!-- MODAL ENVIO -->
+<div id="modal-envio" class="modal-ov" style="display:none" onclick="if(event.target===this)closeModalEnvio()">
+  <div class="modal">
+    <div class="modal-title" id="envio-title"></div>
+    <div class="modal-preview" id="envio-preview"></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn" style="flex:1;justify-content:center" onclick="closeModalEnvio()"><i class="ti ti-x"></i>Cancelar</button>
+      <button class="btn" id="envio-confirm" style="flex:1;justify-content:center;color:#fff"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// BASE DE DADOS PRODUTOS SANITOP — 667 REFERÊNCIAS
+// ============================================================
+const PRODUTOS = [
+  {ref:"MCTB16B5",desc:"Tubo multicamada 16x2mm — barra 5m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"16x2 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"MCTB20B5",desc:"Tubo multicamada 20x2mm — barra 5m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"20x2 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"MCTB26B5",desc:"Tubo multicamada 26x3mm — barra 5m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"26x3 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"MCTB32B5",desc:"Tubo multicamada 32x3mm — barra 5m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"32x3 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"MCTB40B5",desc:"Tubo multicamada 40x3.5mm — barra 5m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"40x3.5 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"MCTB50B5",desc:"Tubo multicamada 50x4mm — barra 5m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"50x4 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"MCTR16R25",desc:"Tubo multicamada 16x2mm — rolo 25m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"16x2 mm",un:"rolo 25m",preco:"",nota:""},
+  {ref:"MCTR16R50",desc:"Tubo multicamada 16x2mm — rolo 50m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"16x2 mm",un:"rolo 50m",preco:"",nota:""},
+  {ref:"MCTR16R100",desc:"Tubo multicamada 16x2mm — rolo 100m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"16x2 mm",un:"rolo 100m",preco:"",nota:""},
+  {ref:"MCTR20R25",desc:"Tubo multicamada 20x2mm — rolo 25m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"20x2 mm",un:"rolo 25m",preco:"",nota:""},
+  {ref:"MCTR20R50",desc:"Tubo multicamada 20x2mm — rolo 50m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"20x2 mm",un:"rolo 50m",preco:"",nota:""},
+  {ref:"MCTR20R100",desc:"Tubo multicamada 20x2mm — rolo 100m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"20x2 mm",un:"rolo 100m",preco:"",nota:""},
+  {ref:"MCTR26R25",desc:"Tubo multicamada 26x3mm — rolo 25m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"26x3 mm",un:"rolo 25m",preco:"",nota:""},
+  {ref:"MCTR26R50",desc:"Tubo multicamada 26x3mm — rolo 50m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"26x3 mm",un:"rolo 50m",preco:"",nota:""},
+  {ref:"MCTR32R25",desc:"Tubo multicamada 32x3mm — rolo 25m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"32x3 mm",un:"rolo 25m",preco:"",nota:""},
+  {ref:"MCC916",desc:"Cotovelo multicamada 16mm 90° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCC416",desc:"Cotovelo multicamada 16mm 45° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCC920",desc:"Cotovelo multicamada 20mm 90° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCC420",desc:"Cotovelo multicamada 20mm 45° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCC926",desc:"Cotovelo multicamada 26mm 90° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26 mm",un:"un",preco:"",nota:""},
+  {ref:"MCC426",desc:"Cotovelo multicamada 26mm 45° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26 mm",un:"un",preco:"",nota:""},
+  {ref:"MCC932",desc:"Cotovelo multicamada 32mm 90° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"MCC432",desc:"Cotovelo multicamada 32mm 45° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"MCC91612",desc:"Cotovelo multicamada 16mm 90° macho 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCC91612-02",desc:"Cotovelo multicamada 16mm 90° fêmea 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCC92034",desc:"Cotovelo multicamada 20mm 90° macho 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCC92034-02",desc:"Cotovelo multicamada 20mm 90° fêmea 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCC9261",desc:"Cotovelo multicamada 26mm 90° macho 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCC9261-02",desc:"Cotovelo multicamada 26mm 90° fêmea 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCC932114",desc:"Cotovelo multicamada 32mm 90° macho 1\"1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"MCC932114-02",desc:"Cotovelo multicamada 32mm 90° fêmea 1\"1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"MCTE16",desc:"Tê multicamada 16mm F/F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE20",desc:"Tê multicamada 20mm F/F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE26",desc:"Tê multicamada 26mm F/F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE32",desc:"Tê multicamada 32mm F/F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE20-02",desc:"Tê multicamada 20x20x16mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20x16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE26-02",desc:"Tê multicamada 26x26x16mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26x16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE26-03",desc:"Tê multicamada 26x26x20mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26x20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE32-02",desc:"Tê multicamada 32x32x20mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32x20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE32-03",desc:"Tê multicamada 32x32x26mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32x26 mm",un:"un",preco:"",nota:""},
+  {ref:"MCMG16",desc:"Manga multicamada 16mm F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCMG20",desc:"Manga multicamada 20mm F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCMG26",desc:"Manga multicamada 26mm F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26 mm",un:"un",preco:"",nota:""},
+  {ref:"MCMG32",desc:"Manga multicamada 32mm F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"MCRD20",desc:"Redução multicamada 20x16mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20x16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCRD26",desc:"Redução multicamada 26x16mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26x16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCRD26-02",desc:"Redução multicamada 26x20mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26x20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCRD32",desc:"Redução multicamada 32x20mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32x20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCRD32-02",desc:"Redução multicamada 32x26mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32x26 mm",un:"un",preco:"",nota:""},
+  {ref:"MCRD40",desc:"Redução multicamada 40x32mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"40x32 mm",un:"un",preco:"",nota:""},
+  {ref:"MCLM1612",desc:"Ligação reta multicamada 16mm macho 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCLF1612",desc:"Ligação reta multicamada 16mm fêmea 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCLM1634",desc:"Ligação reta multicamada 16mm macho 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLF1634",desc:"Ligação reta multicamada 16mm fêmea 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLM2012",desc:"Ligação reta multicamada 20mm macho 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCLF2012",desc:"Ligação reta multicamada 20mm fêmea 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCLM2034",desc:"Ligação reta multicamada 20mm macho 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLF2034",desc:"Ligação reta multicamada 20mm fêmea 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLM2634",desc:"Ligação reta multicamada 26mm macho 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLF2634",desc:"Ligação reta multicamada 26mm fêmea 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLM261",desc:"Ligação reta multicamada 26mm macho 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCLF261",desc:"Ligação reta multicamada 26mm fêmea 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCLM321",desc:"Ligação reta multicamada 32mm macho 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCLF321",desc:"Ligação reta multicamada 32mm fêmea 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCLM32114",desc:"Ligação reta multicamada 32mm macho 1\"1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"MCLF32114",desc:"Ligação reta multicamada 32mm fêmea 1\"1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"MCCLP16",desc:"Clip de fixação multicamada 16mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE16-02",desc:"Suporte duplo multicamada 16mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"MCCLP20",desc:"Clip de fixação multicamada 20mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE20-03",desc:"Suporte duplo multicamada 20mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"MCCLP26",desc:"Clip de fixação multicamada 26mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE26-04",desc:"Suporte duplo multicamada 26mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26 mm",un:"un",preco:"",nota:""},
+  {ref:"MCCLP32",desc:"Clip de fixação multicamada 32mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"MCTE32-04",desc:"Suporte duplo multicamada 32mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTB20B4",desc:"Tubo PPR PN20 20mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"20 mm",un:"barra 4m",preco:"",nota:"Água quente e fria"},
+  {ref:"PPRTB25B4",desc:"Tubo PPR PN20 25mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"25 mm",un:"barra 4m",preco:"",nota:"Água quente e fria"},
+  {ref:"PPRTB32B4",desc:"Tubo PPR PN20 32mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"32 mm",un:"barra 4m",preco:"",nota:"Água quente e fria"},
+  {ref:"PPRTB40B4",desc:"Tubo PPR PN20 40mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"40 mm",un:"barra 4m",preco:"",nota:"Água quente e fria"},
+  {ref:"PPRTB50B4",desc:"Tubo PPR PN20 50mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"50 mm",un:"barra 4m",preco:"",nota:"Água quente e fria"},
+  {ref:"PPRTB63B4",desc:"Tubo PPR PN20 63mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"63 mm",un:"barra 4m",preco:"",nota:"Água quente e fria"},
+  {ref:"PPRTB75B4",desc:"Tubo PPR PN20 75mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"75 mm",un:"barra 4m",preco:"",nota:"Água quente e fria"},
+  {ref:"PPRTB90B4",desc:"Tubo PPR PN20 90mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"90 mm",un:"barra 4m",preco:"",nota:"Água quente e fria"},
+  {ref:"PPRTB110B4",desc:"Tubo PPR PN20 110mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"110 mm",un:"barra 4m",preco:"",nota:"Água quente e fria"},
+  {ref:"PPRTB20B4-02",desc:"Tubo PPR PN16 20mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"20 mm",un:"barra 4m",preco:"",nota:"Água fria"},
+  {ref:"PPRTB25B4-02",desc:"Tubo PPR PN16 25mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"25 mm",un:"barra 4m",preco:"",nota:"Água fria"},
+  {ref:"PPRTB32B4-02",desc:"Tubo PPR PN16 32mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"32 mm",un:"barra 4m",preco:"",nota:"Água fria"},
+  {ref:"PPRTB40B4-02",desc:"Tubo PPR PN16 40mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"40 mm",un:"barra 4m",preco:"",nota:"Água fria"},
+  {ref:"PPRTB50B4-02",desc:"Tubo PPR PN16 50mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"50 mm",un:"barra 4m",preco:"",nota:"Água fria"},
+  {ref:"PPRTB63B4-02",desc:"Tubo PPR PN16 63mm — barra 4m",mat:"PPR",cat:"Tubagem PPR",dim:"63 mm",un:"barra 4m",preco:"",nota:"Água fria"},
+  {ref:"PPRC920",desc:"Cotovelo PPR 90° 20mm",mat:"PPR",cat:"Acess. PPR",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC925",desc:"Cotovelo PPR 90° 25mm",mat:"PPR",cat:"Acess. PPR",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC932",desc:"Cotovelo PPR 90° 32mm",mat:"PPR",cat:"Acess. PPR",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC940",desc:"Cotovelo PPR 90° 40mm",mat:"PPR",cat:"Acess. PPR",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC950",desc:"Cotovelo PPR 90° 50mm",mat:"PPR",cat:"Acess. PPR",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC963",desc:"Cotovelo PPR 90° 63mm",mat:"PPR",cat:"Acess. PPR",dim:"63 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC975",desc:"Cotovelo PPR 90° 75mm",mat:"PPR",cat:"Acess. PPR",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC990",desc:"Cotovelo PPR 90° 90mm",mat:"PPR",cat:"Acess. PPR",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC420",desc:"Cotovelo PPR 45° 20mm",mat:"PPR",cat:"Acess. PPR",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC425",desc:"Cotovelo PPR 45° 25mm",mat:"PPR",cat:"Acess. PPR",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC432",desc:"Cotovelo PPR 45° 32mm",mat:"PPR",cat:"Acess. PPR",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC440",desc:"Cotovelo PPR 45° 40mm",mat:"PPR",cat:"Acess. PPR",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC450",desc:"Cotovelo PPR 45° 50mm",mat:"PPR",cat:"Acess. PPR",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC463",desc:"Cotovelo PPR 45° 63mm",mat:"PPR",cat:"Acess. PPR",dim:"63 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRC92012",desc:"Cotovelo PPR 90° 20mm macho 1/2\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PPRC92534",desc:"Cotovelo PPR 90° 25mm macho 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRC9321",desc:"Cotovelo PPR 90° 32mm macho 1\"",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRC940114",desc:"Cotovelo PPR 90° 40mm macho 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRC95012",desc:"Cotovelo PPR 90° 50mm macho 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRC9632",desc:"Cotovelo PPR 90° 63mm macho 2\"",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRC92012-02",desc:"Cotovelo PPR 90° 20mm fêmea 1/2\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PPRC92534-02",desc:"Cotovelo PPR 90° 25mm fêmea 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRC9321-02",desc:"Cotovelo PPR 90° 32mm fêmea 1\"",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRC940114-02",desc:"Cotovelo PPR 90° 40mm fêmea 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRC95012-02",desc:"Cotovelo PPR 90° 50mm fêmea 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRC9632-02",desc:"Cotovelo PPR 90° 63mm fêmea 2\"",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRTE20",desc:"Tê PPR igual 20mm",mat:"PPR",cat:"Acess. PPR",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE25",desc:"Tê PPR igual 25mm",mat:"PPR",cat:"Acess. PPR",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE32",desc:"Tê PPR igual 32mm",mat:"PPR",cat:"Acess. PPR",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE40",desc:"Tê PPR igual 40mm",mat:"PPR",cat:"Acess. PPR",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE50",desc:"Tê PPR igual 50mm",mat:"PPR",cat:"Acess. PPR",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE63",desc:"Tê PPR igual 63mm",mat:"PPR",cat:"Acess. PPR",dim:"63 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE75",desc:"Tê PPR igual 75mm",mat:"PPR",cat:"Acess. PPR",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE90",desc:"Tê PPR igual 90mm",mat:"PPR",cat:"Acess. PPR",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE25-02",desc:"Tê PPR 25x25x20mm",mat:"PPR",cat:"Acess. PPR",dim:"25x20 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE32-02",desc:"Tê PPR 32x32x20mm",mat:"PPR",cat:"Acess. PPR",dim:"32x20 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE32-03",desc:"Tê PPR 32x32x25mm",mat:"PPR",cat:"Acess. PPR",dim:"32x25 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE40-02",desc:"Tê PPR 40x40x25mm",mat:"PPR",cat:"Acess. PPR",dim:"40x25 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE40-03",desc:"Tê PPR 40x40x32mm",mat:"PPR",cat:"Acess. PPR",dim:"40x32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE50-02",desc:"Tê PPR 50x50x32mm",mat:"PPR",cat:"Acess. PPR",dim:"50x32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE50-03",desc:"Tê PPR 50x50x40mm",mat:"PPR",cat:"Acess. PPR",dim:"50x40 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE63-02",desc:"Tê PPR 63x63x40mm",mat:"PPR",cat:"Acess. PPR",dim:"63x40 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTE63-03",desc:"Tê PPR 63x63x50mm",mat:"PPR",cat:"Acess. PPR",dim:"63x50 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRMG20",desc:"Manga PPR 20mm",mat:"PPR",cat:"Acess. PPR",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRMG25",desc:"Manga PPR 25mm",mat:"PPR",cat:"Acess. PPR",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRMG32",desc:"Manga PPR 32mm",mat:"PPR",cat:"Acess. PPR",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRMG40",desc:"Manga PPR 40mm",mat:"PPR",cat:"Acess. PPR",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRMG50",desc:"Manga PPR 50mm",mat:"PPR",cat:"Acess. PPR",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRMG63",desc:"Manga PPR 63mm",mat:"PPR",cat:"Acess. PPR",dim:"63 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRMG75",desc:"Manga PPR 75mm",mat:"PPR",cat:"Acess. PPR",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRMG90",desc:"Manga PPR 90mm",mat:"PPR",cat:"Acess. PPR",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD25",desc:"Redução PPR 25x20mm",mat:"PPR",cat:"Acess. PPR",dim:"25x20 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD32",desc:"Redução PPR 32x20mm",mat:"PPR",cat:"Acess. PPR",dim:"32x20 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD32-02",desc:"Redução PPR 32x25mm",mat:"PPR",cat:"Acess. PPR",dim:"32x25 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD40",desc:"Redução PPR 40x25mm",mat:"PPR",cat:"Acess. PPR",dim:"40x25 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD40-02",desc:"Redução PPR 40x32mm",mat:"PPR",cat:"Acess. PPR",dim:"40x32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD50",desc:"Redução PPR 50x32mm",mat:"PPR",cat:"Acess. PPR",dim:"50x32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD50-02",desc:"Redução PPR 50x40mm",mat:"PPR",cat:"Acess. PPR",dim:"50x40 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD63",desc:"Redução PPR 63x40mm",mat:"PPR",cat:"Acess. PPR",dim:"63x40 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD63-02",desc:"Redução PPR 63x50mm",mat:"PPR",cat:"Acess. PPR",dim:"63x50 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD75",desc:"Redução PPR 75x63mm",mat:"PPR",cat:"Acess. PPR",dim:"75x63 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRRD90",desc:"Redução PPR 90x75mm",mat:"PPR",cat:"Acess. PPR",dim:"90x75 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRLM2012",desc:"Ligação reta PPR 20mm macho 1/2\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM2034",desc:"Ligação reta PPR 20mm macho 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM2534",desc:"Ligação reta PPR 25mm macho 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM251",desc:"Ligação reta PPR 25mm macho 1\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM321",desc:"Ligação reta PPR 32mm macho 1\"",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM32114",desc:"Ligação reta PPR 32mm macho 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRLM40114",desc:"Ligação reta PPR 40mm macho 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRLM4012",desc:"Ligação reta PPR 40mm macho 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRLM5012",desc:"Ligação reta PPR 50mm macho 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRLM502",desc:"Ligação reta PPR 50mm macho 2\"",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM632",desc:"Ligação reta PPR 63mm macho 2\"",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF2012",desc:"Ligação reta PPR 20mm fêmea 1/2\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF2034",desc:"Ligação reta PPR 20mm fêmea 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF2534",desc:"Ligação reta PPR 25mm fêmea 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF251",desc:"Ligação reta PPR 25mm fêmea 1\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF321",desc:"Ligação reta PPR 32mm fêmea 1\"",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF32114",desc:"Ligação reta PPR 32mm fêmea 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRLF40114",desc:"Ligação reta PPR 40mm fêmea 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRLF5012",desc:"Ligação reta PPR 50mm fêmea 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRLF632",desc:"Ligação reta PPR 63mm fêmea 2\"",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRTAP20",desc:"Tampão PPR 20mm",mat:"PPR",cat:"Acess. PPR",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTAP25",desc:"Tampão PPR 25mm",mat:"PPR",cat:"Acess. PPR",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTAP32",desc:"Tampão PPR 32mm",mat:"PPR",cat:"Acess. PPR",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTAP40",desc:"Tampão PPR 40mm",mat:"PPR",cat:"Acess. PPR",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTAP50",desc:"Tampão PPR 50mm",mat:"PPR",cat:"Acess. PPR",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PPRTAP63",desc:"Tampão PPR 63mm",mat:"PPR",cat:"Acess. PPR",dim:"63 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXTB16B5",desc:"Tubo Pex-A 16x2mm — barra 5m",mat:"Pex",cat:"Tubagem Pex",dim:"16x2 mm",un:"barra 5m",preco:"",nota:"Água potável / aquecimento"},
+  {ref:"PEXTB20B5",desc:"Tubo Pex-A 20x2mm — barra 5m",mat:"Pex",cat:"Tubagem Pex",dim:"20x2 mm",un:"barra 5m",preco:"",nota:"Água potável / aquecimento"},
+  {ref:"PEXTB25B5",desc:"Tubo Pex-A 25x2.3mm — barra 5m",mat:"Pex",cat:"Tubagem Pex",dim:"25x2.3 mm",un:"barra 5m",preco:"",nota:"Água potável / aquecimento"},
+  {ref:"PEXTB32B5",desc:"Tubo Pex-A 32x2.9mm — barra 5m",mat:"Pex",cat:"Tubagem Pex",dim:"32x2.9 mm",un:"barra 5m",preco:"",nota:"Água potável / aquecimento"},
+  {ref:"PEXTB40B5",desc:"Tubo Pex-A 40x3.7mm — barra 5m",mat:"Pex",cat:"Tubagem Pex",dim:"40x3.7 mm",un:"barra 5m",preco:"",nota:"Água potável / aquecimento"},
+  {ref:"PEXTB50B5",desc:"Tubo Pex-A 50x4.6mm — barra 5m",mat:"Pex",cat:"Tubagem Pex",dim:"50x4.6 mm",un:"barra 5m",preco:"",nota:"Água potável / aquecimento"},
+  {ref:"PEXTB63B5",desc:"Tubo Pex-A 63x5.8mm — barra 5m",mat:"Pex",cat:"Tubagem Pex",dim:"63x5.8 mm",un:"barra 5m",preco:"",nota:"Água potável / aquecimento"},
+  {ref:"PEXTR16R25",desc:"Tubo Pex-A 16x2mm — rolo 25m",mat:"Pex",cat:"Tubagem Pex",dim:"16x2 mm",un:"rolo 25m",preco:"",nota:""},
+  {ref:"PEXTR16R50",desc:"Tubo Pex-A 16x2mm — rolo 50m",mat:"Pex",cat:"Tubagem Pex",dim:"16x2 mm",un:"rolo 50m",preco:"",nota:""},
+  {ref:"PEXTR16R100",desc:"Tubo Pex-A 16x2mm — rolo 100m",mat:"Pex",cat:"Tubagem Pex",dim:"16x2 mm",un:"rolo 100m",preco:"",nota:""},
+  {ref:"PEXTR16R200",desc:"Tubo Pex-A 16x2mm — rolo 200m",mat:"Pex",cat:"Tubagem Pex",dim:"16x2 mm",un:"rolo 200m",preco:"",nota:""},
+  {ref:"PEXTR20R25",desc:"Tubo Pex-A 20x2mm — rolo 25m",mat:"Pex",cat:"Tubagem Pex",dim:"20x2 mm",un:"rolo 25m",preco:"",nota:""},
+  {ref:"PEXTR20R50",desc:"Tubo Pex-A 20x2mm — rolo 50m",mat:"Pex",cat:"Tubagem Pex",dim:"20x2 mm",un:"rolo 50m",preco:"",nota:""},
+  {ref:"PEXTR20R100",desc:"Tubo Pex-A 20x2mm — rolo 100m",mat:"Pex",cat:"Tubagem Pex",dim:"20x2 mm",un:"rolo 100m",preco:"",nota:""},
+  {ref:"PEXTR25R25",desc:"Tubo Pex-A 25x2.3mm — rolo 25m",mat:"Pex",cat:"Tubagem Pex",dim:"25x2.3 mm",un:"rolo 25m",preco:"",nota:""},
+  {ref:"PEXTR25R50",desc:"Tubo Pex-A 25x2.3mm — rolo 50m",mat:"Pex",cat:"Tubagem Pex",dim:"25x2.3 mm",un:"rolo 50m",preco:"",nota:""},
+  {ref:"PEXTR32R25",desc:"Tubo Pex-A 32x2.9mm — rolo 25m",mat:"Pex",cat:"Tubagem Pex",dim:"32x2.9 mm",un:"rolo 25m",preco:"",nota:""},
+  {ref:"PEXC916",desc:"Cotovelo 90° Pex 16mm",mat:"Pex",cat:"Acess. Pex",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXC416",desc:"Cotovelo 45° Pex 16mm",mat:"Pex",cat:"Acess. Pex",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXTE16",desc:"Tê igual Pex 16mm",mat:"Pex",cat:"Acess. Pex",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXMG16",desc:"Manga Pex 16mm",mat:"Pex",cat:"Acess. Pex",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXTAP16",desc:"Tampão Pex 16mm",mat:"Pex",cat:"Acess. Pex",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXC920",desc:"Cotovelo 90° Pex 20mm",mat:"Pex",cat:"Acess. Pex",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXC420",desc:"Cotovelo 45° Pex 20mm",mat:"Pex",cat:"Acess. Pex",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXTE20",desc:"Tê igual Pex 20mm",mat:"Pex",cat:"Acess. Pex",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXMG20",desc:"Manga Pex 20mm",mat:"Pex",cat:"Acess. Pex",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXTAP20",desc:"Tampão Pex 20mm",mat:"Pex",cat:"Acess. Pex",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXC925",desc:"Cotovelo 90° Pex 25mm",mat:"Pex",cat:"Acess. Pex",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXC425",desc:"Cotovelo 45° Pex 25mm",mat:"Pex",cat:"Acess. Pex",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXTE25",desc:"Tê igual Pex 25mm",mat:"Pex",cat:"Acess. Pex",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXMG25",desc:"Manga Pex 25mm",mat:"Pex",cat:"Acess. Pex",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXTAP25",desc:"Tampão Pex 25mm",mat:"Pex",cat:"Acess. Pex",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXC932",desc:"Cotovelo 90° Pex 32mm",mat:"Pex",cat:"Acess. Pex",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXC432",desc:"Cotovelo 45° Pex 32mm",mat:"Pex",cat:"Acess. Pex",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXTE32",desc:"Tê igual Pex 32mm",mat:"Pex",cat:"Acess. Pex",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXMG32",desc:"Manga Pex 32mm",mat:"Pex",cat:"Acess. Pex",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXTAP32",desc:"Tampão Pex 32mm",mat:"Pex",cat:"Acess. Pex",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PEXLM1612",desc:"Ligação reta Pex 16mm macho 1/2\"",mat:"Pex",cat:"Acess. Pex",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PEXLF1612",desc:"Ligação reta Pex 16mm fêmea 1/2\"",mat:"Pex",cat:"Acess. Pex",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PEXLM2034",desc:"Ligação reta Pex 20mm macho 3/4\"",mat:"Pex",cat:"Acess. Pex",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PEXLF2034",desc:"Ligação reta Pex 20mm fêmea 3/4\"",mat:"Pex",cat:"Acess. Pex",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PEXLM251",desc:"Ligação reta Pex 25mm macho 1\"",mat:"Pex",cat:"Acess. Pex",dim:"25mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PEXLF251",desc:"Ligação reta Pex 25mm fêmea 1\"",mat:"Pex",cat:"Acess. Pex",dim:"25mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PEXLM32114",desc:"Ligação reta Pex 32mm macho 1\"1/4",mat:"Pex",cat:"Acess. Pex",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PEXLF32114",desc:"Ligação reta Pex 32mm fêmea 1\"1/4",mat:"Pex",cat:"Acess. Pex",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CUTB10B5",desc:"Tubo cobre rígido 10x1mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"10x1 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTB12B5",desc:"Tubo cobre rígido 12x1mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"12x1 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTB14B5",desc:"Tubo cobre rígido 14x1mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"14x1 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTB15B5",desc:"Tubo cobre rígido 15x1mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"15x1 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTB18B5",desc:"Tubo cobre rígido 18x1mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"18x1 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTB22B5",desc:"Tubo cobre rígido 22x1mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"22x1 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTB28B5",desc:"Tubo cobre rígido 28x1.5mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"28x1.5 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTB35B5",desc:"Tubo cobre rígido 35x1.5mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"35x1.5 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTB42B5",desc:"Tubo cobre rígido 42x1.5mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"42x1.5 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTB54B5",desc:"Tubo cobre rígido 54x2mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"54x2 mm",un:"barra 5m",preco:"",nota:""},
+  {ref:"CUTR10R25",desc:"Tubo cobre recozido 10x1mm — rolo 25m",mat:"Cobre",cat:"Tubagem Cobre",dim:"10x1 mm",un:"rolo 25m",preco:"",nota:"Gás e água"},
+  {ref:"CUTR10R50",desc:"Tubo cobre recozido 10x1mm — rolo 50m",mat:"Cobre",cat:"Tubagem Cobre",dim:"10x1 mm",un:"rolo 50m",preco:"",nota:"Gás e água"},
+  {ref:"CUTR12R25",desc:"Tubo cobre recozido 12x1mm — rolo 25m",mat:"Cobre",cat:"Tubagem Cobre",dim:"12x1 mm",un:"rolo 25m",preco:"",nota:"Gás e água"},
+  {ref:"CUTR12R50",desc:"Tubo cobre recozido 12x1mm — rolo 50m",mat:"Cobre",cat:"Tubagem Cobre",dim:"12x1 mm",un:"rolo 50m",preco:"",nota:"Gás e água"},
+  {ref:"CUTR15R25",desc:"Tubo cobre recozido 15x1mm — rolo 25m",mat:"Cobre",cat:"Tubagem Cobre",dim:"15x1 mm",un:"rolo 25m",preco:"",nota:"Gás e água"},
+  {ref:"CUTR15R50",desc:"Tubo cobre recozido 15x1mm — rolo 50m",mat:"Cobre",cat:"Tubagem Cobre",dim:"15x1 mm",un:"rolo 50m",preco:"",nota:"Gás e água"},
+  {ref:"CUTR18R25",desc:"Tubo cobre recozido 18x1mm — rolo 25m",mat:"Cobre",cat:"Tubagem Cobre",dim:"18x1 mm",un:"rolo 25m",preco:"",nota:"Gás e água"},
+  {ref:"CUTR22R25",desc:"Tubo cobre recozido 22x1mm — rolo 25m",mat:"Cobre",cat:"Tubagem Cobre",dim:"22x1 mm",un:"rolo 25m",preco:"",nota:"Gás e água"},
+  {ref:"CUC910",desc:"Cotovelo cobre soldar 90° 10mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"10 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC912",desc:"Cotovelo cobre soldar 90° 12mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"12 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC914",desc:"Cotovelo cobre soldar 90° 14mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"14 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC915",desc:"Cotovelo cobre soldar 90° 15mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC918",desc:"Cotovelo cobre soldar 90° 18mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC922",desc:"Cotovelo cobre soldar 90° 22mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC928",desc:"Cotovelo cobre soldar 90° 28mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC935",desc:"Cotovelo cobre soldar 90° 35mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"35 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC942",desc:"Cotovelo cobre soldar 90° 42mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"42 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC954",desc:"Cotovelo cobre soldar 90° 54mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"54 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC415",desc:"Cotovelo cobre soldar 45° 15mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC418",desc:"Cotovelo cobre soldar 45° 18mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC422",desc:"Cotovelo cobre soldar 45° 22mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC428",desc:"Cotovelo cobre soldar 45° 28mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC435",desc:"Cotovelo cobre soldar 45° 35mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"35 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC442",desc:"Cotovelo cobre soldar 45° 42mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"42 mm",un:"un",preco:"",nota:""},
+  {ref:"CUC91512",desc:"Cotovelo cobre 90° 15mm macho 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CUC91512-02",desc:"Cotovelo cobre 90° 15mm fêmea 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CUC91812",desc:"Cotovelo cobre 90° 18mm macho 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CUC91812-02",desc:"Cotovelo cobre 90° 18mm fêmea 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CUC91834",desc:"Cotovelo cobre 90° 18mm macho 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CUC91834-02",desc:"Cotovelo cobre 90° 18mm fêmea 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CUC92234",desc:"Cotovelo cobre 90° 22mm macho 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CUC92234-02",desc:"Cotovelo cobre 90° 22mm fêmea 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CUC9221",desc:"Cotovelo cobre 90° 22mm macho 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CUC9221-02",desc:"Cotovelo cobre 90° 22mm fêmea 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CUC9281",desc:"Cotovelo cobre 90° 28mm macho 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CUC9281-02",desc:"Cotovelo cobre 90° 28mm fêmea 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CUC928114",desc:"Cotovelo cobre 90° 28mm macho 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CUC928114-02",desc:"Cotovelo cobre 90° 28mm fêmea 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CUC935114",desc:"Cotovelo cobre 90° 35mm macho 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CUC935114-02",desc:"Cotovelo cobre 90° 35mm fêmea 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CUC94212",desc:"Cotovelo cobre 90° 42mm macho 1\"1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"CUC94212-02",desc:"Cotovelo cobre 90° 42mm fêmea 1\"1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"CUTE12",desc:"Tê cobre soldar igual 12mm",mat:"Cobre",cat:"Acess. Cobre",dim:"12 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE15",desc:"Tê cobre soldar igual 15mm",mat:"Cobre",cat:"Acess. Cobre",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE18",desc:"Tê cobre soldar igual 18mm",mat:"Cobre",cat:"Acess. Cobre",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE22",desc:"Tê cobre soldar igual 22mm",mat:"Cobre",cat:"Acess. Cobre",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE28",desc:"Tê cobre soldar igual 28mm",mat:"Cobre",cat:"Acess. Cobre",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE35",desc:"Tê cobre soldar igual 35mm",mat:"Cobre",cat:"Acess. Cobre",dim:"35 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE42",desc:"Tê cobre soldar igual 42mm",mat:"Cobre",cat:"Acess. Cobre",dim:"42 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE54",desc:"Tê cobre soldar igual 54mm",mat:"Cobre",cat:"Acess. Cobre",dim:"54 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE18-02",desc:"Tê cobre soldar 18x18x15mm",mat:"Cobre",cat:"Acess. Cobre",dim:"18x15 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE22-02",desc:"Tê cobre soldar 22x22x15mm",mat:"Cobre",cat:"Acess. Cobre",dim:"22x15 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE22-03",desc:"Tê cobre soldar 22x22x18mm",mat:"Cobre",cat:"Acess. Cobre",dim:"22x18 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE28-02",desc:"Tê cobre soldar 28x28x22mm",mat:"Cobre",cat:"Acess. Cobre",dim:"28x22 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE35-02",desc:"Tê cobre soldar 35x35x28mm",mat:"Cobre",cat:"Acess. Cobre",dim:"35x28 mm",un:"un",preco:"",nota:""},
+  {ref:"CUTE42-02",desc:"Tê cobre soldar 42x42x35mm",mat:"Cobre",cat:"Acess. Cobre",dim:"42x35 mm",un:"un",preco:"",nota:""},
+  {ref:"CUMG10",desc:"Manga cobre soldar 10mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"10 mm",un:"un",preco:"",nota:""},
+  {ref:"CUMG12",desc:"Manga cobre soldar 12mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"12 mm",un:"un",preco:"",nota:""},
+  {ref:"CUMG15",desc:"Manga cobre soldar 15mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"CUMG18",desc:"Manga cobre soldar 18mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"CUMG22",desc:"Manga cobre soldar 22mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"CUMG28",desc:"Manga cobre soldar 28mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"CUMG35",desc:"Manga cobre soldar 35mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"35 mm",un:"un",preco:"",nota:""},
+  {ref:"CUMG42",desc:"Manga cobre soldar 42mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"42 mm",un:"un",preco:"",nota:""},
+  {ref:"CUMG54",desc:"Manga cobre soldar 54mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"54 mm",un:"un",preco:"",nota:""},
+  {ref:"CURD15",desc:"Redução cobre soldar 15x12mm",mat:"Cobre",cat:"Acess. Cobre",dim:"15x12 mm",un:"un",preco:"",nota:""},
+  {ref:"CURD18",desc:"Redução cobre soldar 18x15mm",mat:"Cobre",cat:"Acess. Cobre",dim:"18x15 mm",un:"un",preco:"",nota:""},
+  {ref:"CURD22",desc:"Redução cobre soldar 22x15mm",mat:"Cobre",cat:"Acess. Cobre",dim:"22x15 mm",un:"un",preco:"",nota:""},
+  {ref:"CURD22-02",desc:"Redução cobre soldar 22x18mm",mat:"Cobre",cat:"Acess. Cobre",dim:"22x18 mm",un:"un",preco:"",nota:""},
+  {ref:"CURD28",desc:"Redução cobre soldar 28x22mm",mat:"Cobre",cat:"Acess. Cobre",dim:"28x22 mm",un:"un",preco:"",nota:""},
+  {ref:"CURD35",desc:"Redução cobre soldar 35x28mm",mat:"Cobre",cat:"Acess. Cobre",dim:"35x28 mm",un:"un",preco:"",nota:""},
+  {ref:"CURD42",desc:"Redução cobre soldar 42x35mm",mat:"Cobre",cat:"Acess. Cobre",dim:"42x35 mm",un:"un",preco:"",nota:""},
+  {ref:"CURD54",desc:"Redução cobre soldar 54x42mm",mat:"Cobre",cat:"Acess. Cobre",dim:"54x42 mm",un:"un",preco:"",nota:""},
+  {ref:"CULM1512",desc:"Ligação reta cobre 15mm macho 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CULF1512",desc:"Ligação reta cobre 15mm fêmea 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CULM1812",desc:"Ligação reta cobre 18mm macho 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CULF1812",desc:"Ligação reta cobre 18mm fêmea 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CULM1834",desc:"Ligação reta cobre 18mm macho 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CULF1834",desc:"Ligação reta cobre 18mm fêmea 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CULM2234",desc:"Ligação reta cobre 22mm macho 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CULF2234",desc:"Ligação reta cobre 22mm fêmea 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CULM221",desc:"Ligação reta cobre 22mm macho 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CULF221",desc:"Ligação reta cobre 22mm fêmea 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CULM281",desc:"Ligação reta cobre 28mm macho 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CULF281",desc:"Ligação reta cobre 28mm fêmea 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CULM28114",desc:"Ligação reta cobre 28mm macho 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CULF28114",desc:"Ligação reta cobre 28mm fêmea 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CULM35114",desc:"Ligação reta cobre 35mm macho 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CULF35114",desc:"Ligação reta cobre 35mm fêmea 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CULM4212",desc:"Ligação reta cobre 42mm macho 1\"1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"CULF4212",desc:"Ligação reta cobre 42mm fêmea 1\"1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"CULM542",desc:"Ligação reta cobre 54mm macho 2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"54mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"CULF542",desc:"Ligação reta cobre 54mm fêmea 2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"54mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"CUSOL00",desc:"Soldadura em fio estanho-cobre 250g",mat:"—",cat:"Consumíveis Cobre",dim:"—",un:"un",preco:"",nota:"Soldar cobre"},
+  {ref:"CUSOL00-02",desc:"Soldadura em fio estanho-cobre 500g",mat:"—",cat:"Consumíveis Cobre",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"CUTE00",desc:"Decapante pasta para cobre 150ml",mat:"—",cat:"Consumíveis Cobre",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"CUTE00-02",desc:"Decapante spray para cobre 400ml",mat:"—",cat:"Consumíveis Cobre",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"CUTE00-03",desc:"Disco de corte cobre 22mm",mat:"—",cat:"Consumíveis Cobre",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"INXTB15B3",desc:"Tubo inox press 15x1mm — barra 3m",mat:"Inox",cat:"Tubagem Inox",dim:"15x1 mm",un:"barra 3m",preco:"",nota:"Água potável certificada"},
+  {ref:"INXTB18B3",desc:"Tubo inox press 18x1mm — barra 3m",mat:"Inox",cat:"Tubagem Inox",dim:"18x1 mm",un:"barra 3m",preco:"",nota:"Água potável certificada"},
+  {ref:"INXTB22B3",desc:"Tubo inox press 22x1.2mm — barra 3m",mat:"Inox",cat:"Tubagem Inox",dim:"22x1.2 mm",un:"barra 3m",preco:"",nota:"Água potável certificada"},
+  {ref:"INXTB28B3",desc:"Tubo inox press 28x1.2mm — barra 3m",mat:"Inox",cat:"Tubagem Inox",dim:"28x1.2 mm",un:"barra 3m",preco:"",nota:"Água potável certificada"},
+  {ref:"INXTB35B3",desc:"Tubo inox press 35x1.5mm — barra 3m",mat:"Inox",cat:"Tubagem Inox",dim:"35x1.5 mm",un:"barra 3m",preco:"",nota:"Água potável certificada"},
+  {ref:"INXTB42B3",desc:"Tubo inox press 42x1.5mm — barra 3m",mat:"Inox",cat:"Tubagem Inox",dim:"42x1.5 mm",un:"barra 3m",preco:"",nota:"Água potável certificada"},
+  {ref:"INXTB54B3",desc:"Tubo inox press 54x1.5mm — barra 3m",mat:"Inox",cat:"Tubagem Inox",dim:"54x1.5 mm",un:"barra 3m",preco:"",nota:"Água potável certificada"},
+  {ref:"INXTB761B3",desc:"Tubo inox press 76.1x2mm — barra 3m",mat:"Inox",cat:"Tubagem Inox",dim:"76.1x2 mm",un:"barra 3m",preco:"",nota:"Água potável certificada"},
+  {ref:"INXTB889B3",desc:"Tubo inox press 88.9x2mm — barra 3m",mat:"Inox",cat:"Tubagem Inox",dim:"88.9x2 mm",un:"barra 3m",preco:"",nota:"Água potável certificada"},
+  {ref:"INXC915",desc:"Cotovelo inox press 90° 15mm",mat:"Inox",cat:"Acess. Inox",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC918",desc:"Cotovelo inox press 90° 18mm",mat:"Inox",cat:"Acess. Inox",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC922",desc:"Cotovelo inox press 90° 22mm",mat:"Inox",cat:"Acess. Inox",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC928",desc:"Cotovelo inox press 90° 28mm",mat:"Inox",cat:"Acess. Inox",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC935",desc:"Cotovelo inox press 90° 35mm",mat:"Inox",cat:"Acess. Inox",dim:"35 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC942",desc:"Cotovelo inox press 90° 42mm",mat:"Inox",cat:"Acess. Inox",dim:"42 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC954",desc:"Cotovelo inox press 90° 54mm",mat:"Inox",cat:"Acess. Inox",dim:"54 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC415",desc:"Cotovelo inox press 45° 15mm",mat:"Inox",cat:"Acess. Inox",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC418",desc:"Cotovelo inox press 45° 18mm",mat:"Inox",cat:"Acess. Inox",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC422",desc:"Cotovelo inox press 45° 22mm",mat:"Inox",cat:"Acess. Inox",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC428",desc:"Cotovelo inox press 45° 28mm",mat:"Inox",cat:"Acess. Inox",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC435",desc:"Cotovelo inox press 45° 35mm",mat:"Inox",cat:"Acess. Inox",dim:"35 mm",un:"un",preco:"",nota:""},
+  {ref:"INXC442",desc:"Cotovelo inox press 45° 42mm",mat:"Inox",cat:"Acess. Inox",dim:"42 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE15",desc:"Tê inox press igual 15mm",mat:"Inox",cat:"Acess. Inox",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE18",desc:"Tê inox press igual 18mm",mat:"Inox",cat:"Acess. Inox",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE22",desc:"Tê inox press igual 22mm",mat:"Inox",cat:"Acess. Inox",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE28",desc:"Tê inox press igual 28mm",mat:"Inox",cat:"Acess. Inox",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE35",desc:"Tê inox press igual 35mm",mat:"Inox",cat:"Acess. Inox",dim:"35 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE42",desc:"Tê inox press igual 42mm",mat:"Inox",cat:"Acess. Inox",dim:"42 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE54",desc:"Tê inox press igual 54mm",mat:"Inox",cat:"Acess. Inox",dim:"54 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE22-02",desc:"Tê inox press 22x22x15mm",mat:"Inox",cat:"Acess. Inox",dim:"22x15 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE22-03",desc:"Tê inox press 22x22x18mm",mat:"Inox",cat:"Acess. Inox",dim:"22x18 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE28-02",desc:"Tê inox press 28x28x22mm",mat:"Inox",cat:"Acess. Inox",dim:"28x22 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE35-02",desc:"Tê inox press 35x35x28mm",mat:"Inox",cat:"Acess. Inox",dim:"35x28 mm",un:"un",preco:"",nota:""},
+  {ref:"INXTE42-02",desc:"Tê inox press 42x42x35mm",mat:"Inox",cat:"Acess. Inox",dim:"42x35 mm",un:"un",preco:"",nota:""},
+  {ref:"INXMG15",desc:"Manga inox press 15mm",mat:"Inox",cat:"Acess. Inox",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"INXMG18",desc:"Manga inox press 18mm",mat:"Inox",cat:"Acess. Inox",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"INXMG22",desc:"Manga inox press 22mm",mat:"Inox",cat:"Acess. Inox",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"INXMG28",desc:"Manga inox press 28mm",mat:"Inox",cat:"Acess. Inox",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"INXMG35",desc:"Manga inox press 35mm",mat:"Inox",cat:"Acess. Inox",dim:"35 mm",un:"un",preco:"",nota:""},
+  {ref:"INXMG42",desc:"Manga inox press 42mm",mat:"Inox",cat:"Acess. Inox",dim:"42 mm",un:"un",preco:"",nota:""},
+  {ref:"INXMG54",desc:"Manga inox press 54mm",mat:"Inox",cat:"Acess. Inox",dim:"54 mm",un:"un",preco:"",nota:""},
+  {ref:"INXRD22",desc:"Redução inox press 22x15mm",mat:"Inox",cat:"Acess. Inox",dim:"22x15 mm",un:"un",preco:"",nota:""},
+  {ref:"INXRD22-02",desc:"Redução inox press 22x18mm",mat:"Inox",cat:"Acess. Inox",dim:"22x18 mm",un:"un",preco:"",nota:""},
+  {ref:"INXRD28",desc:"Redução inox press 28x22mm",mat:"Inox",cat:"Acess. Inox",dim:"28x22 mm",un:"un",preco:"",nota:""},
+  {ref:"INXRD35",desc:"Redução inox press 35x28mm",mat:"Inox",cat:"Acess. Inox",dim:"35x28 mm",un:"un",preco:"",nota:""},
+  {ref:"INXRD42",desc:"Redução inox press 42x35mm",mat:"Inox",cat:"Acess. Inox",dim:"42x35 mm",un:"un",preco:"",nota:""},
+  {ref:"INXRD54",desc:"Redução inox press 54x42mm",mat:"Inox",cat:"Acess. Inox",dim:"54x42 mm",un:"un",preco:"",nota:""},
+  {ref:"INXLM1512",desc:"Ligação inox press 15mm macho 1/2\"",mat:"Inox",cat:"Acess. Inox",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXLF1512",desc:"Ligação inox press 15mm fêmea 1/2\"",mat:"Inox",cat:"Acess. Inox",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXLM1812",desc:"Ligação inox press 18mm macho 1/2\"",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXLF1812",desc:"Ligação inox press 18mm fêmea 1/2\"",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXLM1834",desc:"Ligação inox press 18mm macho 3/4\"",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXLF1834",desc:"Ligação inox press 18mm fêmea 3/4\"",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXLM2234",desc:"Ligação inox press 22mm macho 3/4\"",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXLF2234",desc:"Ligação inox press 22mm fêmea 3/4\"",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXLM221",desc:"Ligação inox press 22mm macho 1\"",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"INXLF221",desc:"Ligação inox press 22mm fêmea 1\"",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"INXLM281",desc:"Ligação inox press 28mm macho 1\"",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"INXLF281",desc:"Ligação inox press 28mm fêmea 1\"",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"INXLM28114",desc:"Ligação inox press 28mm macho 1\"1/4",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXLF28114",desc:"Ligação inox press 28mm fêmea 1\"1/4",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXLM35114",desc:"Ligação inox press 35mm macho 1\"1/4",mat:"Inox",cat:"Acess. Inox",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXLF35114",desc:"Ligação inox press 35mm fêmea 1\"1/4",mat:"Inox",cat:"Acess. Inox",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXLM4212",desc:"Ligação inox press 42mm macho 1\"1/2",mat:"Inox",cat:"Acess. Inox",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXLF4212",desc:"Ligação inox press 42mm fêmea 1\"1/2",mat:"Inox",cat:"Acess. Inox",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXLM542",desc:"Ligação inox press 54mm macho 2\"",mat:"Inox",cat:"Acess. Inox",dim:"54mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"INXLF542",desc:"Ligação inox press 54mm fêmea 2\"",mat:"Inox",cat:"Acess. Inox",dim:"54mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PVCTB32",desc:"Tubo PVC saneamento série B 32mm — 0.5m",mat:"PVC",cat:"Saneamento PVC",dim:"32 mm",un:"0.5m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB32-02",desc:"Tubo PVC saneamento série B 32mm — 1m",mat:"PVC",cat:"Saneamento PVC",dim:"32 mm",un:"1m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB32-03",desc:"Tubo PVC saneamento série B 32mm — 2m",mat:"PVC",cat:"Saneamento PVC",dim:"32 mm",un:"2m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB40",desc:"Tubo PVC saneamento série B 40mm — 0.5m",mat:"PVC",cat:"Saneamento PVC",dim:"40 mm",un:"0.5m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB40-02",desc:"Tubo PVC saneamento série B 40mm — 1m",mat:"PVC",cat:"Saneamento PVC",dim:"40 mm",un:"1m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB40-03",desc:"Tubo PVC saneamento série B 40mm — 2m",mat:"PVC",cat:"Saneamento PVC",dim:"40 mm",un:"2m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB50",desc:"Tubo PVC saneamento série B 50mm — 0.5m",mat:"PVC",cat:"Saneamento PVC",dim:"50 mm",un:"0.5m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB50-02",desc:"Tubo PVC saneamento série B 50mm — 1m",mat:"PVC",cat:"Saneamento PVC",dim:"50 mm",un:"1m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB50-03",desc:"Tubo PVC saneamento série B 50mm — 2m",mat:"PVC",cat:"Saneamento PVC",dim:"50 mm",un:"2m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB50-04",desc:"Tubo PVC saneamento série B 50mm — 3m",mat:"PVC",cat:"Saneamento PVC",dim:"50 mm",un:"3m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB75",desc:"Tubo PVC saneamento série B 75mm — 1m",mat:"PVC",cat:"Saneamento PVC",dim:"75 mm",un:"1m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB75-02",desc:"Tubo PVC saneamento série B 75mm — 2m",mat:"PVC",cat:"Saneamento PVC",dim:"75 mm",un:"2m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB75-03",desc:"Tubo PVC saneamento série B 75mm — 3m",mat:"PVC",cat:"Saneamento PVC",dim:"75 mm",un:"3m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB90",desc:"Tubo PVC saneamento série B 90mm — 1m",mat:"PVC",cat:"Saneamento PVC",dim:"90 mm",un:"1m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB90-02",desc:"Tubo PVC saneamento série B 90mm — 2m",mat:"PVC",cat:"Saneamento PVC",dim:"90 mm",un:"2m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB90-03",desc:"Tubo PVC saneamento série B 90mm — 3m",mat:"PVC",cat:"Saneamento PVC",dim:"90 mm",un:"3m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB110",desc:"Tubo PVC saneamento série B 110mm — 1m",mat:"PVC",cat:"Saneamento PVC",dim:"110 mm",un:"1m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB110-02",desc:"Tubo PVC saneamento série B 110mm — 2m",mat:"PVC",cat:"Saneamento PVC",dim:"110 mm",un:"2m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB110-03",desc:"Tubo PVC saneamento série B 110mm — 3m",mat:"PVC",cat:"Saneamento PVC",dim:"110 mm",un:"3m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB110-04",desc:"Tubo PVC saneamento série B 110mm — 6m",mat:"PVC",cat:"Saneamento PVC",dim:"110 mm",un:"6m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB125",desc:"Tubo PVC saneamento série B 125mm — 2m",mat:"PVC",cat:"Saneamento PVC",dim:"125 mm",un:"2m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB125-02",desc:"Tubo PVC saneamento série B 125mm — 3m",mat:"PVC",cat:"Saneamento PVC",dim:"125 mm",un:"3m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB160",desc:"Tubo PVC saneamento série B 160mm — 2m",mat:"PVC",cat:"Saneamento PVC",dim:"160 mm",un:"2m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB160-02",desc:"Tubo PVC saneamento série B 160mm — 3m",mat:"PVC",cat:"Saneamento PVC",dim:"160 mm",un:"3m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB160-03",desc:"Tubo PVC saneamento série B 160mm — 6m",mat:"PVC",cat:"Saneamento PVC",dim:"160 mm",un:"6m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB200",desc:"Tubo PVC saneamento série B 200mm — 3m",mat:"PVC",cat:"Saneamento PVC",dim:"200 mm",un:"3m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCTB200-02",desc:"Tubo PVC saneamento série B 200mm — 6m",mat:"PVC",cat:"Saneamento PVC",dim:"200 mm",un:"6m",preco:"",nota:"Esgoto interior"},
+  {ref:"PVCC432",desc:"Cotovelo PVC saneamento 32mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCO32",desc:"Cotovelo PVC saneamento 32mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCC440",desc:"Cotovelo PVC saneamento 40mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCO40",desc:"Cotovelo PVC saneamento 40mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCC450",desc:"Cotovelo PVC saneamento 50mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCO50",desc:"Cotovelo PVC saneamento 50mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCC475",desc:"Cotovelo PVC saneamento 75mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCO75",desc:"Cotovelo PVC saneamento 75mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCC990",desc:"Cotovelo PVC saneamento 90mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCC990-02",desc:"Cotovelo PVC saneamento 90mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCC4110",desc:"Cotovelo PVC saneamento 110mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCO110",desc:"Cotovelo PVC saneamento 110mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCC4125",desc:"Cotovelo PVC saneamento 125mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCO125",desc:"Cotovelo PVC saneamento 125mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCC4160",desc:"Cotovelo PVC saneamento 160mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"160 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCO160",desc:"Cotovelo PVC saneamento 160mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"160 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE50",desc:"Tê PVC saneamento 50mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE50-02",desc:"Tê PVC saneamento 50mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE75",desc:"Tê PVC saneamento 75mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE75-02",desc:"Tê PVC saneamento 75mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE90",desc:"Tê PVC saneamento 90mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE90-02",desc:"Tê PVC saneamento 90mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE110",desc:"Tê PVC saneamento 110mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE110-02",desc:"Tê PVC saneamento 110mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE125",desc:"Tê PVC saneamento 125mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE125-02",desc:"Tê PVC saneamento 125mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE160",desc:"Tê PVC saneamento 160mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"160 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE160-02",desc:"Tê PVC saneamento 160mm 87°30\'",mat:"PVC",cat:"Acess. Saneamento",dim:"160 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE110-03",desc:"Tê PVC saneamento 110x50mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"110x50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE110-04",desc:"Tê PVC saneamento 110x75mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"110x75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE110-05",desc:"Tê PVC saneamento 110x90mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"110x90 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE125-03",desc:"Tê PVC saneamento 125x50mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"125x50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE125-04",desc:"Tê PVC saneamento 125x75mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"125x75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE125-05",desc:"Tê PVC saneamento 125x110mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"125x110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE160-03",desc:"Tê PVC saneamento 160x110mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"160x110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTE160-04",desc:"Tê PVC saneamento 160x125mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"160x125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCMG32",desc:"Manga PVC saneamento 32mm",mat:"PVC",cat:"Acess. Saneamento",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCMG40",desc:"Manga PVC saneamento 40mm",mat:"PVC",cat:"Acess. Saneamento",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCMG50",desc:"Manga PVC saneamento 50mm",mat:"PVC",cat:"Acess. Saneamento",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCMG75",desc:"Manga PVC saneamento 75mm",mat:"PVC",cat:"Acess. Saneamento",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCMG90",desc:"Manga PVC saneamento 90mm",mat:"PVC",cat:"Acess. Saneamento",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCMG110",desc:"Manga PVC saneamento 110mm",mat:"PVC",cat:"Acess. Saneamento",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCMG125",desc:"Manga PVC saneamento 125mm",mat:"PVC",cat:"Acess. Saneamento",dim:"125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCMG160",desc:"Manga PVC saneamento 160mm",mat:"PVC",cat:"Acess. Saneamento",dim:"160 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCMG200",desc:"Manga PVC saneamento 200mm",mat:"PVC",cat:"Acess. Saneamento",dim:"200 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD50",desc:"Redução PVC saneamento 50x40mm",mat:"PVC",cat:"Acess. Saneamento",dim:"50x40 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD75",desc:"Redução PVC saneamento 75x50mm",mat:"PVC",cat:"Acess. Saneamento",dim:"75x50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD90",desc:"Redução PVC saneamento 90x50mm",mat:"PVC",cat:"Acess. Saneamento",dim:"90x50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD90-02",desc:"Redução PVC saneamento 90x75mm",mat:"PVC",cat:"Acess. Saneamento",dim:"90x75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD110",desc:"Redução PVC saneamento 110x75mm",mat:"PVC",cat:"Acess. Saneamento",dim:"110x75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD110-02",desc:"Redução PVC saneamento 110x90mm",mat:"PVC",cat:"Acess. Saneamento",dim:"110x90 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD125",desc:"Redução PVC saneamento 125x110mm",mat:"PVC",cat:"Acess. Saneamento",dim:"125x110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD160",desc:"Redução PVC saneamento 160x110mm",mat:"PVC",cat:"Acess. Saneamento",dim:"160x110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD160-02",desc:"Redução PVC saneamento 160x125mm",mat:"PVC",cat:"Acess. Saneamento",dim:"160x125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRD200",desc:"Redução PVC saneamento 200x160mm",mat:"PVC",cat:"Acess. Saneamento",dim:"200x160 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTAP50",desc:"Tampa de limpeza PVC 50mm",mat:"PVC",cat:"Acess. Saneamento",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCRV50",desc:"Curva de limpeza PVC 50mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTAP75",desc:"Tampa de limpeza PVC 75mm",mat:"PVC",cat:"Acess. Saneamento",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCRV75",desc:"Curva de limpeza PVC 75mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTAP110",desc:"Tampa de limpeza PVC 110mm",mat:"PVC",cat:"Acess. Saneamento",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCRV110",desc:"Curva de limpeza PVC 110mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTAP125",desc:"Tampa de limpeza PVC 125mm",mat:"PVC",cat:"Acess. Saneamento",dim:"125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCRV125",desc:"Curva de limpeza PVC 125mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTAP160",desc:"Tampa de limpeza PVC 160mm",mat:"PVC",cat:"Acess. Saneamento",dim:"160 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCCRV160",desc:"Curva de limpeza PVC 160mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"160 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCSF50",desc:"Sifão PVC integrado 50mm",mat:"PVC",cat:"Acess. Saneamento",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCSF110",desc:"Sifão PVC integrado 110mm",mat:"PVC",cat:"Acess. Saneamento",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"LATVE1",desc:"Válvula esfera latão 1/4\" M/M",mat:"Latão",cat:"Válvulas",dim:"1/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE1-02",desc:"Válvula esfera latão 1/4\" F/F",mat:"Latão",cat:"Válvulas",dim:"1/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE1-03",desc:"Válvula esfera latão 1/4\" M/F",mat:"Latão",cat:"Válvulas",dim:"1/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE3",desc:"Válvula esfera latão 3/8\" M/M",mat:"Latão",cat:"Válvulas",dim:"3/8"",un:"un",preco:"",nota:""},
+  {ref:"LATVE3-02",desc:"Válvula esfera latão 3/8\" F/F",mat:"Latão",cat:"Válvulas",dim:"3/8"",un:"un",preco:"",nota:""},
+  {ref:"LATVE3-03",desc:"Válvula esfera latão 3/8\" M/F",mat:"Latão",cat:"Válvulas",dim:"3/8"",un:"un",preco:"",nota:""},
+  {ref:"LATVE112",desc:"Válvula esfera latão 1/2\" M/M",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE112-02",desc:"Válvula esfera latão 1/2\" F/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE112-03",desc:"Válvula esfera latão 1/2\" M/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE334",desc:"Válvula esfera latão 3/4\" M/M",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE334-02",desc:"Válvula esfera latão 3/4\" F/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE334-03",desc:"Válvula esfera latão 3/4\" M/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE11",desc:"Válvula esfera latão 1\" M/M",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVE11-02",desc:"Válvula esfera latão 1\" F/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVE11-03",desc:"Válvula esfera latão 1\" M/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVE11114",desc:"Válvula esfera latão 1\"1/4 M/M",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATVE11114-02",desc:"Válvula esfera latão 1\"1/4 F/F",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATVE11114-03",desc:"Válvula esfera latão 1\"1/4 M/F",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATVE1112",desc:"Válvula esfera latão 1\"1/2 M/M",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATVE1112-02",desc:"Válvula esfera latão 1\"1/2 F/F",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATVE1112-03",desc:"Válvula esfera latão 1\"1/2 M/F",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATVE22",desc:"Válvula esfera latão 2\" M/M",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE22-02",desc:"Válvula esfera latão 2\" F/F",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE22-03",desc:"Válvula esfera latão 2\" M/F",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATTE112",desc:"Válvula corte angular latão 1/2\" F/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:"Radiadores"},
+  {ref:"LATTE112-02",desc:"Válvula corte reta latão 1/2\" F/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATTE334",desc:"Válvula corte angular latão 3/4\" F/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:"Radiadores"},
+  {ref:"LATTE334-02",desc:"Válvula corte reta latão 3/4\" F/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATTE11",desc:"Válvula corte angular latão 1\" F/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:"Radiadores"},
+  {ref:"LATTE11-02",desc:"Válvula corte reta latão 1\" F/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVR112",desc:"Válvula retenção latão 1/2\"",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXVR112",desc:"Válvula retenção inox 1/2\"",mat:"Inox",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATVR334",desc:"Válvula retenção latão 3/4\"",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXVR334",desc:"Válvula retenção inox 3/4\"",mat:"Inox",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVR11",desc:"Válvula retenção latão 1\"",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"INXVR11",desc:"Válvula retenção inox 1\"",mat:"Inox",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVR11114",desc:"Válvula retenção latão 1\"1/4",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXVR11114",desc:"Válvula retenção inox 1\"1/4",mat:"Inox",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATVR1112",desc:"Válvula retenção latão 1\"1/2",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXVR1112",desc:"Válvula retenção inox 1\"1/2",mat:"Inox",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATVR22",desc:"Válvula retenção latão 2\"",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"INXVR22",desc:"Válvula retenção inox 2\"",mat:"Inox",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATVS112",desc:"Válvula segurança 1/2\" 6bar",mat:"Latão",cat:"Válvulas",dim:"1/2" / 6bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS112-02",desc:"Válvula segurança 1/2\" 8bar",mat:"Latão",cat:"Válvulas",dim:"1/2" / 8bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS112-03",desc:"Válvula segurança 1/2\" 10bar",mat:"Latão",cat:"Válvulas",dim:"1/2" / 10bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS334",desc:"Válvula segurança 3/4\" 6bar",mat:"Latão",cat:"Válvulas",dim:"3/4" / 6bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS334-02",desc:"Válvula segurança 3/4\" 8bar",mat:"Latão",cat:"Válvulas",dim:"3/4" / 8bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS11",desc:"Válvula segurança 1\" 6bar",mat:"Latão",cat:"Válvulas",dim:"1" / 6bar",un:"un",preco:"",nota:""},
+  {ref:"LATFT112",desc:"Filtro rede latão 1/2\" Y",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATFT334",desc:"Filtro rede latão 3/4\" Y",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATFT11",desc:"Filtro rede latão 1\" Y",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATFT11114",desc:"Filtro rede latão 1\"1/4 Y",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATFT1112",desc:"Filtro rede latão 1\"1/2 Y",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATFT22",desc:"Filtro rede latão 2\" Y",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATRP112",desc:"Redutor pressão 1/2\" ajustável",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATRP334",desc:"Redutor pressão 3/4\" ajustável",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATRP11",desc:"Redutor pressão 1\" ajustável",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATRP11114",desc:"Redutor pressão 1\"1/4 ajustável",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATOUT112",desc:"Torneira boia latão 1/2\"",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:"Depósito / autoclismo"},
+  {ref:"GENVL112",desc:"Electroválvula 1/2\" NC 24V",mat:"—",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATOUT334",desc:"Torneira boia latão 3/4\"",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:"Depósito / autoclismo"},
+  {ref:"GENVL334",desc:"Electroválvula 3/4\" NC 24V",mat:"—",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"GENSF11114",desc:"Sifão lavatório bidão 1\"1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF11114-02",desc:"Sifão lavatório extensível 1\"1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF11114-03",desc:"Sifão lavatório botella 1\"1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF11114-04",desc:"Sifão lavatório sanfonado 1\"1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
+  {ref:"INXSF11114",desc:"Sifão lavatório cromado 1\"1/4 — saída 32mm",mat:"Inox/Cr",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"GENSF32",desc:"Sifão lavatório extensível dupla saída 32mm",mat:"PVC",cat:"Sifões",dim:"32mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112",desc:"Sifão banheira/duche rígido 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112-02",desc:"Sifão banheira/duche extensível 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112-03",desc:"Sifão banheira/duche flexível 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF40",desc:"Sifão base duche slim altura mínima 40mm",mat:"PVC",cat:"Sifões",dim:"40mm",un:"un",preco:"",nota:"Para bases rasas"},
+  {ref:"GENVCC11",desc:"Kit sifão + válvula click-clack banheira",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"kit",preco:"",nota:""},
+  {ref:"GENSF1112-04",desc:"Sifão cozinha simples 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112-05",desc:"Sifão cozinha dupla cuba 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112-06",desc:"Sifão cozinha com saída máquina 1\"1/2",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"GENSF11",desc:"Sifão cozinha dupla cuba + saída máquina",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PVCVCC11114",desc:"Válvula click-clack lavatório 1\"1/4 — PVC branco",mat:"PVC",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXVCC11114",desc:"Válvula click-clack lavatório 1\"1/4 — inox mate",mat:"Inox",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXVCC11114-02",desc:"Válvula click-clack lavatório 1\"1/4 — cromo",mat:"Inox/Cr",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PVCVCC1112",desc:"Válvula click-clack banheira 1\"1/2 — PVC branco",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXVCC1112",desc:"Válvula click-clack banheira 1\"1/2 — inox mate",mat:"Inox",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXVCC1112-02",desc:"Válvula click-clack banheira 1\"1/2 — cromo",mat:"Inox/Cr",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PVCRL10",desc:"Ralo chão PVC 10x10cm — saída 50mm",mat:"PVC",cat:"Ralos",dim:"10x10cm / 50mm",un:"un",preco:"",nota:""},
+  {ref:"INXRL10",desc:"Ralo chão Inox 10x10cm — saída 50mm",mat:"Inox",cat:"Ralos",dim:"10x10cm / 50mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRL15",desc:"Ralo chão PVC 15x15cm — saída 50mm",mat:"PVC",cat:"Ralos",dim:"15x15cm / 50mm",un:"un",preco:"",nota:""},
+  {ref:"INXRL15",desc:"Ralo chão Inox 15x15cm — saída 50mm",mat:"Inox",cat:"Ralos",dim:"15x15cm / 50mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRL20",desc:"Ralo chão PVC 20x20cm — saída 75mm",mat:"PVC",cat:"Ralos",dim:"20x20cm / 75mm",un:"un",preco:"",nota:""},
+  {ref:"INXRL20",desc:"Ralo chão Inox 20x20cm — saída 75mm",mat:"Inox",cat:"Ralos",dim:"20x20cm / 75mm",un:"un",preco:"",nota:""},
+  {ref:"PVCRL30",desc:"Ralo chão PVC 30x30cm — saída 110mm",mat:"PVC",cat:"Ralos",dim:"30x30cm / 110mm",un:"un",preco:"",nota:""},
+  {ref:"INXRL30",desc:"Ralo chão Inox 30x30cm — saída 110mm",mat:"Inox",cat:"Ralos",dim:"30x30cm / 110mm",un:"un",preco:"",nota:""},
+  {ref:"INXRL600",desc:"Ralo linear inox 60cm — saída 50mm",mat:"Inox",cat:"Ralos",dim:"600mm / 50mm",un:"un",preco:"",nota:"Duche"},
+  {ref:"INXRL800",desc:"Ralo linear inox 80cm — saída 50mm",mat:"Inox",cat:"Ralos",dim:"800mm / 50mm",un:"un",preco:"",nota:"Duche"},
+  {ref:"INXRL1000",desc:"Ralo linear inox 100cm — saída 75mm",mat:"Inox",cat:"Ralos",dim:"1000mm / 75mm",un:"un",preco:"",nota:"Duche"},
+  {ref:"SILSIL00",desc:"Silicone sanitário branco 280ml",mat:"—",cat:"Vedações",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"SILSIL00-02",desc:"Silicone sanitário branco 600ml",mat:"—",cat:"Vedações",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"SILTE00",desc:"Silicone sanitário transparente 280ml",mat:"—",cat:"Vedações",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"SILTE00-02",desc:"Silicone sanitário transparente 600ml",mat:"—",cat:"Vedações",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"SILSIL00-03",desc:"Silicone sanitário cinza 280ml",mat:"—",cat:"Vedações",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"SILSIL00-04",desc:"Silicone sanitário preto 280ml",mat:"—",cat:"Vedações",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"VEDFT12",desc:"Fita PTFE 12mm x 12m",mat:"PTFE",cat:"Vedações",dim:"12mm",un:"rolo",preco:"",nota:""},
+  {ref:"VEDFT12-02",desc:"Fita PTFE 12mm x 25m",mat:"PTFE",cat:"Vedações",dim:"12mm",un:"rolo",preco:"",nota:""},
+  {ref:"VEDFT19",desc:"Fita PTFE 19mm x 12m",mat:"PTFE",cat:"Vedações",dim:"19mm",un:"rolo",preco:"",nota:""},
+  {ref:"VEDFT25",desc:"Fita PTFE 25mm x 12m",mat:"PTFE",cat:"Vedações",dim:"25mm",un:"rolo",preco:"",nota:""},
+  {ref:"GENTE00",desc:"Pasta vedante roscas LOCTITE 50ml",mat:"—",cat:"Vedações",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"GENTE00-02",desc:"Pasta vedante roscas LOCTITE 150ml",mat:"—",cat:"Vedações",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"GENTE00-03",desc:"Cordão vedante cânhamo 100g",mat:"—",cat:"Vedações",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"CSMESP00",desc:"Espuma de poliuretano standard 750ml",mat:"—",cat:"Consumíveis",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"CSMESP00-02",desc:"Espuma de poliuretano pistola 750ml",mat:"—",cat:"Consumíveis",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"CSMTE00",desc:"Massa selante para canos 400ml",mat:"—",cat:"Consumíveis",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"PVCADH00",desc:"Adesivo PVC para saneamento 250ml",mat:"—",cat:"Consumíveis",dim:"—",un:"un",preco:"",nota:"Colar PVC"},
+  {ref:"PVCPRM00",desc:"Primário PVC para saneamento 250ml",mat:"—",cat:"Consumíveis",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"FIXBC12",desc:"Braçadeira simples 12mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"12 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC15",desc:"Braçadeira simples 15mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC16",desc:"Braçadeira simples 16mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"16 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC18",desc:"Braçadeira simples 18mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC20",desc:"Braçadeira simples 20mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"20 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC22",desc:"Braçadeira simples 22mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC25",desc:"Braçadeira simples 25mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"25 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC28",desc:"Braçadeira simples 28mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC32",desc:"Braçadeira simples 32mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC40",desc:"Braçadeira simples 40mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC50",desc:"Braçadeira simples 50mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC63",desc:"Braçadeira simples 63mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"63 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC75",desc:"Braçadeira simples 75mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC90",desc:"Braçadeira simples 90mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC110",desc:"Braçadeira simples 110mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC125",desc:"Braçadeira simples 125mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"125 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC160",desc:"Braçadeira simples 160mm com prego plástico",mat:"Plástico",cat:"Fixações",dim:"160 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC15-02",desc:"Braçadeira metálica 15mm com parafuso",mat:"Aço",cat:"Fixações",dim:"15 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC18-02",desc:"Braçadeira metálica 18mm com parafuso",mat:"Aço",cat:"Fixações",dim:"18 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC22-02",desc:"Braçadeira metálica 22mm com parafuso",mat:"Aço",cat:"Fixações",dim:"22 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC28-02",desc:"Braçadeira metálica 28mm com parafuso",mat:"Aço",cat:"Fixações",dim:"28 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC35",desc:"Braçadeira metálica 35mm com parafuso",mat:"Aço",cat:"Fixações",dim:"35 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC42",desc:"Braçadeira metálica 42mm com parafuso",mat:"Aço",cat:"Fixações",dim:"42 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC54",desc:"Braçadeira metálica 54mm com parafuso",mat:"Aço",cat:"Fixações",dim:"54 mm",un:"un",preco:"",nota:""},
+  {ref:"FIXBC15-03",desc:"Braçadeira isolada borracha 15mm",mat:"Borracha",cat:"Fixações",dim:"15 mm",un:"un",preco:"",nota:"Tubagem cobre/inox"},
+  {ref:"FIXBC18-03",desc:"Braçadeira isolada borracha 18mm",mat:"Borracha",cat:"Fixações",dim:"18 mm",un:"un",preco:"",nota:"Tubagem cobre/inox"},
+  {ref:"FIXBC22-03",desc:"Braçadeira isolada borracha 22mm",mat:"Borracha",cat:"Fixações",dim:"22 mm",un:"un",preco:"",nota:"Tubagem cobre/inox"},
+  {ref:"FIXBC28-03",desc:"Braçadeira isolada borracha 28mm",mat:"Borracha",cat:"Fixações",dim:"28 mm",un:"un",preco:"",nota:"Tubagem cobre/inox"},
+  {ref:"FIXBC35-02",desc:"Braçadeira isolada borracha 35mm",mat:"Borracha",cat:"Fixações",dim:"35 mm",un:"un",preco:"",nota:"Tubagem cobre/inox"},
+  {ref:"FIXBC42-02",desc:"Braçadeira isolada borracha 42mm",mat:"Borracha",cat:"Fixações",dim:"42 mm",un:"un",preco:"",nota:"Tubagem cobre/inox"},
+  {ref:"PVCTB32-04",desc:"Apoio/suporte tubo PVC 32mm",mat:"Plástico",cat:"Fixações",dim:"32 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTB40-04",desc:"Apoio/suporte tubo PVC 40mm",mat:"Plástico",cat:"Fixações",dim:"40 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTB50-05",desc:"Apoio/suporte tubo PVC 50mm",mat:"Plástico",cat:"Fixações",dim:"50 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTB75-04",desc:"Apoio/suporte tubo PVC 75mm",mat:"Plástico",cat:"Fixações",dim:"75 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTB90-04",desc:"Apoio/suporte tubo PVC 90mm",mat:"Plástico",cat:"Fixações",dim:"90 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTB110-05",desc:"Apoio/suporte tubo PVC 110mm",mat:"Plástico",cat:"Fixações",dim:"110 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTB125-03",desc:"Apoio/suporte tubo PVC 125mm",mat:"Plástico",cat:"Fixações",dim:"125 mm",un:"un",preco:"",nota:""},
+  {ref:"PVCTB160-04",desc:"Apoio/suporte tubo PVC 160mm",mat:"Plástico",cat:"Fixações",dim:"160 mm",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC30",desc:"Termoacumulador elétrico 30L — monofásico vertical",mat:"—",cat:"AQS",dim:"30L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC30-02",desc:"Termoacumulador elétrico 30L — monofásico horizontal",mat:"—",cat:"AQS",dim:"30L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC50",desc:"Termoacumulador elétrico 50L — monofásico vertical",mat:"—",cat:"AQS",dim:"50L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC50-02",desc:"Termoacumulador elétrico 50L — monofásico horizontal",mat:"—",cat:"AQS",dim:"50L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC80",desc:"Termoacumulador elétrico 80L — monofásico vertical",mat:"—",cat:"AQS",dim:"80L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC80-02",desc:"Termoacumulador elétrico 80L — monofásico horizontal",mat:"—",cat:"AQS",dim:"80L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC100",desc:"Termoacumulador elétrico 100L — monofásico vertical",mat:"—",cat:"AQS",dim:"100L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC100-02",desc:"Termoacumulador elétrico 100L — monofásico horizontal",mat:"—",cat:"AQS",dim:"100L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC120",desc:"Termoacumulador elétrico 120L — monofásico vertical",mat:"—",cat:"AQS",dim:"120L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC120-02",desc:"Termoacumulador elétrico 120L — monofásico horizontal",mat:"—",cat:"AQS",dim:"120L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC150",desc:"Termoacumulador elétrico 150L — monofásico vertical",mat:"—",cat:"AQS",dim:"150L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC150-02",desc:"Termoacumulador elétrico 150L — monofásico horizontal",mat:"—",cat:"AQS",dim:"150L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC200",desc:"Termoacumulador elétrico 200L — monofásico vertical",mat:"—",cat:"AQS",dim:"200L",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC200-02",desc:"Termoacumulador elétrico 200L — monofásico horizontal",mat:"—",cat:"AQS",dim:"200L",un:"un",preco:"",nota:""},
+  {ref:"LATGS334",desc:"Grupo de segurança AQS 3/4\" — 8bar",mat:"Latão",cat:"AQS",dim:"3/4" / 8bar",un:"un",preco:"",nota:""},
+  {ref:"LATGS11",desc:"Grupo de segurança AQS 1\" — 8bar",mat:"Latão",cat:"AQS",dim:"1" / 8bar",un:"un",preco:"",nota:""},
+  {ref:"LATLG112",desc:"Kit ligação termoacumulador 1/2\"",mat:"Latão",cat:"AQS",dim:"1/2"",un:"kit",preco:"",nota:""},
+  {ref:"LATLG334",desc:"Kit ligação termoacumulador 3/4\"",mat:"Latão",cat:"AQS",dim:"3/4"",un:"kit",preco:"",nota:""},
+  {ref:"AQSTE00",desc:"Resistência elétrica 1500W 230V",mat:"—",cat:"AQS",dim:"—",un:"un",preco:"",nota:"Substituição"},
+  {ref:"AQSTE00-02",desc:"Resistência elétrica 2000W 230V",mat:"—",cat:"AQS",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"AQSTAC00",desc:"Termóstato para termoacumulador",mat:"—",cat:"AQS",dim:"—",un:"un",preco:"",nota:""},
+  {ref:"AQSVX8",desc:"Vaso de expansão AQS 8L",mat:"Aço",cat:"AQS",dim:"8L",un:"un",preco:"",nota:""},
+  {ref:"AQSVX12",desc:"Vaso de expansão AQS 12L",mat:"Aço",cat:"AQS",dim:"12L",un:"un",preco:"",nota:""},
+  {ref:"AQSVX18",desc:"Vaso de expansão AQS 18L",mat:"Aço",cat:"AQS",dim:"18L",un:"un",preco:"",nota:""},
+  {ref:"AQSVX24",desc:"Vaso de expansão AQS 24L",mat:"Aço",cat:"AQS",dim:"24L",un:"un",preco:"",nota:""},
+  {ref:"AQSVX35",desc:"Vaso de expansão AQS 35L",mat:"Aço",cat:"AQS",dim:"35L",un:"un",preco:"",nota:""}
+];
+
+// Catégories pour filtrage
+const CAT_GROUPS = {
+  'Multicamada': ['Tubagem Multicamada','Acess. Multicamada'],
+  'PPR': ['Tubagem PPR','Acess. PPR'],
+  'Pex': ['Tubagem Pex','Acess. Pex'],
+  'Cobre': ['Tubagem Cobre','Acess. Cobre','Consumíveis Cobre'],
+  'Inox': ['Tubagem Inox','Acess. Inox'],
+  'PVC': ['Saneamento PVC','Acess. Saneamento'],
+  'Válvulas': ['Válvulas','Contadores'],
+  'Sifões': ['Sifões','Ralos'],
+  'Fixações': ['Fixações'],
+  'Vedações': ['Vedações','Consumíveis'],
+  'AQS': ['AQS'],
+};
+
+// ============================================================
+// OBRAS
+// ============================================================
+const OBRAS = [
+  {nome:"Apartamento Av. da Boavista",cliente:"Sr. Carvalho",local:"Porto",estado:"Em curso",prog:65,data:"02/04/2024",valor:"2.800 €",
+   tarefas:[{t:"Substituição tubagem água fria",ok:true},{t:"Instalação caldeira",ok:true},{t:"Ligação à rede de gás",ok:true},{t:"Instalação torneiras casa de banho",ok:false},{t:"Verificação e testes finais",ok:false}],
+   nota:"Cliente prefere terminar antes de 20 maio."},
+  {nome:"Moradia Braga Norte",cliente:"Família Sousa",local:"Braga",estado:"A iniciar",prog:10,data:"15/05/2024",valor:"4.050 €",
+   tarefas:[{t:"Levantamento e medições",ok:true},{t:"Instalação tubagem multicamada",ok:false},{t:"Montagem sanitas e lavatórios",ok:false},{t:"Ligação à rede pública",ok:false},{t:"Testes de pressão",ok:false}],
+   nota:"Materiais a encomendar — ver separador Materiais."},
+  {nome:"Escritório Rua do Loureiro",cliente:"Lda. Monteiro",local:"Braga",estado:"Em curso",prog:80,data:"10/03/2024",valor:"1.085 €",
+   tarefas:[{t:"Remoção caldeira antiga",ok:true},{t:"Instalação caldeira nova 24kW",ok:true},{t:"Ligações de gás e água",ok:true},{t:"Testes e certificação",ok:false}],
+   nota:""},
+];
+
+// ============================================================
+// ORÇAMENTO STATE
+// ============================================================
+let orcLinhas = [];
+let orcCount  = 0;
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showSec(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx={dashboard:0,obras:1,orcamentos:2,materiais:3,catalogo:4};
+  document.querySelectorAll('.nav-btn')[idx[id]].classList.add('active');
+  if(id==='obras') renderObras('todas');
+  if(id==='catalogo') renderCatalogo();
+}
+
+// ============================================================
+// OBRAS
+// ============================================================
+function renderObras(filtro){
+  const c=document.getElementById('obras-container'); c.innerHTML='';
+  const badgeClass={  'Em curso':'b-amber','A iniciar':'b-blue','Concluída':'b-green'};
+  OBRAS.forEach((o,i)=>{
+    if(filtro!=='todas' && !(filtro==='curso'&&o.estado==='Em curso') && !(filtro==='iniciar'&&o.estado==='A iniciar') && !(filtro==='concluida'&&o.estado==='Concluída')) return;
+    c.innerHTML+=`<div class="card card-clickable" onclick="openObra(${i})">
+      <div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${badgeClass[o.estado]||'b-blue'}">${o.estado}</span></div>
+      <div class="card-sub">${o.local} · ${o.cliente}</div>
+      <div class="prog"><div class="prog-fill" style="width:${o.prog}%"></div></div>
+      <div class="card-sub" style="margin-top:4px;font-size:11px">${o.prog}% concluído</div>
+    </div>`;
+  });
+  if(!c.innerHTML) c.innerHTML='<div class="empty"><i class="ti ti-building"></i>Nenhuma obra</div>';
+}
+function filtrarObras(f,btn){
+  document.querySelectorAll('#obras .tabs-inner button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderObras(f);
+}
+function openObra(i){
+  const o=OBRAS[i];
+  document.getElementById('obras-lista').style.display='none';
+  const d=document.getElementById('obra-detalhe'); d.style.display='block';
+  const bClass={'Em curso':'b-amber','A iniciar':'b-blue','Concluída':'b-green'};
+  let tarefas=o.tarefas.map(t=>`<div class="chk-item${t.ok?' done':''}"><input type="checkbox"${t.ok?' checked':''}><span>${t.t}</span></div>`).join('');
+  let notaHtml=o.nota?`<div class="nota">${o.nota}</div>`:'';
+  d.innerHTML=`
+    <button class="back-btn" onclick="document.getElementById('obra-detalhe').style.display='none';document.getElementById('obras-lista').style.display='block'"><i class="ti ti-arrow-left"></i>Voltar</button>
+    <div class="card"><div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${bClass[o.estado]||'b-blue'}">${o.estado}</span></div>
+    <div class="card-sub" style="margin-bottom:.6rem">${o.local} · ${o.cliente}</div>
+    <div class="row-d"><span class="lbl">Data início</span><span class="val">${o.data}</span></div>
+    <div class="row-d"><span class="lbl">Valor orçado</span><span class="val">${o.valor}</span></div>
+    <div class="prog" style="margin:.6rem 0 3px"><div class="prog-fill" style="width:${o.prog}%"></div></div>
+    <div class="card-sub" style="font-size:11px">${o.prog}% concluído</div></div>
+    <div class="card"><div class="sec-title" style="font-size:14px;margin-bottom:.6rem">Tarefas</div>${tarefas}${notaHtml}</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-sm" style="flex:1;justify-content:center" onclick="showSec('materiais')"><i class="ti ti-package"></i>Materiais</button>
+      <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="showSec('orcamentos')"><i class="ti ti-file-text"></i>Orçamento</button>
+    </div>`;
+}
+function showNovaObra(){
+  document.getElementById('obras-lista').style.display='none';
+  document.getElementById('obra-form').style.display='block';
+}
+
+// ============================================================
+// CATÁLOGO
+// ============================================================
+let catFiltroAtual = '';
+let catSearchAtual = '';
+const PER_PAGE = 40;
+let catPage = 1;
+
+function getProdutosFiltrados(){
+  const q = catSearchAtual.toLowerCase();
+  return PRODUTOS.filter(p=>{
+    const matchSearch = !q || p.ref.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.dim.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || p.mat.toLowerCase().includes(q);
+    let matchCat = true;
+    if(catFiltroAtual){
+      const cats = CAT_GROUPS[catFiltroAtual] || [];
+      matchCat = cats.some(c=> p.cat.includes(c)) || p.mat.includes(catFiltroAtual) || p.cat.includes(catFiltroAtual);
+    }
+    return matchSearch && matchCat;
+  });
+}
+
+function renderCatalogo(){
+  const prods = getProdutosFiltrados();
+  const total = prods.length;
+  const start = (catPage-1)*PER_PAGE;
+  const slice = prods.slice(start, start+PER_PAGE);
+
+  document.getElementById('cat-count').textContent = `${total} produtos`;
+
+  // Grouper par catégorie
+  const groups = {};
+  slice.forEach(p=>{ if(!groups[p.cat]) groups[p.cat]=[]; groups[p.cat].push(p); });
+
+  let html = '';
+  Object.entries(groups).forEach(([cat, items])=>{
+    html += `<div class="cat-header">${cat}</div>`;
+    items.forEach(p=>{
+      html += `<div class="prod-card">
+        <div class="prod-info">
+          <div class="prod-ref">${p.ref}</div>
+          <div class="prod-desc" title="${p.desc}">${p.desc}</div>
+          <div class="prod-meta">${p.dim} · ${p.un}${p.nota?' · '+p.nota:''}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          ${p.preco ? `<div class="prod-preco">${p.preco} €</div>` : `<div class="prod-preco vazio">Preço a definir</div>`}
+          <button class="add-btn" style="margin-top:4px" onclick='addProdutoToOrc(${JSON.stringify(p).replace(/'/g,"&#39;")})'>+ Orç.</button>
+        </div>
+      </div>`;
+    });
+  });
+
+  if(!html) html = '<div class="empty"><i class="ti ti-search"></i>Nenhum produto encontrado</div>';
+  document.getElementById('cat-lista').innerHTML = html;
+
+  // Pagination
+  const totalPages = Math.ceil(total/PER_PAGE);
+  let pagHtml = '';
+  if(totalPages>1){
+    pagHtml = `<div style="display:flex;gap:6px;justify-content:center;align-items:center;padding:.5rem 0">`;
+    if(catPage>1) pagHtml+=`<button class="btn btn-sm" onclick="goPage(${catPage-1})"><i class="ti ti-chevron-left"></i></button>`;
+    pagHtml+=`<span style="font-size:13px;color:var(--text2)">${catPage} / ${totalPages}</span>`;
+    if(catPage<totalPages) pagHtml+=`<button class="btn btn-sm" onclick="goPage(${catPage+1})"><i class="ti ti-chevron-right"></i></button>`;
+    pagHtml+=`</div>`;
+  }
+  document.getElementById('cat-pag').innerHTML = pagHtml;
+}
+
+function goPage(p){ catPage=p; renderCatalogo(); window.scrollTo(0,0); }
+function filtrarCatalogo(){ catSearchAtual=document.getElementById('cat-search').value; catPage=1; renderCatalogo(); }
+function setCatFiltro(f,btn){ catFiltroAtual=f; catPage=1; catSearchAtual=''; document.getElementById('cat-search').value=''; document.querySelectorAll('#cat-filtros button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderCatalogo(); }
+
+// ============================================================
+// ORÇAMENTOS
+// ============================================================
+function showOrcLista(){ document.getElementById('orc-lista').style.display='block'; document.getElementById('orc-form').style.display='none'; document.getElementById('orc-doc').style.display='none'; document.getElementById('orc-gerado').style.display='none'; }
+function showOrcForm(){ orcLinhas=[]; orcCount=0; document.getElementById('orc-linhas').innerHTML=''; calcOrcTotal(); document.getElementById('orc-lista').style.display='none'; document.getElementById('orc-form').style.display='block'; document.getElementById('orc-doc').style.display='none'; document.getElementById('orc-gerado').style.display='none'; addLinhaManual(); }
+function showOrcDoc(id){
+  document.getElementById('orc-lista').style.display='none';
+  document.getElementById('orc-form').style.display='none';
+  document.getElementById('orc-gerado').style.display='none';
+  const d=document.getElementById('orc-doc'); d.style.display='block';
+  const data_orc = id==='orc007'
+    ? {num:'ORC-2024-008',data:'13/05/2024',valido:'13/06/2024',estado:'Pendente',cliente:'Família Sousa',morada:'Rua do Cávado, 22 · 4720-010 Braga',nif:'234 567 890',tel:'916 789 012',obra:'Instalação canalização moradia Braga Norte',
+       linhas:[['Mão de obra','Instalação completa','3','dia','160,00','480,00'],['Tubo multicamada 16x2mm','Ref: MCTB16B5','15','m','4,50','67,50'],['Cotovelo multicamada 90° 16mm','Ref: MCC916','10','un','3,80','38,00'],['Torneira misturadora','Ref: TORN-MONO','2','un','70,00','140,00'],['Sifões e acessórios','Kit sanitários','1','un','77,00','77,00']],total:'802,50'}
+    : {num:'ORC-2024-007',data:'02/04/2024',valido:'02/05/2024',estado:'Aceite',cliente:'Lda. Monteiro',morada:'Rua do Loureiro, 8 · 4710-022 Braga',nif:'509 876 543',tel:'253 123 456',obra:'Substituição caldeira escritório',
+       linhas:[['Mão de obra','Instalação caldeira + ligações','2','dia','160,00','320,00'],['Caldeira mural gás 24kW','Ref: AQSTAC24','1','un','680,00','680,00'],['Kit instalação caldeira','Ref: AQSKIT34','1','kit','85,00','85,00']],total:'1.085,00'};
+  let linhasHtml=data_orc.linhas.map(l=>`<tr><td>${l[0]}<span class="sub-desc">${l[1]}</span></td><td style="text-align:center">${l[2]}</td><td style="text-align:center">${l[3]}</td><td>${l[4]} €</td><td>${l[5]} €</td></tr>`).join('');
+  d.innerHTML=`
+    <button class="back-btn" onclick="showOrcLista()"><i class="ti ti-arrow-left"></i>Voltar</button>
+    <div class="card">
+      <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><div class="empresa-nome">João Ferreira — Canalizador</div><div class="empresa-info">NIF: 123 456 789<br>Rua das Flores, 14 · 4700-001 Braga<br>☎ 912 345 678 · joao@email.pt</div></div>
+        <div><div class="doc-title">Orçamento</div><div class="doc-meta">N.º ${data_orc.num}<br>Data: ${data_orc.data}<br>Válido: ${data_orc.valido}</div></div>
+      </div></div>
+      <div class="cli-block"><div class="lbl">Cliente</div><div class="nome">${data_orc.cliente}</div><div class="sub">${data_orc.morada}</div><div class="sub">NIF: ${data_orc.nif} · ${data_orc.tel}</div></div>
+      <div class="card-sub" style="margin-bottom:.6rem"><strong>Obra:</strong> ${data_orc.obra}</div>
+      <table class="linhas"><thead><tr><th>Descrição</th><th style="text-align:center">Qtd</th><th style="text-align:center">Un</th><th>P.Unit.</th><th>Total</th></tr></thead><tbody>${linhasHtml}</tbody></table>
+      <hr class="div">
+      <div class="row-d"><span class="lbl">Subtotal</span><span class="val">${data_orc.total} €</span></div>
+      <div class="row-d"><span class="lbl">IVA (23%)</span><span class="val">incluído</span></div>
+      <div class="total-box"><span class="t-lbl">Total</span><span class="t-val">${data_orc.total} €</span></div>
+      <div class="nota" style="margin-top:.6rem;font-size:11px"><i class="ti ti-info-circle" style="margin-right:4px"></i>Documento não fiscal. Fatura oficial via software certificado AT.</div>
+      <div style="display:flex;gap:8px;margin-top:.75rem">
+        <button class="btn btn-sm" style="flex:1;justify-content:center"><i class="ti ti-file-download"></i>PDF</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><i class="ti ti-send"></i>Enviar</button>
+      </div>
+    </div>`;
+}
+
+// Picker catálogo
+function showCatalogoPicker(){ document.getElementById('modal-picker').style.display='flex'; document.getElementById('picker-search').value=''; filtrarPicker(); }
+function closeModalPicker(){ document.getElementById('modal-picker').style.display='none'; }
+function filtrarPicker(){
+  const q=document.getElementById('picker-search').value.toLowerCase();
+  const prods=PRODUTOS.filter(p=>!q||p.ref.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||p.dim.toLowerCase().includes(q)).slice(0,60);
+  let html='';
+  prods.forEach(p=>{
+    html+=`<div style="display:flex;align-items:center;gap:.5rem;padding:7px 0;border-bottom:1px solid var(--border)">
+      <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace">${p.ref}</div><div style="font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.desc}</div><div style="font-size:11px;color:var(--text2)">${p.dim} · ${p.un}</div></div>
+      <button class="add-btn" onclick='selectProduto(${JSON.stringify(p).replace(/'/g,"&#39;")})'>Sel.</button>
+    </div>`;
+  });
+  if(!html) html='<div class="empty" style="padding:1rem">Nenhum resultado</div>';
+  document.getElementById('picker-lista').innerHTML=html;
+}
+function selectProduto(p){ addProdutoFromPicker(p); closeModalPicker(); }
+function addProdutoFromPicker(p){
+  orcCount++;
+  const id=orcCount;
+  orcLinhas.push(id);
+  const div=document.createElement('div');
+  div.id='linha-'+id;
+  div.className='orc-line';
+  div.innerHTML=`<button class="orc-line-remove" onclick="removeLinha(${id})"><i class="ti ti-trash"></i></button>
+    <div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace;margin-bottom:4px">${p.ref}</div>
+    <label>Descrição</label><input type="text" id="desc-${id}" value="${p.desc}" oninput="calcOrcTotal()">
+    <div class="form-row"><div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcOrcTotal()"></div>
+    <div><label>Unidade</label><select id="un-${id}"><option ${p.un==='un'?'selected':''}>un</option><option ${p.un==='dia'?'selected':''}>dia</option><option ${p.un==='hora'?'selected':''}>hora</option><option ${p.un.startsWith('m')?'selected':''}>m</option><option>ml</option><option>m²</option><option>kit</option><option>rolo</option><option>barra</option></select></div></div>
+    <div class="form-row"><div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="${p.preco||0}" min="0" step="0.01" oninput="calcOrcTotal()"></div>
+    <div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div></div>`;
+  document.getElementById('orc-linhas').appendChild(div);
+  calcOrcTotal();
+}
+function addProdutoToOrc(p){ showSec('orcamentos'); showOrcForm(); addProdutoFromPicker(p); }
+function addLinhaManual(){
+  orcCount++;
+  const id=orcCount;
+  orcLinhas.push(id);
+  const div=document.createElement('div');
+  div.id='linha-'+id;
+  div.className='orc-line';
+  div.innerHTML=`<button class="orc-line-remove" onclick="removeLinha(${id})"><i class="ti ti-trash"></i></button>
+    <label>Descrição</label><input type="text" id="desc-${id}" placeholder="Ex: Mão de obra / Deslocação..." oninput="calcOrcTotal()">
+    <div class="form-row"><div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcOrcTotal()"></div>
+    <div><label>Unidade</label><select id="un-${id}"><option>un</option><option>dia</option><option>hora</option><option>m</option><option>ml</option><option>m²</option><option>kit</option><option>vb</option></select></div></div>
+    <div class="form-row"><div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="0" min="0" step="0.01" oninput="calcOrcTotal()"></div>
+    <div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div></div>`;
+  document.getElementById('orc-linhas').appendChild(div);
+  calcOrcTotal();
+}
+function removeLinha(id){ const el=document.getElementById('linha-'+id); if(el) el.remove(); orcLinhas=orcLinhas.filter(l=>l!==id); calcOrcTotal(); }
+function calcOrcTotal(){
+  let total=0;
+  orcLinhas.forEach(id=>{
+    const el=document.getElementById('linha-'+id); if(!el) return;
+    const q=parseFloat(document.getElementById('qtd-'+id)?.value)||0;
+    const p=parseFloat(document.getElementById('pu-'+id)?.value)||0;
+    const t=q*p; total+=t;
+    const tel=document.getElementById('tot-'+id); if(tel) tel.textContent=t.toFixed(2).replace('.',',')+' €';
+  });
+  document.getElementById('orc-total-preview').innerHTML=`<span class="t-lbl">Total</span><span class="t-val">${total.toFixed(2).replace('.',',')} €</span>`;
+}
+function gerarOrc(){
+  const nome=document.getElementById('cli-nome').value||'—';
+  const morada=document.getElementById('cli-morada').value||'';
+  const nif=document.getElementById('cli-nif').value||'';
+  const tel=document.getElementById('cli-tel').value||'';
+  const obra=document.getElementById('cli-obra').value||'';
+  let linhasHtml=''; let total=0;
+  orcLinhas.forEach(id=>{
+    const el=document.getElementById('linha-'+id); if(!el) return;
+    const desc=document.getElementById('desc-'+id)?.value||'—';
+    const qtd=parseFloat(document.getElementById('qtd-'+id)?.value)||0;
+    const un=document.getElementById('un-'+id)?.value||'';
+    const pu=parseFloat(document.getElementById('pu-'+id)?.value)||0;
+    const t=qtd*pu; total+=t;
+    linhasHtml+=`<tr><td>${desc}</td><td style="text-align:center">${qtd}</td><td style="text-align:center">${un}</td><td>${pu.toFixed(2).replace('.',',')} €</td><td>${t.toFixed(2).replace('.',',')} €</td></tr>`;
+  });
+  const today=new Date();
+  const fmt=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+  const valid=new Date(today); valid.setDate(valid.getDate()+30);
+  const num='ORC-'+today.getFullYear()+'-'+(Math.floor(Math.random()*90)+10);
+  const cliInfo=[morada,nif?'NIF: '+nif:'',tel].filter(Boolean).join(' · ');
+  document.getElementById('orc-form').style.display='none';
+  const d=document.getElementById('orc-gerado'); d.style.display='block';
+  d.innerHTML=`
+    <button class="back-btn" onclick="document.getElementById('orc-gerado').style.display='none';document.getElementById('orc-form').style.display='block'"><i class="ti ti-arrow-left"></i>Editar</button>
+    <div class="card">
+      <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><div class="empresa-nome">João Ferreira — Canalizador</div><div class="empresa-info">NIF: 123 456 789<br>Rua das Flores, 14 · 4700-001 Braga<br>☎ 912 345 678 · joao@email.pt</div></div>
+        <div><div class="doc-title">Orçamento</div><div class="doc-meta">N.º ${num}<br>Data: ${fmt(today)}<br>Válido: ${fmt(valid)}</div></div>
+      </div></div>
+      <div class="cli-block"><div class="lbl">Cliente</div><div class="nome">${nome}</div>${cliInfo?`<div class="sub">${cliInfo}</div>`:''}</div>
+      ${obra?`<div class="card-sub" style="margin-bottom:.6rem"><strong>Obra:</strong> ${obra}</div>`:''}
+      <table class="linhas"><thead><tr><th>Descrição</th><th style="text-align:center">Qtd</th><th style="text-align:center">Un</th><th>P.Unit.</th><th>Total</th></tr></thead><tbody>${linhasHtml}</tbody></table>
+      <hr class="div">
+      <div class="row-d"><span class="lbl">Subtotal</span><span class="val">${total.toFixed(2).replace('.',',')} €</span></div>
+      <div class="row-d"><span class="lbl">IVA (23%)</span><span class="val">incluído</span></div>
+      <div class="total-box"><span class="t-lbl">Total</span><span class="t-val">${total.toFixed(2).replace('.',',')} €</span></div>
+      <div class="nota" style="margin-top:.6rem;font-size:11px"><i class="ti ti-info-circle" style="margin-right:4px"></i>Documento não fiscal. Fatura oficial via software certificado AT.</div>
+      <div style="display:flex;gap:8px;margin-top:.75rem">
+        <button class="btn btn-sm" style="flex:1;justify-content:center"><i class="ti ti-file-download"></i>PDF</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><i class="ti ti-send"></i>Enviar cliente</button>
+      </div>
+    </div>`;
+}
+
+// ============================================================
+// MATERIAIS + ENVIO
+// ============================================================
+function updateMatStatus(obraId){
+  document.querySelectorAll(`#items-${obraId} .chk-item`).forEach(item=>{
+    const cb=item.querySelector('input[type=checkbox]');
+    if(cb.checked) item.classList.add('done'); else item.classList.remove('done');
+  });
+}
+function buildMsg(obraId, obraName, fornName){
+  const items=document.querySelectorAll(`#items-${obraId} .chk-item`);
+  const pendentes=[];
+  items.forEach(item=>{ if(!item.querySelector('input').checked) pendentes.push(`  • ${item.dataset.item} — ${item.dataset.qty}`); });
+  const today=new Date(); const fmt=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+  if(!pendentes.length) return `Bom dia ${fornName},\n\nNão há materiais pendentes para a obra "${obraName}".\n\nObrigado,\nJoão Ferreira – Canalizador\n☎ 912 345 678`;
+  return `Bom dia ${fornName},\n\nPedido de encomenda — ${fmt(today)}\nObra: ${obraName}\n\nMateriais necessários:\n${pendentes.join('\n')}\n\nPor favor confirmar disponibilidade e prazo de entrega.\n\nObrigado,\nJoão Ferreira – Canalizador\n☎ 912 345 678`;
+}
+const OBRA_NAMES={braga:'Moradia Braga Norte',boavista:'Apartamento Av. da Boavista'};
+function enviarWA(obraId, fornName, numero){
+  const msg=buildMsg(obraId, OBRA_NAMES[obraId], fornName);
+  document.getElementById('envio-title').textContent='WhatsApp → '+fornName;
+  document.getElementById('envio-preview').textContent=msg;
+  const btn=document.getElementById('envio-confirm');
+  btn.innerHTML='<i class="ti ti-brand-whatsapp"></i>Abrir WhatsApp';
+  btn.style.background='#25D366'; btn.style.borderColor='#25D366';
+  btn.onclick=()=>{ window.open('https://wa.me/'+numero+'?text='+encodeURIComponent(msg),'_blank'); closeModalEnvio(); };
+  document.getElementById('modal-envio').style.display='flex';
+}
+function enviarEmail(obraId, fornName, email){
+  const msg=buildMsg(obraId, OBRA_NAMES[obraId], fornName);
+  const subj='Pedido de encomenda — '+OBRA_NAMES[obraId];
+  document.getElementById('envio-title').textContent='Email → '+fornName;
+  document.getElementById('envio-preview').textContent=msg;
+  const btn=document.getElementById('envio-confirm');
+  btn.innerHTML='<i class="ti ti-mail"></i>Abrir email';
+  btn.style.background='var(--blue)'; btn.style.borderColor='var(--blue)';
+  btn.onclick=()=>{ window.open('mailto:'+email+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg),'_blank'); closeModalEnvio(); };
+  document.getElementById('modal-envio').style.display='flex';
+}
+function closeModalEnvio(){ document.getElementById('modal-envio').style.display='none'; }
+
+// Init
+renderObras('todas');
+renderCatalogo();
+</script>
+</body>
+</html>
