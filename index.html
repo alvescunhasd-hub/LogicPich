@@ -4,118 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>ObraFácil</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --blue:#185FA5;--blue-l:#E6F1FB;--blue-m:#378ADD;
-  --green:#2E6B0E;--green-l:#EAF3DE;--green-m:#5A9E2F;
+  --green:#3B6D11;--green-l:#EAF3DE;
   --amber:#854F0B;--amber-l:#FAEEDA;
   --red:#A32D2D;--red-l:#FCEBEB;
-  --gray:#F4F3EE;--gray-m:#888780;--border:#E0DDD5;
+  --bg:#F4F3EE;--card:#FFFFFF;--text:#1A1917;--text2:#6B6960;--border:#E0DDD5;
   --wa:#25D366;--wa-d:#128C7E;
-  --bg:#F4F3EE;--card:#FFFFFF;--text:#1A1917;--text2:#6B6960;
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;padding-bottom:70px}
-/* HEADER */
-.header{background:var(--blue);color:#fff;padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.header-title{font-size:17px;font-weight:600;letter-spacing:.3px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;padding-bottom:75px}
+.header{background:var(--blue);color:#fff;padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header-title{font-size:17px;font-weight:700}
 .header-sub{font-size:11px;opacity:.75;margin-top:1px}
-/* NAV */
-.nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:56px;z-index:40;overflow-x:auto}
-.nav-btn{flex:1;min-width:62px;padding:10px 4px 8px;border:none;background:none;cursor:pointer;font-size:11px;font-weight:500;color:var(--text2);border-bottom:2px solid transparent;display:flex;flex-direction:column;align-items:center;gap:2px;transition:color .15s;white-space:nowrap}
-.nav-btn i{font-size:20px}
+.header-user{font-size:11px;text-align:right;opacity:.85;cursor:pointer}
+.nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:57px;z-index:40;overflow-x:auto}
+.nav-btn{flex:1;min-width:55px;padding:10px 4px 8px;border:none;background:none;cursor:pointer;font-size:10px;font-weight:600;color:var(--text2);border-bottom:2.5px solid transparent;display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap;transition:color .15s}
+.nav-btn .ico{font-size:20px;line-height:1}
 .nav-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
-/* SECTIONS */
 .section{display:none;padding:.75rem}
 .section.active{display:block}
-/* CARDS */
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;margin-bottom:.6rem}
-.card-clickable{cursor:pointer;transition:box-shadow .15s}
-.card-clickable:active{box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;margin-bottom:.65rem}
+.card-click{cursor:pointer;transition:transform .1s}
+.card-click:active{transform:scale(.99)}
 .card-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
 .card-title{font-size:15px;font-weight:600}
 .card-sub{font-size:12px;color:var(--text2)}
-/* BADGES */
 .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
 .b-green{background:var(--green-l);color:var(--green)}
 .b-amber{background:var(--amber-l);color:var(--amber)}
 .b-blue{background:var(--blue-l);color:var(--blue)}
 .b-red{background:var(--red-l);color:var(--red)}
-/* STATS */
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:.75rem}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem .9rem}
-.stat-label{font-size:11px;color:var(--text2);margin-bottom:3px}
+.stat-lbl{font-size:11px;color:var(--text2);margin-bottom:3px}
 .stat-val{font-size:22px;font-weight:700}
-/* BTN */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:13px;font-weight:500;color:var(--text);transition:background .15s}
-.btn:hover{background:var(--gray)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:13px;font-weight:600;color:var(--text);transition:background .15s;text-decoration:none}
+.btn:active{background:var(--bg)}
 .btn-primary{background:var(--blue);color:#fff;border-color:var(--blue)}
-.btn-primary:hover{background:#0C447C}
+.btn-primary:active{background:#0C447C}
 .btn-wa{background:var(--wa);color:#fff;border-color:var(--wa)}
-.btn-sm{padding:6px 10px;font-size:12px}
-.btn-icon{padding:7px;border-radius:8px}
-/* SECTION HEADER */
+.btn-sm{padding:6px 11px;font-size:12px}
 .sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
-.sec-title{font-size:16px;font-weight:600}
-/* DIVIDER */
-hr.div{border:none;border-top:1px solid var(--border);margin:.6rem 0}
-/* ROW DETAIL */
+.sec-title{font-size:16px;font-weight:700}
+hr.div{border:none;border-top:1px solid var(--border);margin:.65rem 0}
 .row-d{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:13px;border-bottom:1px solid var(--border)}
 .row-d:last-child{border-bottom:none}
 .row-d .lbl{color:var(--text2)}
 .row-d .val{font-weight:500}
-/* PROGRESS */
-.prog{height:5px;background:var(--gray);border-radius:3px;margin-top:7px}
-.prog-fill{height:100%;border-radius:3px;background:var(--blue-m)}
-/* INPUTS */
-input,select,textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;background:var(--card);color:var(--text);margin-bottom:7px;outline:none}
-input:focus,select:focus,textarea:focus{border-color:var(--blue)}
-label{font-size:12px;color:var(--text2);display:block;margin-bottom:3px}
+.prog{height:5px;background:var(--bg);border-radius:3px;margin-top:7px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;background:var(--blue-m);transition:width .3s}
+input,select,textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;background:var(--card);color:var(--text);margin-bottom:7px;outline:none;-webkit-appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,95,165,.1)}
+label{font-size:12px;color:var(--text2);display:block;margin-bottom:3px;font-weight:500}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-/* TOTAL BOX */
 .total-box{background:var(--blue-l);border-radius:10px;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;margin-top:.6rem}
 .total-box .t-lbl{font-size:13px;font-weight:600;color:var(--blue)}
-.total-box .t-val{font-size:19px;font-weight:700;color:var(--blue)}
-/* NOTA */
-.nota{background:var(--amber-l);border-radius:8px;padding:.65rem .9rem;font-size:12px;color:var(--amber);margin-top:.6rem}
-.nota-red{background:var(--red-l);color:var(--red)}
-/* TAG */
-.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;background:var(--gray);color:var(--text2);margin:1px}
-/* CHECKLIST */
-.chk-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.total-box .t-val{font-size:20px;font-weight:700;color:var(--blue)}
+.nota{background:var(--amber-l);border-radius:8px;padding:.65rem .9rem;font-size:12px;color:var(--amber);margin-top:.6rem;line-height:1.5}
+.nota-info{background:var(--blue-l);color:var(--blue)}
+.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;background:var(--bg);color:var(--text2);margin:1px}
+.chk-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.4}
 .chk-item:last-child{border-bottom:none}
-.chk-item input[type=checkbox]{width:17px;height:17px;cursor:pointer;flex-shrink:0;accent-color:var(--blue)}
+.chk-item input[type=checkbox]{width:18px;height:18px;cursor:pointer;flex-shrink:0;accent-color:var(--blue)}
 .chk-item.done span{text-decoration:line-through;color:var(--text2)}
 .chk-qty{font-size:11px;color:var(--text2);margin-left:auto;padding-left:8px;white-space:nowrap}
-/* BACK BTN */
-.back-btn{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--blue);cursor:pointer;background:none;border:none;padding:0;margin-bottom:.75rem;font-weight:500}
-/* TABS INNER */
-.tabs-inner{display:flex;gap:6px;margin-bottom:.75rem;flex-wrap:wrap}
-.tabs-inner button{padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--card);font-size:12px;cursor:pointer;color:var(--text2);transition:all .15s}
+.back-btn{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--blue);cursor:pointer;background:none;border:none;padding:0;margin-bottom:.75rem;font-weight:600}
+.tabs-inner{display:flex;gap:6px;margin-bottom:.75rem;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+.tabs-inner::-webkit-scrollbar{display:none}
+.tabs-inner button{padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--card);font-size:12px;cursor:pointer;color:var(--text2);white-space:nowrap;font-weight:500}
 .tabs-inner button.active{background:var(--blue-l);color:var(--blue);border-color:var(--blue)}
-/* CATALOGUE SEARCH */
-.search-box{position:relative;margin-bottom:.75rem}
-.search-box input{padding-left:38px;margin:0}
-.search-box i{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text2);font-size:18px}
-.prod-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem}
+.search-wrap{position:relative;margin-bottom:.75rem}
+.search-wrap input{padding-left:40px;margin:0}
+.search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--text2);pointer-events:none}
+.prod-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem .85rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.7rem}
 .prod-info{flex:1;min-width:0}
-.prod-ref{font-size:11px;font-weight:700;color:var(--blue);font-family:monospace}
-.prod-desc{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.prod-meta{font-size:11px;color:var(--text2);margin-top:2px}
-.prod-preco{font-size:13px;font-weight:700;color:var(--blue);white-space:nowrap;text-align:right}
+.prod-ref{font-size:11px;font-weight:700;color:var(--blue);font-family:monospace;letter-spacing:.3px}
+.prod-desc{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prod-meta{font-size:11px;color:var(--text2);margin-top:1px}
+.prod-right{text-align:right;flex-shrink:0}
+.prod-preco{font-size:13px;font-weight:700;color:var(--blue)}
 .prod-preco.vazio{font-size:11px;color:var(--text2)}
-.add-btn{background:var(--blue);color:#fff;border:none;border-radius:7px;padding:6px 10px;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0}
-.add-btn:active{background:#0C447C}
-/* CAT GROUP HEADER */
-.cat-header{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;padding:.5rem 0 .25rem;border-bottom:1px solid var(--border);margin-bottom:.4rem}
-/* DOCUMENT */
+.add-orc-btn{display:block;background:var(--blue);color:#fff;border:none;border-radius:7px;padding:5px 10px;font-size:12px;font-weight:600;cursor:pointer;margin-top:4px;white-space:nowrap}
+.add-orc-btn:active{background:#0C447C}
+.cat-header{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;padding:.5rem 0 .3rem;border-bottom:1px solid var(--border);margin-bottom:.4rem;margin-top:.5rem}
 .doc-header{border-bottom:2px solid var(--blue);padding-bottom:.9rem;margin-bottom:.9rem}
 .empresa-nome{font-size:17px;font-weight:700;color:var(--blue)}
-.empresa-info{font-size:11px;color:var(--text2);line-height:1.8;margin-top:3px}
+.empresa-info{font-size:11px;color:var(--text2);line-height:1.9;margin-top:3px}
 .doc-title{font-size:20px;font-weight:700;text-align:right}
-.doc-meta{font-size:11px;color:var(--text2);text-align:right;line-height:1.8}
-.cli-block{background:var(--gray);border-radius:8px;padding:.7rem .9rem;margin-bottom:.75rem}
+.doc-meta{font-size:11px;color:var(--text2);text-align:right;line-height:1.9}
+.cli-block{background:var(--bg);border-radius:8px;padding:.7rem .9rem;margin-bottom:.75rem}
 .cli-block .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:3px}
 .cli-block .nome{font-size:14px;font-weight:600}
 .cli-block .sub{font-size:12px;color:var(--text2)}
@@ -124,76 +103,78 @@ table.linhas th{font-size:10px;font-weight:700;color:var(--text2);padding:5px 3p
 table.linhas th:nth-child(n+3){text-align:right}
 table.linhas td{padding:7px 3px;border-bottom:1px solid var(--border);vertical-align:top}
 table.linhas td:nth-child(n+3){text-align:right;font-weight:500;white-space:nowrap}
-table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
-/* MODAL */
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:200;padding:0}
-.modal{background:var(--card);border-radius:16px 16px 0 0;padding:1.25rem;width:100%;max-width:520px}
-.modal-title{font-size:15px;font-weight:600;margin-bottom:.75rem}
-.modal-preview{background:var(--gray);border-radius:8px;padding:.75rem;font-size:12px;line-height:1.8;max-height:180px;overflow-y:auto;margin-bottom:.75rem;white-space:pre-wrap}
-/* ORC LINE */
-.orc-line{background:var(--gray);border-radius:8px;padding:.7rem;margin-bottom:6px;position:relative}
-.orc-line-remove{position:absolute;top:6px;right:6px;background:none;border:none;cursor:pointer;color:var(--red);font-size:16px}
-/* NON FISCAL BANNER */
+table.linhas .sub-d{font-size:10px;color:var(--text2);display:block}
 .non-fiscal{font-size:10px;font-weight:700;letter-spacing:.8px;color:var(--text2);border:1px solid var(--border);display:inline-block;padding:2px 9px;border-radius:4px;margin-bottom:8px}
-/* PAGINAÇÃO */
-.pag-info{font-size:12px;color:var(--text2);text-align:center;padding:.5rem 0}
-/* EMPTY */
-.empty{text-align:center;padding:2rem;color:var(--text2)}
-.empty i{font-size:40px;display:block;margin-bottom:.75rem;opacity:.3}
+.orc-line{background:var(--bg);border-radius:8px;padding:.75rem;margin-bottom:6px;position:relative}
+.orc-line-del{position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:var(--red);font-size:18px;line-height:1;padding:2px}
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;z-index:200}
+.modal{background:var(--card);border-radius:16px 16px 0 0;padding:1.25rem;width:100%;max-width:540px;max-height:85vh;overflow-y:auto}
+.modal-title{font-size:15px;font-weight:700;margin-bottom:.75rem}
+.modal-preview{background:var(--bg);border-radius:8px;padding:.75rem;font-size:12px;line-height:1.8;max-height:200px;overflow-y:auto;margin-bottom:.75rem;white-space:pre-wrap;font-family:monospace}
+.pag-wrap{display:flex;gap:8px;justify-content:center;align-items:center;padding:.75rem 0}
+.empty{text-align:center;padding:2rem 1rem;color:var(--text2)}
+.empty .ico{font-size:40px;display:block;margin-bottom:.75rem;opacity:.3}
+.config-section{margin-bottom:1rem}
+.config-section-title{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.saved-banner{background:var(--green-l);color:var(--green);border-radius:8px;padding:.6rem 1rem;font-size:13px;font-weight:600;text-align:center;margin-bottom:.75rem;display:none}
 </style>
 </head>
 <body>
 
 <div class="header">
   <div>
-    <div class="header-title"><span>🔧</span>ObraFácil</div>
-    <div class="header-sub">Gestão de Obras para Canalizadores</div>
+    <div class="header-title">&#128295; ObraFácil</div>
+    <div class="header-sub">Gestão de Obras · Sanitop Portugal</div>
   </div>
-  <div style="font-size:11px;text-align:right;opacity:.8">João Ferreira<br>Canalizador</div>
+  <div class="header-user" onclick="showSec('config')">
+    <span id="hdr-nome">&#9881; Configurar</span>
+    <div style="font-size:10px;opacity:.7">Toque para editar</div>
+  </div>
 </div>
 
-<nav class="nav">
-  <button class="nav-btn active" onclick="showSec('dashboard')"><span>🏠</span>Início</button>
-  <button class="nav-btn" onclick="showSec('obras')"><span>🏗️</span>Obras</button>
-  <button class="nav-btn" onclick="showSec('orcamentos')"><span>📄</span>Orçamentos</button>
-  <button class="nav-btn" onclick="showSec('materiais')"><span>📦</span>Materiais</button>
-  <button class="nav-btn" onclick="showSec('catalogo')"><span>🔍</span>Catálogo</button>
+<nav class="nav" role="navigation" aria-label="Menu principal">
+  <button class="nav-btn active" onclick="showSec('dashboard')"><span class="ico">&#127968;</span>Início</button>
+  <button class="nav-btn" onclick="showSec('obras')"><span class="ico">&#127959;</span>Obras</button>
+  <button class="nav-btn" onclick="showSec('orcamentos')"><span class="ico">&#128196;</span>Orçamentos</button>
+  <button class="nav-btn" onclick="showSec('materiais')"><span class="ico">&#128230;</span>Materiais</button>
+  <button class="nav-btn" onclick="showSec('catalogo')"><span class="ico">&#128269;</span>Catálogo</button>
+  <button class="nav-btn" onclick="showSec('config')"><span class="ico">&#9881;</span>Config.</button>
 </nav>
 
-<!-- ======================== DASHBOARD ======================== -->
+<!-- ===== DASHBOARD ===== -->
 <div id="dashboard" class="section active">
   <div class="stats">
-    <div class="stat"><div class="stat-label">Obras em curso</div><div class="stat-val" style="color:var(--blue)">3</div></div>
-    <div class="stat"><div class="stat-label">Obras concluídas</div><div class="stat-val" style="color:var(--green)">12</div></div>
-    <div class="stat"><div class="stat-label">Orçamentos abertos</div><div class="stat-val" style="color:var(--amber)">2</div></div>
-    <div class="stat"><div class="stat-label">A faturar (€)</div><div class="stat-val">4.850</div></div>
+    <div class="stat"><div class="stat-lbl">Obras em curso</div><div class="stat-val" style="color:var(--blue)">3</div></div>
+    <div class="stat"><div class="stat-lbl">Obras concluídas</div><div class="stat-val" style="color:var(--green)">12</div></div>
+    <div class="stat"><div class="stat-lbl">Orçamentos abertos</div><div class="stat-val" style="color:var(--amber)">2</div></div>
+    <div class="stat"><div class="stat-lbl">A faturar (€)</div><div class="stat-val">4.850</div></div>
   </div>
   <div class="sec-title" style="margin-bottom:.6rem">Obras recentes</div>
-  <div class="card card-clickable" onclick="openObra(0)">
+  <div class="card card-click" onclick="openObra(0)">
     <div class="card-row"><span class="card-title">Apartamento Av. da Boavista</span><span class="badge b-amber">Em curso</span></div>
-    <div class="card-sub">Porto · Sr. Carvalho</div>
+    <div class="card-sub">Porto &middot; Sr. Carvalho</div>
     <div class="prog"><div class="prog-fill" style="width:65%"></div></div>
     <div class="card-sub" style="margin-top:4px;font-size:11px">65% concluído</div>
   </div>
-  <div class="card card-clickable" onclick="openObra(1)">
+  <div class="card card-click" onclick="openObra(1)">
     <div class="card-row"><span class="card-title">Moradia Braga Norte</span><span class="badge b-blue">A iniciar</span></div>
-    <div class="card-sub">Braga · Família Sousa</div>
+    <div class="card-sub">Braga &middot; Família Sousa</div>
     <div class="prog"><div class="prog-fill" style="width:10%"></div></div>
     <div class="card-sub" style="margin-top:4px;font-size:11px">10% concluído</div>
   </div>
-  <div class="card card-clickable" onclick="openObra(2)">
+  <div class="card card-click" onclick="openObra(2)">
     <div class="card-row"><span class="card-title">Escritório Rua do Loureiro</span><span class="badge b-amber">Em curso</span></div>
-    <div class="card-sub">Braga · Lda. Monteiro</div>
+    <div class="card-sub">Braga &middot; Lda. Monteiro</div>
     <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
     <div class="card-sub" style="margin-top:4px;font-size:11px">80% concluído</div>
   </div>
-  <div class="nota"><span>🔔</span><strong>Lembrete:</strong> Encomenda pendente para "Braga Norte" — ver Materiais.</div>
+  <div class="nota">&#128276; <strong>Lembrete:</strong> Encomenda pendente para "Braga Norte" — ver Materiais.</div>
 </div>
 
-<!-- ======================== OBRAS ======================== -->
+<!-- ===== OBRAS ===== -->
 <div id="obras" class="section">
   <div id="obras-lista">
-    <div class="sec-header"><span class="sec-title">Obras</span><button class="btn btn-primary btn-sm" onclick="showNovaObra()"><span>+</span>Nova</button></div>
+    <div class="sec-header"><span class="sec-title">Obras</span><button class="btn btn-primary btn-sm" onclick="showNovaObra()">+ Nova</button></div>
     <div class="tabs-inner">
       <button class="active" onclick="filtrarObras('todas',this)">Todas</button>
       <button onclick="filtrarObras('curso',this)">Em curso</button>
@@ -203,78 +184,84 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
     <div id="obras-container"></div>
   </div>
   <div id="obra-detalhe" style="display:none"></div>
-  <div id="obra-form" style="display:none">
-    <button class="back-btn" onclick="document.getElementById('obra-form').style.display='none';document.getElementById('obras-lista').style.display='block'"><span>←</span>Voltar</button>
+  <div id="obra-nova" style="display:none">
+    <button class="back-btn" onclick="hideNovaObra()">&#8592; Voltar</button>
     <div class="card">
       <div class="sec-title" style="margin-bottom:.75rem">Nova Obra</div>
-      <label>Nome da obra</label><input type="text" placeholder="Ex: Moradia Sr. Silva">
-      <label>Cliente</label><input type="text" placeholder="Nome do cliente">
-      <label>Morada / Localização</label><input type="text" placeholder="Cidade ou morada">
-      <div class="form-row"><div><label>Data início</label><input type="text" placeholder="dd/mm/aaaa"></div><div><label>Valor est. (€)</label><input type="number" placeholder="0"></div></div>
-      <label>Notas</label><textarea rows="3" placeholder="Descrição dos trabalhos..."></textarea>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px"><span>✓</span>Criar Obra</button>
+      <label>Nome da obra</label><input type="text" id="nova-nome" placeholder="Ex: Moradia Sr. Silva">
+      <label>Cliente</label><input type="text" id="nova-cliente" placeholder="Nome do cliente">
+      <label>Morada / Localização</label><input type="text" id="nova-local" placeholder="Cidade ou morada">
+      <div class="form-row">
+        <div><label>Data início</label><input type="text" id="nova-data" placeholder="dd/mm/aaaa"></div>
+        <div><label>Valor est. (€)</label><input type="number" id="nova-valor" placeholder="0"></div>
+      </div>
+      <label>Notas</label><textarea rows="3" id="nova-nota" placeholder="Descrição dos trabalhos..."></textarea>
+      <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="criarObra()">&#10003; Criar Obra</button>
     </div>
   </div>
 </div>
 
-<!-- ======================== ORÇAMENTOS ======================== -->
+<!-- ===== ORÇAMENTOS ===== -->
 <div id="orcamentos" class="section">
   <div id="orc-lista">
-    <div class="sec-header"><span class="sec-title">Orçamentos</span><button class="btn btn-primary btn-sm" onclick="showOrcForm()"><span>+</span>Novo</button></div>
-    <div class="card card-clickable" onclick="showOrcDoc('orc007')">
+    <div class="sec-header"><span class="sec-title">Orçamentos</span><button class="btn btn-primary btn-sm" onclick="showOrcForm()">+ Novo</button></div>
+    <div class="card card-click" onclick="showOrcDoc(0)">
       <div class="card-row"><span class="card-title">ORC-2024-008</span><span class="badge b-amber">Pendente</span></div>
-      <div class="card-sub">Família Sousa · Moradia Braga Norte</div>
-      <div class="card-sub" style="margin-top:3px;font-size:12px;color:var(--blue)">802,50 € · Ver documento →</div>
+      <div class="card-sub">Família Sousa &middot; Moradia Braga Norte</div>
+      <div class="card-sub" style="margin-top:3px;font-size:12px;color:var(--blue)">802,50 € &rarr;</div>
     </div>
-    <div class="card card-clickable" onclick="showOrcDoc('orc008')">
+    <div class="card card-click" onclick="showOrcDoc(1)">
       <div class="card-row"><span class="card-title">ORC-2024-007</span><span class="badge b-green">Aceite</span></div>
-      <div class="card-sub">Lda. Monteiro · Escritório Rua do Loureiro</div>
-      <div class="card-sub" style="margin-top:3px;font-size:12px;color:var(--blue)">1.085,00 € · Ver documento →</div>
+      <div class="card-sub">Lda. Monteiro &middot; Escritório Rua do Loureiro</div>
+      <div class="card-sub" style="margin-top:3px;font-size:12px;color:var(--blue)">1.085,00 € &rarr;</div>
     </div>
   </div>
   <div id="orc-form" style="display:none">
-    <button class="back-btn" onclick="showOrcLista()"><span>←</span>Voltar</button>
+    <button class="back-btn" onclick="showOrcLista()">&#8592; Voltar</button>
     <div class="card">
       <div class="sec-title" style="margin-bottom:.75rem">Novo Orçamento</div>
-      <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Dados do cliente</div>
-      <label>Nome / Empresa</label><input type="text" id="cli-nome" placeholder="Sr. Manuel Silva / Lda. Sousa">
-      <label>Morada</label><input type="text" id="cli-morada" placeholder="Rua, nº, código postal, cidade">
-      <div class="form-row"><div><label>NIF</label><input type="text" id="cli-nif" placeholder="123 456 789"></div><div><label>Telefone</label><input type="text" id="cli-tel" placeholder="9xx xxx xxx"></div></div>
-      <label>Obra / Descrição</label><input type="text" id="cli-obra" placeholder="Ex: Instalação canalização moradia">
+      <div class="config-section-title">Dados do cliente</div>
+      <label>Nome / Empresa</label><input type="text" id="cli-nome" placeholder="Sr. Manuel Silva">
+      <label>Morada</label><input type="text" id="cli-morada" placeholder="Rua, nº, código postal">
+      <div class="form-row">
+        <div><label>NIF</label><input type="text" id="cli-nif" placeholder="123 456 789"></div>
+        <div><label>Telefone</label><input type="text" id="cli-tel" placeholder="9xx xxx xxx"></div>
+      </div>
+      <label>Obra / Descrição</label><input type="text" id="cli-obra" placeholder="Ex: Instalação canalização">
       <hr class="div">
-      <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Linhas do orçamento</div>
+      <div class="config-section-title">Linhas do orçamento</div>
       <div id="orc-linhas"></div>
-      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addLinhaManual()"><span>✏️</span>Linha manual</button>
-      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:.75rem;background:var(--blue-l);color:var(--blue);border-color:var(--blue)" onclick="showCatalogoPicker()"><span>🔍</span>Adicionar do catálogo</button>
-      <div class="total-box" id="orc-total-preview"><span class="t-lbl">Total</span><span class="t-val">0,00 €</span></div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.75rem" onclick="gerarOrc()"><span>👁</span>Visualizar orçamento</button>
+      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addLinhaManual()">&#9998; Linha manual</button>
+      <button class="btn btn-sm btn-primary" style="width:100%;justify-content:center;margin-bottom:.75rem" onclick="showPicker()">&#128269; Adicionar do catálogo</button>
+      <div class="total-box" id="orc-total"><span class="t-lbl">Total</span><span class="t-val">0,00 €</span></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.75rem" onclick="gerarOrc()">&#128065; Visualizar orçamento</button>
     </div>
   </div>
   <div id="orc-doc" style="display:none"></div>
   <div id="orc-gerado" style="display:none"></div>
 </div>
 
-<!-- ======================== MATERIAIS ======================== -->
+<!-- ===== MATERIAIS ===== -->
 <div id="materiais" class="section">
   <div class="sec-title" style="margin-bottom:.75rem">Materiais por obra</div>
   <div class="card">
     <div class="card-row"><span class="card-title">Moradia Braga Norte</span><span class="badge b-red">Encomenda pendente</span></div>
     <div class="card-sub" style="margin-bottom:.6rem">Cliente: Família Sousa</div>
     <div id="items-braga">
-      <div class="chk-item" data-item="Tubo multicamada 16x2mm" data-qty="20 m" data-forn="Sanitop Portugal"><input type="checkbox" onchange="updateMatStatus('braga')"><span>Tubo multicamada 16x2mm (MCTB16B5)</span><span class="chk-qty">20 m</span></div>
-      <div class="chk-item" data-item="Cotovelo multicamada 16mm 90°" data-qty="10 un" data-forn="Sanitop Portugal"><input type="checkbox" onchange="updateMatStatus('braga')"><span>Cotovelo multicamada 16mm 90° (MCC916)</span><span class="chk-qty">10 un</span></div>
-      <div class="chk-item" data-item="Torneira misturadora monocomando" data-qty="2 un" data-forn="Bruma"><input type="checkbox" onchange="updateMatStatus('braga')"><span>Torneira misturadora monocomando</span><span class="chk-qty">2 un</span></div>
-      <div class="chk-item done" data-item="Silicone sanitário branco 280ml" data-qty="2 un" data-forn="Sanitop Portugal"><input type="checkbox" checked onchange="updateMatStatus('braga')"><span>Silicone sanitário branco 280ml (SILSIL00)</span><span class="chk-qty">2 un</span></div>
-      <div class="chk-item done" data-item="Válvula corte latão 1/2pol F/F" data-qty="4 un" data-forn="Sanitop Portugal"><input type="checkbox" checked onchange="updateMatStatus('braga')"><span>Válvula corte latão 1/2" (LATVC12)</span><span class="chk-qty">4 un</span></div>
+      <div class="chk-item" data-item="Tubo multicamada 16x2mm" data-qty="20 m" data-forn="Sanitop Portugal"><input type="checkbox" onchange="updateMat(this)"><span>Tubo multicamada 16x2mm (MCTB16B5)</span><span class="chk-qty">20 m</span></div>
+      <div class="chk-item" data-item="Cotovelo multicamada 16mm 90" data-qty="10 un" data-forn="Sanitop Portugal"><input type="checkbox" onchange="updateMat(this)"><span>Cotovelo multicamada 16mm 90° (MCC916)</span><span class="chk-qty">10 un</span></div>
+      <div class="chk-item" data-item="Torneira misturadora monocomando" data-qty="2 un" data-forn="Bruma"><input type="checkbox" onchange="updateMat(this)"><span>Torneira misturadora monocomando</span><span class="chk-qty">2 un</span></div>
+      <div class="chk-item done" data-item="Silicone sanitario branco 280ml" data-qty="2 un" data-forn="Sanitop Portugal"><input type="checkbox" checked onchange="updateMat(this)"><span>Silicone sanitário branco 280ml (SILSIL00)</span><span class="chk-qty">2 un</span></div>
+      <div class="chk-item done" data-item="Valvula corte lato 1/2pol F/F" data-qty="4 un" data-forn="Sanitop Portugal"><input type="checkbox" checked onchange="updateMat(this)"><span>Válvula corte latão 1/2pol (LATVC12)</span><span class="chk-qty">4 un</span></div>
     </div>
     <hr class="div">
-    <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Enviar encomenda</div>
-    <div style="background:var(--gray);border-radius:8px;padding:.7rem">
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0">
-        <div><div style="font-size:13px;font-weight:600">Sanitop Portugal</div><div style="font-size:11px;color:var(--text2)">sanitop@sanitop.pt · +351 258 105 400</div></div>
+    <div class="config-section-title" style="margin-bottom:8px">Enviar encomenda</div>
+    <div style="background:var(--bg);border-radius:8px;padding:.7rem">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-size:13px;font-weight:600">Sanitop Portugal</div><div style="font-size:11px;color:var(--text2)">sanitop@sanitop.pt</div></div>
         <div style="display:flex;gap:6px">
-          <button class="btn btn-wa btn-sm" onclick="enviarWA('braga','Sanitop Portugal','351258105400')"><span>💬</span>WA</button>
-          <button class="btn btn-primary btn-sm" onclick="enviarEmail('braga','Sanitop Portugal','sanitop@sanitop.pt')"><span>✉️</span>Email</button>
+          <button class="btn btn-wa btn-sm" onclick="enviarWA('braga','Sanitop Portugal','351258105400')">&#128172; WA</button>
+          <button class="btn btn-primary btn-sm" onclick="enviarEmail('braga','Sanitop Portugal','sanitop@sanitop.pt')">&#9993; Email</button>
         </div>
       </div>
     </div>
@@ -283,16 +270,16 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
     <div class="card-row"><span class="card-title">Apartamento Av. da Boavista</span><span class="badge b-green">Materiais OK</span></div>
     <div class="card-sub" style="margin-bottom:.6rem">Cliente: Sr. Carvalho</div>
     <div class="chk-item done"><input type="checkbox" checked><span>Caldeira mural a gás 24kW (AQSTAC24)</span><span class="chk-qty">1 un</span></div>
-    <div class="chk-item done"><input type="checkbox" checked><span>Tubo cobre rígido 18x1mm (CUTB18B5)</span><span class="chk-qty">8 m</span></div>
+    <div class="chk-item done"><input type="checkbox" checked><span>Tubo cobre 18x1mm barra 5m (CUTB18B5)</span><span class="chk-qty">8 m</span></div>
     <div class="chk-item done"><input type="checkbox" checked><span>Kit ligação termoacumulador 3/4pol (AQSKIT34)</span><span class="chk-qty">1 kit</span></div>
   </div>
 </div>
 
-<!-- ======================== CATÁLOGO ======================== -->
+<!-- ===== CATÁLOGO ===== -->
 <div id="catalogo" class="section">
-  <div class="sec-header"><span class="sec-title">Catálogo Sanitop</span><span style="font-size:11px;color:var(--text2)" id="cat-count"></span></div>
-  <div class="search-box"><span>🔍</span><input type="text" id="cat-search" placeholder="Pesquisar ref., descrição, dim... ex: MCC9, PPR 20mm" oninput="filtrarCatalogo()"></div>
-  <div class="tabs-inner" id="cat-filtros" style="overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px">
+  <div class="sec-header"><span class="sec-title">Catálogo Sanitop</span><span id="cat-count" style="font-size:11px;color:var(--text2)"></span></div>
+  <div class="search-wrap"><span class="search-ico">&#128269;</span><input type="text" id="cat-search" placeholder="Ref., descrição, dimensão... ex: MCC9, PPR 20mm" oninput="filtrarCat()"></div>
+  <div class="tabs-inner" id="cat-tabs">
     <button class="active" onclick="setCatFiltro('',this)">Todos</button>
     <button onclick="setCatFiltro('Multicamada',this)">Multicamada</button>
     <button onclick="setCatFiltro('PPR',this)">PPR</button>
@@ -306,36 +293,68 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
     <button onclick="setCatFiltro('AQS',this)">AQS</button>
   </div>
   <div id="cat-lista"></div>
-  <div id="cat-pag" class="pag-info"></div>
+  <div id="cat-pag"></div>
 </div>
 
-<!-- MODAL PICKER CATÁLOGO -->
-<div id="modal-picker" class="modal-ov" style="display:none" onclick="if(event.target===this)closeModalPicker()">
-  <div class="modal" style="max-height:80vh;overflow-y:auto">
-    <div class="modal-title"><span>🔍</span>Selecionar produto do catálogo</div>
-    <div class="search-box"><span>🔍</span><input type="text" id="picker-search" placeholder="Pesquisar..." oninput="filtrarPicker()" style="margin:0"></div>
-    <div id="picker-lista" style="margin-top:8px;max-height:350px;overflow-y:auto"></div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:.5rem" onclick="closeModalPicker()">Cancelar</button>
+<!-- ===== CONFIGURAÇÕES ===== -->
+<div id="config" class="section">
+  <div class="sec-title" style="margin-bottom:.75rem">&#9881; Configurações</div>
+  <div id="saved-ok" class="saved-banner">&#10003; Dados guardados com sucesso!</div>
+  <div class="card">
+    <div class="config-section-title">Dados do profissional</div>
+    <label>Nome completo / Empresa</label><input type="text" id="cfg-nome" placeholder="Ex: João Ferreira">
+    <label>Profissão</label><input type="text" id="cfg-prof" placeholder="Ex: Canalizador">
+    <label>NIF</label><input type="text" id="cfg-nif" placeholder="123 456 789">
+    <div class="form-row">
+      <div><label>Telefone</label><input type="text" id="cfg-tel" placeholder="912 345 678"></div>
+      <div><label>Telemóvel</label><input type="text" id="cfg-telem" placeholder="9xx xxx xxx"></div>
+    </div>
+    <label>Email</label><input type="email" id="cfg-email" placeholder="email@exemplo.pt">
+    <label>Morada</label><input type="text" id="cfg-morada" placeholder="Rua, nº, código postal, cidade">
+  </div>
+  <div class="card">
+    <div class="config-section-title">Fornecedor principal</div>
+    <label>Nome do fornecedor</label><input type="text" id="cfg-forn-nome" placeholder="Ex: Sanitop Portugal">
+    <div class="form-row">
+      <div><label>Email fornecedor</label><input type="text" id="cfg-forn-email" placeholder="fornecedor@email.pt"></div>
+      <div><label>WhatsApp / Tel.</label><input type="text" id="cfg-forn-tel" placeholder="351258105400"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="config-section-title">Taxas de mão de obra</div>
+    <div class="form-row">
+      <div><label>Preço por dia (€)</label><input type="number" id="cfg-dia" placeholder="160"></div>
+      <div><label>Preço por hora (€)</label><input type="number" id="cfg-hora" placeholder="22"></div>
+    </div>
+  </div>
+  <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:15px;padding:12px" onclick="guardarConfig()">&#10003; Guardar configurações</button>
+  <div class="nota nota-info" style="margin-top:.75rem">&#8505;&#65039; Os seus dados aparecem automaticamente em todos os orçamentos e documentos.</div>
+</div>
+
+<!-- MODAL PICKER -->
+<div id="modal-picker" class="modal-ov" style="display:none">
+  <div class="modal">
+    <div class="modal-title">&#128269; Selecionar produto do catálogo</div>
+    <div class="search-wrap" style="margin-bottom:.5rem"><span class="search-ico">&#128269;</span><input type="text" id="picker-q" placeholder="Pesquisar..." oninput="filtrarPicker()" style="margin:0"></div>
+    <div id="picker-lista" style="max-height:320px;overflow-y:auto"></div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:.5rem" onclick="closePicker()">Cancelar</button>
   </div>
 </div>
 
 <!-- MODAL ENVIO -->
-<div id="modal-envio" class="modal-ov" style="display:none" onclick="if(event.target===this)closeModalEnvio()">
+<div id="modal-envio" class="modal-ov" style="display:none">
   <div class="modal">
     <div class="modal-title" id="envio-title"></div>
     <div class="modal-preview" id="envio-preview"></div>
     <div style="display:flex;gap:8px">
-      <button class="btn" style="flex:1;justify-content:center" onclick="closeModalEnvio()"><span>✕</span>Cancelar</button>
-      <button class="btn" id="envio-confirm" style="flex:1;justify-content:center;color:#fff"></button>
+      <button class="btn" style="flex:1;justify-content:center" onclick="closeEnvio()">&#10005; Cancelar</button>
+      <button id="envio-btn" class="btn" style="flex:1;justify-content:center;color:#fff"></button>
     </div>
   </div>
 </div>
 
 <script>
-// ============================================================
-// BASE DE DADOS PRODUTOS SANITOP — 667 REFERÊNCIAS
-// ============================================================
-const PRODUTOS = [
+const PRODUTOS=[
   {ref:"MCTB16B5",desc:"Tubo multicamada 16x2mm — barra 5m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"16x2 mm",un:"barra 5m",preco:"",nota:""},
   {ref:"MCTB20B5",desc:"Tubo multicamada 20x2mm — barra 5m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"20x2 mm",un:"barra 5m",preco:"",nota:""},
   {ref:"MCTB26B5",desc:"Tubo multicamada 26x3mm — barra 5m",mat:"Multicamada",cat:"Tubagem Multicamada",dim:"26x3 mm",un:"barra 5m",preco:"",nota:""},
@@ -359,14 +378,14 @@ const PRODUTOS = [
   {ref:"MCC426",desc:"Cotovelo multicamada 26mm 45° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26 mm",un:"un",preco:"",nota:""},
   {ref:"MCC932",desc:"Cotovelo multicamada 32mm 90° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32 mm",un:"un",preco:"",nota:""},
   {ref:"MCC432",desc:"Cotovelo multicamada 32mm 45° F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32 mm",un:"un",preco:"",nota:""},
-  {ref:"MCC91612",desc:"Cotovelo multicamada 16mm 90° macho 1/2pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"MCC91612-02",desc:"Cotovelo multicamada 16mm 90° fêmea 1/2pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"MCC92034",desc:"Cotovelo multicamada 20mm 90° macho 3/4pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"MCC92034-02",desc:"Cotovelo multicamada 20mm 90° fêmea 3/4pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"MCC9261",desc:"Cotovelo multicamada 26mm 90° macho 1pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"MCC9261-02",desc:"Cotovelo multicamada 26mm 90° fêmea 1pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"MCC932114",desc:"Cotovelo multicamada 32mm 90° macho 1pol1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"MCC932114-02",desc:"Cotovelo multicamada 32mm 90° fêmea 1pol1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"MCC91612",desc:"Cotovelo multicamada 16mm 90° macho 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCC91612-02",desc:"Cotovelo multicamada 16mm 90° fêmea 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCC92034",desc:"Cotovelo multicamada 20mm 90° macho 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCC92034-02",desc:"Cotovelo multicamada 20mm 90° fêmea 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCC9261",desc:"Cotovelo multicamada 26mm 90° macho 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCC9261-02",desc:"Cotovelo multicamada 26mm 90° fêmea 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCC932114",desc:"Cotovelo multicamada 32mm 90° macho 1\"1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"MCC932114-02",desc:"Cotovelo multicamada 32mm 90° fêmea 1\"1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
   {ref:"MCTE16",desc:"Tê multicamada 16mm F/F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16 mm",un:"un",preco:"",nota:""},
   {ref:"MCTE20",desc:"Tê multicamada 20mm F/F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20 mm",un:"un",preco:"",nota:""},
   {ref:"MCTE26",desc:"Tê multicamada 26mm F/F/F",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26 mm",un:"un",preco:"",nota:""},
@@ -386,22 +405,22 @@ const PRODUTOS = [
   {ref:"MCRD32",desc:"Redução multicamada 32x20mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32x20 mm",un:"un",preco:"",nota:""},
   {ref:"MCRD32-02",desc:"Redução multicamada 32x26mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32x26 mm",un:"un",preco:"",nota:""},
   {ref:"MCRD40",desc:"Redução multicamada 40x32mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"40x32 mm",un:"un",preco:"",nota:""},
-  {ref:"MCLM1612",desc:"Ligação reta multicamada 16mm macho 1/2pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"MCLF1612",desc:"Ligação reta multicamada 16mm fêmea 1/2pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"MCLM1634",desc:"Ligação reta multicamada 16mm macho 3/4pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"MCLF1634",desc:"Ligação reta multicamada 16mm fêmea 3/4pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"MCLM2012",desc:"Ligação reta multicamada 20mm macho 1/2pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"MCLF2012",desc:"Ligação reta multicamada 20mm fêmea 1/2pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"MCLM2034",desc:"Ligação reta multicamada 20mm macho 3/4pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"MCLF2034",desc:"Ligação reta multicamada 20mm fêmea 3/4pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"MCLM2634",desc:"Ligação reta multicamada 26mm macho 3/4pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"MCLF2634",desc:"Ligação reta multicamada 26mm fêmea 3/4pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"MCLM261",desc:"Ligação reta multicamada 26mm macho 1pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"MCLF261",desc:"Ligação reta multicamada 26mm fêmea 1pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"MCLM321",desc:"Ligação reta multicamada 32mm macho 1pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"MCLF321",desc:"Ligação reta multicamada 32mm fêmea 1pol",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"MCLM32114",desc:"Ligação reta multicamada 32mm macho 1pol1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"MCLF32114",desc:"Ligação reta multicamada 32mm fêmea 1pol1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"MCLM1612",desc:"Ligação reta multicamada 16mm macho 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCLF1612",desc:"Ligação reta multicamada 16mm fêmea 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCLM1634",desc:"Ligação reta multicamada 16mm macho 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLF1634",desc:"Ligação reta multicamada 16mm fêmea 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLM2012",desc:"Ligação reta multicamada 20mm macho 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCLF2012",desc:"Ligação reta multicamada 20mm fêmea 1/2\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"MCLM2034",desc:"Ligação reta multicamada 20mm macho 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLF2034",desc:"Ligação reta multicamada 20mm fêmea 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLM2634",desc:"Ligação reta multicamada 26mm macho 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLF2634",desc:"Ligação reta multicamada 26mm fêmea 3/4\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"MCLM261",desc:"Ligação reta multicamada 26mm macho 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCLF261",desc:"Ligação reta multicamada 26mm fêmea 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"26mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCLM321",desc:"Ligação reta multicamada 32mm macho 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCLF321",desc:"Ligação reta multicamada 32mm fêmea 1\"",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"MCLM32114",desc:"Ligação reta multicamada 32mm macho 1\"1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"MCLF32114",desc:"Ligação reta multicamada 32mm fêmea 1\"1/4",mat:"Multicamada",cat:"Acess. Multicamada",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
   {ref:"MCCLP16",desc:"Clip de fixação multicamada 16mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16 mm",un:"un",preco:"",nota:""},
   {ref:"MCTE16-02",desc:"Suporte duplo multicamada 16mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"16 mm",un:"un",preco:"",nota:""},
   {ref:"MCCLP20",desc:"Clip de fixação multicamada 20mm",mat:"Multicamada",cat:"Acess. Multicamada",dim:"20 mm",un:"un",preco:"",nota:""},
@@ -439,18 +458,18 @@ const PRODUTOS = [
   {ref:"PPRC440",desc:"Cotovelo PPR 45° 40mm",mat:"PPR",cat:"Acess. PPR",dim:"40 mm",un:"un",preco:"",nota:""},
   {ref:"PPRC450",desc:"Cotovelo PPR 45° 50mm",mat:"PPR",cat:"Acess. PPR",dim:"50 mm",un:"un",preco:"",nota:""},
   {ref:"PPRC463",desc:"Cotovelo PPR 45° 63mm",mat:"PPR",cat:"Acess. PPR",dim:"63 mm",un:"un",preco:"",nota:""},
-  {ref:"PPRC92012",desc:"Cotovelo PPR 90° 20mm macho 1/2pol",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"PPRC92534",desc:"Cotovelo PPR 90° 25mm macho 3/4pol",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"PPRC9321",desc:"Cotovelo PPR 90° 32mm macho 1pol",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"PPRC940114",desc:"Cotovelo PPR 90° 40mm macho 1pol1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"PPRC95012",desc:"Cotovelo PPR 90° 50mm macho 1pol1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"PPRC9632",desc:"Cotovelo PPR 90° 63mm macho 2pol",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
-  {ref:"PPRC92012-02",desc:"Cotovelo PPR 90° 20mm fêmea 1/2pol",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"PPRC92534-02",desc:"Cotovelo PPR 90° 25mm fêmea 3/4pol",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"PPRC9321-02",desc:"Cotovelo PPR 90° 32mm fêmea 1pol",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"PPRC940114-02",desc:"Cotovelo PPR 90° 40mm fêmea 1pol1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"PPRC95012-02",desc:"Cotovelo PPR 90° 50mm fêmea 1pol1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"PPRC9632-02",desc:"Cotovelo PPR 90° 63mm fêmea 2pol",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRC92012",desc:"Cotovelo PPR 90° 20mm macho 1/2\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PPRC92534",desc:"Cotovelo PPR 90° 25mm macho 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRC9321",desc:"Cotovelo PPR 90° 32mm macho 1\"",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRC940114",desc:"Cotovelo PPR 90° 40mm macho 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRC95012",desc:"Cotovelo PPR 90° 50mm macho 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRC9632",desc:"Cotovelo PPR 90° 63mm macho 2\"",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRC92012-02",desc:"Cotovelo PPR 90° 20mm fêmea 1/2\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PPRC92534-02",desc:"Cotovelo PPR 90° 25mm fêmea 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRC9321-02",desc:"Cotovelo PPR 90° 32mm fêmea 1\"",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRC940114-02",desc:"Cotovelo PPR 90° 40mm fêmea 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRC95012-02",desc:"Cotovelo PPR 90° 50mm fêmea 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRC9632-02",desc:"Cotovelo PPR 90° 63mm fêmea 2\"",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
   {ref:"PPRTE20",desc:"Tê PPR igual 20mm",mat:"PPR",cat:"Acess. PPR",dim:"20 mm",un:"un",preco:"",nota:""},
   {ref:"PPRTE25",desc:"Tê PPR igual 25mm",mat:"PPR",cat:"Acess. PPR",dim:"25 mm",un:"un",preco:"",nota:""},
   {ref:"PPRTE32",desc:"Tê PPR igual 32mm",mat:"PPR",cat:"Acess. PPR",dim:"32 mm",un:"un",preco:"",nota:""},
@@ -487,26 +506,26 @@ const PRODUTOS = [
   {ref:"PPRRD63-02",desc:"Redução PPR 63x50mm",mat:"PPR",cat:"Acess. PPR",dim:"63x50 mm",un:"un",preco:"",nota:""},
   {ref:"PPRRD75",desc:"Redução PPR 75x63mm",mat:"PPR",cat:"Acess. PPR",dim:"75x63 mm",un:"un",preco:"",nota:""},
   {ref:"PPRRD90",desc:"Redução PPR 90x75mm",mat:"PPR",cat:"Acess. PPR",dim:"90x75 mm",un:"un",preco:"",nota:""},
-  {ref:"PPRLM2012",desc:"Ligação reta PPR 20mm macho 1/2pol",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"PPRLM2034",desc:"Ligação reta PPR 20mm macho 3/4pol",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"PPRLM2534",desc:"Ligação reta PPR 25mm macho 3/4pol",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"PPRLM251",desc:"Ligação reta PPR 25mm macho 1pol",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"PPRLM321",desc:"Ligação reta PPR 32mm macho 1pol",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"PPRLM32114",desc:"Ligação reta PPR 32mm macho 1pol1/4",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"PPRLM40114",desc:"Ligação reta PPR 40mm macho 1pol1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"PPRLM4012",desc:"Ligação reta PPR 40mm macho 1pol1/2",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"PPRLM5012",desc:"Ligação reta PPR 50mm macho 1pol1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"PPRLM502",desc:"Ligação reta PPR 50mm macho 2pol",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 2"",un:"un",preco:"",nota:""},
-  {ref:"PPRLM632",desc:"Ligação reta PPR 63mm macho 2pol",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
-  {ref:"PPRLF2012",desc:"Ligação reta PPR 20mm fêmea 1/2pol",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"PPRLF2034",desc:"Ligação reta PPR 20mm fêmea 3/4pol",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"PPRLF2534",desc:"Ligação reta PPR 25mm fêmea 3/4pol",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"PPRLF251",desc:"Ligação reta PPR 25mm fêmea 1pol",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"PPRLF321",desc:"Ligação reta PPR 32mm fêmea 1pol",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"PPRLF32114",desc:"Ligação reta PPR 32mm fêmea 1pol1/4",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"PPRLF40114",desc:"Ligação reta PPR 40mm fêmea 1pol1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"PPRLF5012",desc:"Ligação reta PPR 50mm fêmea 1pol1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"PPRLF632",desc:"Ligação reta PPR 63mm fêmea 2pol",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM2012",desc:"Ligação reta PPR 20mm macho 1/2\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM2034",desc:"Ligação reta PPR 20mm macho 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM2534",desc:"Ligação reta PPR 25mm macho 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM251",desc:"Ligação reta PPR 25mm macho 1\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM321",desc:"Ligação reta PPR 32mm macho 1\"",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM32114",desc:"Ligação reta PPR 32mm macho 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRLM40114",desc:"Ligação reta PPR 40mm macho 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRLM4012",desc:"Ligação reta PPR 40mm macho 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRLM5012",desc:"Ligação reta PPR 50mm macho 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRLM502",desc:"Ligação reta PPR 50mm macho 2\"",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRLM632",desc:"Ligação reta PPR 63mm macho 2\"",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF2012",desc:"Ligação reta PPR 20mm fêmea 1/2\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF2034",desc:"Ligação reta PPR 20mm fêmea 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF2534",desc:"Ligação reta PPR 25mm fêmea 3/4\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF251",desc:"Ligação reta PPR 25mm fêmea 1\"",mat:"PPR",cat:"Acess. PPR",dim:"25mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF321",desc:"Ligação reta PPR 32mm fêmea 1\"",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PPRLF32114",desc:"Ligação reta PPR 32mm fêmea 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRLF40114",desc:"Ligação reta PPR 40mm fêmea 1\"1/4",mat:"PPR",cat:"Acess. PPR",dim:"40mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PPRLF5012",desc:"Ligação reta PPR 50mm fêmea 1\"1/2",mat:"PPR",cat:"Acess. PPR",dim:"50mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PPRLF632",desc:"Ligação reta PPR 63mm fêmea 2\"",mat:"PPR",cat:"Acess. PPR",dim:"63mm x 2"",un:"un",preco:"",nota:""},
   {ref:"PPRTAP20",desc:"Tampão PPR 20mm",mat:"PPR",cat:"Acess. PPR",dim:"20 mm",un:"un",preco:"",nota:""},
   {ref:"PPRTAP25",desc:"Tampão PPR 25mm",mat:"PPR",cat:"Acess. PPR",dim:"25 mm",un:"un",preco:"",nota:""},
   {ref:"PPRTAP32",desc:"Tampão PPR 32mm",mat:"PPR",cat:"Acess. PPR",dim:"32 mm",un:"un",preco:"",nota:""},
@@ -550,14 +569,14 @@ const PRODUTOS = [
   {ref:"PEXTE32",desc:"Tê igual Pex 32mm",mat:"Pex",cat:"Acess. Pex",dim:"32 mm",un:"un",preco:"",nota:""},
   {ref:"PEXMG32",desc:"Manga Pex 32mm",mat:"Pex",cat:"Acess. Pex",dim:"32 mm",un:"un",preco:"",nota:""},
   {ref:"PEXTAP32",desc:"Tampão Pex 32mm",mat:"Pex",cat:"Acess. Pex",dim:"32 mm",un:"un",preco:"",nota:""},
-  {ref:"PEXLM1612",desc:"Ligação reta Pex 16mm macho 1/2pol",mat:"Pex",cat:"Acess. Pex",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"PEXLF1612",desc:"Ligação reta Pex 16mm fêmea 1/2pol",mat:"Pex",cat:"Acess. Pex",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"PEXLM2034",desc:"Ligação reta Pex 20mm macho 3/4pol",mat:"Pex",cat:"Acess. Pex",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"PEXLF2034",desc:"Ligação reta Pex 20mm fêmea 3/4pol",mat:"Pex",cat:"Acess. Pex",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"PEXLM251",desc:"Ligação reta Pex 25mm macho 1pol",mat:"Pex",cat:"Acess. Pex",dim:"25mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"PEXLF251",desc:"Ligação reta Pex 25mm fêmea 1pol",mat:"Pex",cat:"Acess. Pex",dim:"25mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"PEXLM32114",desc:"Ligação reta Pex 32mm macho 1pol1/4",mat:"Pex",cat:"Acess. Pex",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"PEXLF32114",desc:"Ligação reta Pex 32mm fêmea 1pol1/4",mat:"Pex",cat:"Acess. Pex",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PEXLM1612",desc:"Ligação reta Pex 16mm macho 1/2\"",mat:"Pex",cat:"Acess. Pex",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PEXLF1612",desc:"Ligação reta Pex 16mm fêmea 1/2\"",mat:"Pex",cat:"Acess. Pex",dim:"16mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"PEXLM2034",desc:"Ligação reta Pex 20mm macho 3/4\"",mat:"Pex",cat:"Acess. Pex",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PEXLF2034",desc:"Ligação reta Pex 20mm fêmea 3/4\"",mat:"Pex",cat:"Acess. Pex",dim:"20mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"PEXLM251",desc:"Ligação reta Pex 25mm macho 1\"",mat:"Pex",cat:"Acess. Pex",dim:"25mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PEXLF251",desc:"Ligação reta Pex 25mm fêmea 1\"",mat:"Pex",cat:"Acess. Pex",dim:"25mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"PEXLM32114",desc:"Ligação reta Pex 32mm macho 1\"1/4",mat:"Pex",cat:"Acess. Pex",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PEXLF32114",desc:"Ligação reta Pex 32mm fêmea 1\"1/4",mat:"Pex",cat:"Acess. Pex",dim:"32mm x 1"1/4",un:"un",preco:"",nota:""},
   {ref:"CUTB10B5",desc:"Tubo cobre rígido 10x1mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"10x1 mm",un:"barra 5m",preco:"",nota:""},
   {ref:"CUTB12B5",desc:"Tubo cobre rígido 12x1mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"12x1 mm",un:"barra 5m",preco:"",nota:""},
   {ref:"CUTB14B5",desc:"Tubo cobre rígido 14x1mm — barra 5m",mat:"Cobre",cat:"Tubagem Cobre",dim:"14x1 mm",un:"barra 5m",preco:"",nota:""},
@@ -592,24 +611,24 @@ const PRODUTOS = [
   {ref:"CUC428",desc:"Cotovelo cobre soldar 45° 28mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"28 mm",un:"un",preco:"",nota:""},
   {ref:"CUC435",desc:"Cotovelo cobre soldar 45° 35mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"35 mm",un:"un",preco:"",nota:""},
   {ref:"CUC442",desc:"Cotovelo cobre soldar 45° 42mm F/F",mat:"Cobre",cat:"Acess. Cobre",dim:"42 mm",un:"un",preco:"",nota:""},
-  {ref:"CUC91512",desc:"Cotovelo cobre 90° 15mm macho 1/2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"CUC91512-02",desc:"Cotovelo cobre 90° 15mm fêmea 1/2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"CUC91812",desc:"Cotovelo cobre 90° 18mm macho 1/2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"CUC91812-02",desc:"Cotovelo cobre 90° 18mm fêmea 1/2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"CUC91834",desc:"Cotovelo cobre 90° 18mm macho 3/4pol",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"CUC91834-02",desc:"Cotovelo cobre 90° 18mm fêmea 3/4pol",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"CUC92234",desc:"Cotovelo cobre 90° 22mm macho 3/4pol",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"CUC92234-02",desc:"Cotovelo cobre 90° 22mm fêmea 3/4pol",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"CUC9221",desc:"Cotovelo cobre 90° 22mm macho 1pol",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"CUC9221-02",desc:"Cotovelo cobre 90° 22mm fêmea 1pol",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"CUC9281",desc:"Cotovelo cobre 90° 28mm macho 1pol",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"CUC9281-02",desc:"Cotovelo cobre 90° 28mm fêmea 1pol",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"CUC928114",desc:"Cotovelo cobre 90° 28mm macho 1pol1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"CUC928114-02",desc:"Cotovelo cobre 90° 28mm fêmea 1pol1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"CUC935114",desc:"Cotovelo cobre 90° 35mm macho 1pol1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"CUC935114-02",desc:"Cotovelo cobre 90° 35mm fêmea 1pol1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"CUC94212",desc:"Cotovelo cobre 90° 42mm macho 1pol1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"CUC94212-02",desc:"Cotovelo cobre 90° 42mm fêmea 1pol1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"CUC91512",desc:"Cotovelo cobre 90° 15mm macho 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CUC91512-02",desc:"Cotovelo cobre 90° 15mm fêmea 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CUC91812",desc:"Cotovelo cobre 90° 18mm macho 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CUC91812-02",desc:"Cotovelo cobre 90° 18mm fêmea 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CUC91834",desc:"Cotovelo cobre 90° 18mm macho 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CUC91834-02",desc:"Cotovelo cobre 90° 18mm fêmea 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CUC92234",desc:"Cotovelo cobre 90° 22mm macho 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CUC92234-02",desc:"Cotovelo cobre 90° 22mm fêmea 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CUC9221",desc:"Cotovelo cobre 90° 22mm macho 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CUC9221-02",desc:"Cotovelo cobre 90° 22mm fêmea 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CUC9281",desc:"Cotovelo cobre 90° 28mm macho 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CUC9281-02",desc:"Cotovelo cobre 90° 28mm fêmea 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CUC928114",desc:"Cotovelo cobre 90° 28mm macho 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CUC928114-02",desc:"Cotovelo cobre 90° 28mm fêmea 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CUC935114",desc:"Cotovelo cobre 90° 35mm macho 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CUC935114-02",desc:"Cotovelo cobre 90° 35mm fêmea 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CUC94212",desc:"Cotovelo cobre 90° 42mm macho 1\"1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"CUC94212-02",desc:"Cotovelo cobre 90° 42mm fêmea 1\"1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
   {ref:"CUTE12",desc:"Tê cobre soldar igual 12mm",mat:"Cobre",cat:"Acess. Cobre",dim:"12 mm",un:"un",preco:"",nota:""},
   {ref:"CUTE15",desc:"Tê cobre soldar igual 15mm",mat:"Cobre",cat:"Acess. Cobre",dim:"15 mm",un:"un",preco:"",nota:""},
   {ref:"CUTE18",desc:"Tê cobre soldar igual 18mm",mat:"Cobre",cat:"Acess. Cobre",dim:"18 mm",un:"un",preco:"",nota:""},
@@ -641,26 +660,26 @@ const PRODUTOS = [
   {ref:"CURD35",desc:"Redução cobre soldar 35x28mm",mat:"Cobre",cat:"Acess. Cobre",dim:"35x28 mm",un:"un",preco:"",nota:""},
   {ref:"CURD42",desc:"Redução cobre soldar 42x35mm",mat:"Cobre",cat:"Acess. Cobre",dim:"42x35 mm",un:"un",preco:"",nota:""},
   {ref:"CURD54",desc:"Redução cobre soldar 54x42mm",mat:"Cobre",cat:"Acess. Cobre",dim:"54x42 mm",un:"un",preco:"",nota:""},
-  {ref:"CULM1512",desc:"Ligação reta cobre 15mm macho 1/2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"CULF1512",desc:"Ligação reta cobre 15mm fêmea 1/2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"CULM1812",desc:"Ligação reta cobre 18mm macho 1/2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"CULF1812",desc:"Ligação reta cobre 18mm fêmea 1/2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"CULM1834",desc:"Ligação reta cobre 18mm macho 3/4pol",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"CULF1834",desc:"Ligação reta cobre 18mm fêmea 3/4pol",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"CULM2234",desc:"Ligação reta cobre 22mm macho 3/4pol",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"CULF2234",desc:"Ligação reta cobre 22mm fêmea 3/4pol",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"CULM221",desc:"Ligação reta cobre 22mm macho 1pol",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"CULF221",desc:"Ligação reta cobre 22mm fêmea 1pol",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"CULM281",desc:"Ligação reta cobre 28mm macho 1pol",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"CULF281",desc:"Ligação reta cobre 28mm fêmea 1pol",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"CULM28114",desc:"Ligação reta cobre 28mm macho 1pol1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"CULF28114",desc:"Ligação reta cobre 28mm fêmea 1pol1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"CULM35114",desc:"Ligação reta cobre 35mm macho 1pol1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"CULF35114",desc:"Ligação reta cobre 35mm fêmea 1pol1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"CULM4212",desc:"Ligação reta cobre 42mm macho 1pol1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"CULF4212",desc:"Ligação reta cobre 42mm fêmea 1pol1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"CULM542",desc:"Ligação reta cobre 54mm macho 2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"54mm x 2"",un:"un",preco:"",nota:""},
-  {ref:"CULF542",desc:"Ligação reta cobre 54mm fêmea 2pol",mat:"Cobre",cat:"Acess. Cobre",dim:"54mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"CULM1512",desc:"Ligação reta cobre 15mm macho 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CULF1512",desc:"Ligação reta cobre 15mm fêmea 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CULM1812",desc:"Ligação reta cobre 18mm macho 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CULF1812",desc:"Ligação reta cobre 18mm fêmea 1/2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"CULM1834",desc:"Ligação reta cobre 18mm macho 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CULF1834",desc:"Ligação reta cobre 18mm fêmea 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CULM2234",desc:"Ligação reta cobre 22mm macho 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CULF2234",desc:"Ligação reta cobre 22mm fêmea 3/4\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"CULM221",desc:"Ligação reta cobre 22mm macho 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CULF221",desc:"Ligação reta cobre 22mm fêmea 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CULM281",desc:"Ligação reta cobre 28mm macho 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CULF281",desc:"Ligação reta cobre 28mm fêmea 1\"",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"CULM28114",desc:"Ligação reta cobre 28mm macho 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CULF28114",desc:"Ligação reta cobre 28mm fêmea 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CULM35114",desc:"Ligação reta cobre 35mm macho 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CULF35114",desc:"Ligação reta cobre 35mm fêmea 1\"1/4",mat:"Cobre",cat:"Acess. Cobre",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"CULM4212",desc:"Ligação reta cobre 42mm macho 1\"1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"CULF4212",desc:"Ligação reta cobre 42mm fêmea 1\"1/2",mat:"Cobre",cat:"Acess. Cobre",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"CULM542",desc:"Ligação reta cobre 54mm macho 2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"54mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"CULF542",desc:"Ligação reta cobre 54mm fêmea 2\"",mat:"Cobre",cat:"Acess. Cobre",dim:"54mm x 2"",un:"un",preco:"",nota:""},
   {ref:"CUSOL00",desc:"Soldadura em fio estanho-cobre 250g",mat:"—",cat:"Consumíveis Cobre",dim:"—",un:"un",preco:"",nota:"Soldar cobre"},
   {ref:"CUSOL00-02",desc:"Soldadura em fio estanho-cobre 500g",mat:"—",cat:"Consumíveis Cobre",dim:"—",un:"un",preco:"",nota:""},
   {ref:"CUTE00",desc:"Decapante pasta para cobre 150ml",mat:"—",cat:"Consumíveis Cobre",dim:"—",un:"un",preco:"",nota:""},
@@ -713,26 +732,26 @@ const PRODUTOS = [
   {ref:"INXRD35",desc:"Redução inox press 35x28mm",mat:"Inox",cat:"Acess. Inox",dim:"35x28 mm",un:"un",preco:"",nota:""},
   {ref:"INXRD42",desc:"Redução inox press 42x35mm",mat:"Inox",cat:"Acess. Inox",dim:"42x35 mm",un:"un",preco:"",nota:""},
   {ref:"INXRD54",desc:"Redução inox press 54x42mm",mat:"Inox",cat:"Acess. Inox",dim:"54x42 mm",un:"un",preco:"",nota:""},
-  {ref:"INXLM1512",desc:"Ligação inox press 15mm macho 1/2pol",mat:"Inox",cat:"Acess. Inox",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"INXLF1512",desc:"Ligação inox press 15mm fêmea 1/2pol",mat:"Inox",cat:"Acess. Inox",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"INXLM1812",desc:"Ligação inox press 18mm macho 1/2pol",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"INXLF1812",desc:"Ligação inox press 18mm fêmea 1/2pol",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
-  {ref:"INXLM1834",desc:"Ligação inox press 18mm macho 3/4pol",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"INXLF1834",desc:"Ligação inox press 18mm fêmea 3/4pol",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"INXLM2234",desc:"Ligação inox press 22mm macho 3/4pol",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"INXLF2234",desc:"Ligação inox press 22mm fêmea 3/4pol",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
-  {ref:"INXLM221",desc:"Ligação inox press 22mm macho 1pol",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"INXLF221",desc:"Ligação inox press 22mm fêmea 1pol",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"INXLM281",desc:"Ligação inox press 28mm macho 1pol",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"INXLF281",desc:"Ligação inox press 28mm fêmea 1pol",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"",un:"un",preco:"",nota:""},
-  {ref:"INXLM28114",desc:"Ligação inox press 28mm macho 1pol1/4",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"INXLF28114",desc:"Ligação inox press 28mm fêmea 1pol1/4",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"INXLM35114",desc:"Ligação inox press 35mm macho 1pol1/4",mat:"Inox",cat:"Acess. Inox",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"INXLF35114",desc:"Ligação inox press 35mm fêmea 1pol1/4",mat:"Inox",cat:"Acess. Inox",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
-  {ref:"INXLM4212",desc:"Ligação inox press 42mm macho 1pol1/2",mat:"Inox",cat:"Acess. Inox",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"INXLF4212",desc:"Ligação inox press 42mm fêmea 1pol1/2",mat:"Inox",cat:"Acess. Inox",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
-  {ref:"INXLM542",desc:"Ligação inox press 54mm macho 2pol",mat:"Inox",cat:"Acess. Inox",dim:"54mm x 2"",un:"un",preco:"",nota:""},
-  {ref:"INXLF542",desc:"Ligação inox press 54mm fêmea 2pol",mat:"Inox",cat:"Acess. Inox",dim:"54mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"INXLM1512",desc:"Ligação inox press 15mm macho 1/2\"",mat:"Inox",cat:"Acess. Inox",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXLF1512",desc:"Ligação inox press 15mm fêmea 1/2\"",mat:"Inox",cat:"Acess. Inox",dim:"15mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXLM1812",desc:"Ligação inox press 18mm macho 1/2\"",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXLF1812",desc:"Ligação inox press 18mm fêmea 1/2\"",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXLM1834",desc:"Ligação inox press 18mm macho 3/4\"",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXLF1834",desc:"Ligação inox press 18mm fêmea 3/4\"",mat:"Inox",cat:"Acess. Inox",dim:"18mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXLM2234",desc:"Ligação inox press 22mm macho 3/4\"",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXLF2234",desc:"Ligação inox press 22mm fêmea 3/4\"",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXLM221",desc:"Ligação inox press 22mm macho 1\"",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"INXLF221",desc:"Ligação inox press 22mm fêmea 1\"",mat:"Inox",cat:"Acess. Inox",dim:"22mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"INXLM281",desc:"Ligação inox press 28mm macho 1\"",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"INXLF281",desc:"Ligação inox press 28mm fêmea 1\"",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"",un:"un",preco:"",nota:""},
+  {ref:"INXLM28114",desc:"Ligação inox press 28mm macho 1\"1/4",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXLF28114",desc:"Ligação inox press 28mm fêmea 1\"1/4",mat:"Inox",cat:"Acess. Inox",dim:"28mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXLM35114",desc:"Ligação inox press 35mm macho 1\"1/4",mat:"Inox",cat:"Acess. Inox",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXLF35114",desc:"Ligação inox press 35mm fêmea 1\"1/4",mat:"Inox",cat:"Acess. Inox",dim:"35mm x 1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXLM4212",desc:"Ligação inox press 42mm macho 1\"1/2",mat:"Inox",cat:"Acess. Inox",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXLF4212",desc:"Ligação inox press 42mm fêmea 1\"1/2",mat:"Inox",cat:"Acess. Inox",dim:"42mm x 1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXLM542",desc:"Ligação inox press 54mm macho 2\"",mat:"Inox",cat:"Acess. Inox",dim:"54mm x 2"",un:"un",preco:"",nota:""},
+  {ref:"INXLF542",desc:"Ligação inox press 54mm fêmea 2\"",mat:"Inox",cat:"Acess. Inox",dim:"54mm x 2"",un:"un",preco:"",nota:""},
   {ref:"PVCTB32",desc:"Tubo PVC saneamento série B 32mm — 0.5m",mat:"PVC",cat:"Saneamento PVC",dim:"32 mm",un:"0.5m",preco:"",nota:"Esgoto interior"},
   {ref:"PVCTB32-02",desc:"Tubo PVC saneamento série B 32mm — 1m",mat:"PVC",cat:"Saneamento PVC",dim:"32 mm",un:"1m",preco:"",nota:"Esgoto interior"},
   {ref:"PVCTB32-03",desc:"Tubo PVC saneamento série B 32mm — 2m",mat:"PVC",cat:"Saneamento PVC",dim:"32 mm",un:"2m",preco:"",nota:"Esgoto interior"},
@@ -827,89 +846,89 @@ const PRODUTOS = [
   {ref:"PVCCRV160",desc:"Curva de limpeza PVC 160mm 45°",mat:"PVC",cat:"Acess. Saneamento",dim:"160 mm",un:"un",preco:"",nota:""},
   {ref:"PVCSF50",desc:"Sifão PVC integrado 50mm",mat:"PVC",cat:"Acess. Saneamento",dim:"50 mm",un:"un",preco:"",nota:""},
   {ref:"PVCSF110",desc:"Sifão PVC integrado 110mm",mat:"PVC",cat:"Acess. Saneamento",dim:"110 mm",un:"un",preco:"",nota:""},
-  {ref:"LATVE1",desc:"Válvula esfera latão 1/4pol M/M",mat:"Latão",cat:"Válvulas",dim:"1/4"",un:"un",preco:"",nota:""},
-  {ref:"LATVE1-02",desc:"Válvula esfera latão 1/4pol F/F",mat:"Latão",cat:"Válvulas",dim:"1/4"",un:"un",preco:"",nota:""},
-  {ref:"LATVE1-03",desc:"Válvula esfera latão 1/4pol M/F",mat:"Latão",cat:"Válvulas",dim:"1/4"",un:"un",preco:"",nota:""},
-  {ref:"LATVE3",desc:"Válvula esfera latão 3/8pol M/M",mat:"Latão",cat:"Válvulas",dim:"3/8"",un:"un",preco:"",nota:""},
-  {ref:"LATVE3-02",desc:"Válvula esfera latão 3/8pol F/F",mat:"Latão",cat:"Válvulas",dim:"3/8"",un:"un",preco:"",nota:""},
-  {ref:"LATVE3-03",desc:"Válvula esfera latão 3/8pol M/F",mat:"Latão",cat:"Válvulas",dim:"3/8"",un:"un",preco:"",nota:""},
-  {ref:"LATVE112",desc:"Válvula esfera latão 1/2pol M/M",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
-  {ref:"LATVE112-02",desc:"Válvula esfera latão 1/2pol F/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
-  {ref:"LATVE112-03",desc:"Válvula esfera latão 1/2pol M/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
-  {ref:"LATVE334",desc:"Válvula esfera latão 3/4pol M/M",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
-  {ref:"LATVE334-02",desc:"Válvula esfera latão 3/4pol F/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
-  {ref:"LATVE334-03",desc:"Válvula esfera latão 3/4pol M/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
-  {ref:"LATVE11",desc:"Válvula esfera latão 1pol M/M",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
-  {ref:"LATVE11-02",desc:"Válvula esfera latão 1pol F/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
-  {ref:"LATVE11-03",desc:"Válvula esfera latão 1pol M/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
-  {ref:"LATVE11114",desc:"Válvula esfera latão 1pol1/4 M/M",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"LATVE11114-02",desc:"Válvula esfera latão 1pol1/4 F/F",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"LATVE11114-03",desc:"Válvula esfera latão 1pol1/4 M/F",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"LATVE1112",desc:"Válvula esfera latão 1pol1/2 M/M",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
-  {ref:"LATVE1112-02",desc:"Válvula esfera latão 1pol1/2 F/F",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
-  {ref:"LATVE1112-03",desc:"Válvula esfera latão 1pol1/2 M/F",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
-  {ref:"LATVE22",desc:"Válvula esfera latão 2pol M/M",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
-  {ref:"LATVE22-02",desc:"Válvula esfera latão 2pol F/F",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
-  {ref:"LATVE22-03",desc:"Válvula esfera latão 2pol M/F",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
-  {ref:"LATTE112",desc:"Válvula corte angular latão 1/2pol F/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:"Radiadores"},
-  {ref:"LATTE112-02",desc:"Válvula corte reta latão 1/2pol F/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
-  {ref:"LATTE334",desc:"Válvula corte angular latão 3/4pol F/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:"Radiadores"},
-  {ref:"LATTE334-02",desc:"Válvula corte reta latão 3/4pol F/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
-  {ref:"LATTE11",desc:"Válvula corte angular latão 1pol F/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:"Radiadores"},
-  {ref:"LATTE11-02",desc:"Válvula corte reta latão 1pol F/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
-  {ref:"LATVR112",desc:"Válvula retenção latão 1/2pol",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
-  {ref:"INXVR112",desc:"Válvula retenção inox 1/2pol",mat:"Inox",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
-  {ref:"LATVR334",desc:"Válvula retenção latão 3/4pol",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
-  {ref:"INXVR334",desc:"Válvula retenção inox 3/4pol",mat:"Inox",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
-  {ref:"LATVR11",desc:"Válvula retenção latão 1pol",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
-  {ref:"INXVR11",desc:"Válvula retenção inox 1pol",mat:"Inox",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
-  {ref:"LATVR11114",desc:"Válvula retenção latão 1pol1/4",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"INXVR11114",desc:"Válvula retenção inox 1pol1/4",mat:"Inox",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"LATVR1112",desc:"Válvula retenção latão 1pol1/2",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
-  {ref:"INXVR1112",desc:"Válvula retenção inox 1pol1/2",mat:"Inox",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
-  {ref:"LATVR22",desc:"Válvula retenção latão 2pol",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
-  {ref:"INXVR22",desc:"Válvula retenção inox 2pol",mat:"Inox",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
-  {ref:"LATVS112",desc:"Válvula segurança 1/2pol 6bar",mat:"Latão",cat:"Válvulas",dim:"1/2" / 6bar",un:"un",preco:"",nota:""},
-  {ref:"LATVS112-02",desc:"Válvula segurança 1/2pol 8bar",mat:"Latão",cat:"Válvulas",dim:"1/2" / 8bar",un:"un",preco:"",nota:""},
-  {ref:"LATVS112-03",desc:"Válvula segurança 1/2pol 10bar",mat:"Latão",cat:"Válvulas",dim:"1/2" / 10bar",un:"un",preco:"",nota:""},
-  {ref:"LATVS334",desc:"Válvula segurança 3/4pol 6bar",mat:"Latão",cat:"Válvulas",dim:"3/4" / 6bar",un:"un",preco:"",nota:""},
-  {ref:"LATVS334-02",desc:"Válvula segurança 3/4pol 8bar",mat:"Latão",cat:"Válvulas",dim:"3/4" / 8bar",un:"un",preco:"",nota:""},
-  {ref:"LATVS11",desc:"Válvula segurança 1pol 6bar",mat:"Latão",cat:"Válvulas",dim:"1" / 6bar",un:"un",preco:"",nota:""},
-  {ref:"LATFT112",desc:"Filtro rede latão 1/2pol Y",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
-  {ref:"LATFT334",desc:"Filtro rede latão 3/4pol Y",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
-  {ref:"LATFT11",desc:"Filtro rede latão 1pol Y",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
-  {ref:"LATFT11114",desc:"Filtro rede latão 1pol1/4 Y",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"LATFT1112",desc:"Filtro rede latão 1pol1/2 Y",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
-  {ref:"LATFT22",desc:"Filtro rede latão 2pol Y",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
-  {ref:"LATRP112",desc:"Redutor pressão 1/2pol ajustável",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
-  {ref:"LATRP334",desc:"Redutor pressão 3/4pol ajustável",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
-  {ref:"LATRP11",desc:"Redutor pressão 1pol ajustável",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
-  {ref:"LATRP11114",desc:"Redutor pressão 1pol1/4 ajustável",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"LATOUT112",desc:"Torneira boia latão 1/2pol",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:"Depósito / autoclismo"},
-  {ref:"GENVL112",desc:"Electroválvula 1/2pol NC 24V",mat:"—",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
-  {ref:"LATOUT334",desc:"Torneira boia latão 3/4pol",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:"Depósito / autoclismo"},
-  {ref:"GENVL334",desc:"Electroválvula 3/4pol NC 24V",mat:"—",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
-  {ref:"GENSF11114",desc:"Sifão lavatório bidão 1pol1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
-  {ref:"GENSF11114-02",desc:"Sifão lavatório extensível 1pol1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
-  {ref:"GENSF11114-03",desc:"Sifão lavatório botella 1pol1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
-  {ref:"GENSF11114-04",desc:"Sifão lavatório sanfonado 1pol1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
-  {ref:"INXSF11114",desc:"Sifão lavatório cromado 1pol1/4 — saída 32mm",mat:"Inox/Cr",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATVE1",desc:"Válvula esfera latão 1/4\" M/M",mat:"Latão",cat:"Válvulas",dim:"1/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE1-02",desc:"Válvula esfera latão 1/4\" F/F",mat:"Latão",cat:"Válvulas",dim:"1/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE1-03",desc:"Válvula esfera latão 1/4\" M/F",mat:"Latão",cat:"Válvulas",dim:"1/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE3",desc:"Válvula esfera latão 3/8\" M/M",mat:"Latão",cat:"Válvulas",dim:"3/8"",un:"un",preco:"",nota:""},
+  {ref:"LATVE3-02",desc:"Válvula esfera latão 3/8\" F/F",mat:"Latão",cat:"Válvulas",dim:"3/8"",un:"un",preco:"",nota:""},
+  {ref:"LATVE3-03",desc:"Válvula esfera latão 3/8\" M/F",mat:"Latão",cat:"Válvulas",dim:"3/8"",un:"un",preco:"",nota:""},
+  {ref:"LATVE112",desc:"Válvula esfera latão 1/2\" M/M",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE112-02",desc:"Válvula esfera latão 1/2\" F/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE112-03",desc:"Válvula esfera latão 1/2\" M/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE334",desc:"Válvula esfera latão 3/4\" M/M",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE334-02",desc:"Válvula esfera latão 3/4\" F/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE334-03",desc:"Válvula esfera latão 3/4\" M/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVE11",desc:"Válvula esfera latão 1\" M/M",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVE11-02",desc:"Válvula esfera latão 1\" F/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVE11-03",desc:"Válvula esfera latão 1\" M/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVE11114",desc:"Válvula esfera latão 1\"1/4 M/M",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATVE11114-02",desc:"Válvula esfera latão 1\"1/4 F/F",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATVE11114-03",desc:"Válvula esfera latão 1\"1/4 M/F",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATVE1112",desc:"Válvula esfera latão 1\"1/2 M/M",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATVE1112-02",desc:"Válvula esfera latão 1\"1/2 F/F",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATVE1112-03",desc:"Válvula esfera latão 1\"1/2 M/F",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATVE22",desc:"Válvula esfera latão 2\" M/M",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE22-02",desc:"Válvula esfera latão 2\" F/F",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATVE22-03",desc:"Válvula esfera latão 2\" M/F",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATTE112",desc:"Válvula corte angular latão 1/2\" F/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:"Radiadores"},
+  {ref:"LATTE112-02",desc:"Válvula corte reta latão 1/2\" F/F",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATTE334",desc:"Válvula corte angular latão 3/4\" F/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:"Radiadores"},
+  {ref:"LATTE334-02",desc:"Válvula corte reta latão 3/4\" F/F",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATTE11",desc:"Válvula corte angular latão 1\" F/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:"Radiadores"},
+  {ref:"LATTE11-02",desc:"Válvula corte reta latão 1\" F/F",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVR112",desc:"Válvula retenção latão 1/2\"",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"INXVR112",desc:"Válvula retenção inox 1/2\"",mat:"Inox",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATVR334",desc:"Válvula retenção latão 3/4\"",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"INXVR334",desc:"Válvula retenção inox 3/4\"",mat:"Inox",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATVR11",desc:"Válvula retenção latão 1\"",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"INXVR11",desc:"Válvula retenção inox 1\"",mat:"Inox",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATVR11114",desc:"Válvula retenção latão 1\"1/4",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXVR11114",desc:"Válvula retenção inox 1\"1/4",mat:"Inox",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATVR1112",desc:"Válvula retenção latão 1\"1/2",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXVR1112",desc:"Válvula retenção inox 1\"1/2",mat:"Inox",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATVR22",desc:"Válvula retenção latão 2\"",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"INXVR22",desc:"Válvula retenção inox 2\"",mat:"Inox",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATVS112",desc:"Válvula segurança 1/2\" 6bar",mat:"Latão",cat:"Válvulas",dim:"1/2" / 6bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS112-02",desc:"Válvula segurança 1/2\" 8bar",mat:"Latão",cat:"Válvulas",dim:"1/2" / 8bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS112-03",desc:"Válvula segurança 1/2\" 10bar",mat:"Latão",cat:"Válvulas",dim:"1/2" / 10bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS334",desc:"Válvula segurança 3/4\" 6bar",mat:"Latão",cat:"Válvulas",dim:"3/4" / 6bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS334-02",desc:"Válvula segurança 3/4\" 8bar",mat:"Latão",cat:"Válvulas",dim:"3/4" / 8bar",un:"un",preco:"",nota:""},
+  {ref:"LATVS11",desc:"Válvula segurança 1\" 6bar",mat:"Latão",cat:"Válvulas",dim:"1" / 6bar",un:"un",preco:"",nota:""},
+  {ref:"LATFT112",desc:"Filtro rede latão 1/2\" Y",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATFT334",desc:"Filtro rede latão 3/4\" Y",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATFT11",desc:"Filtro rede latão 1\" Y",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATFT11114",desc:"Filtro rede latão 1\"1/4 Y",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATFT1112",desc:"Filtro rede latão 1\"1/2 Y",mat:"Latão",cat:"Válvulas",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"LATFT22",desc:"Filtro rede latão 2\" Y",mat:"Latão",cat:"Válvulas",dim:"2"",un:"un",preco:"",nota:""},
+  {ref:"LATRP112",desc:"Redutor pressão 1/2\" ajustável",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATRP334",desc:"Redutor pressão 3/4\" ajustável",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"LATRP11",desc:"Redutor pressão 1\" ajustável",mat:"Latão",cat:"Válvulas",dim:"1"",un:"un",preco:"",nota:""},
+  {ref:"LATRP11114",desc:"Redutor pressão 1\"1/4 ajustável",mat:"Latão",cat:"Válvulas",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"LATOUT112",desc:"Torneira boia latão 1/2\"",mat:"Latão",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:"Depósito / autoclismo"},
+  {ref:"GENVL112",desc:"Electroválvula 1/2\" NC 24V",mat:"—",cat:"Válvulas",dim:"1/2"",un:"un",preco:"",nota:""},
+  {ref:"LATOUT334",desc:"Torneira boia latão 3/4\"",mat:"Latão",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:"Depósito / autoclismo"},
+  {ref:"GENVL334",desc:"Electroválvula 3/4\" NC 24V",mat:"—",cat:"Válvulas",dim:"3/4"",un:"un",preco:"",nota:""},
+  {ref:"GENSF11114",desc:"Sifão lavatório bidão 1\"1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF11114-02",desc:"Sifão lavatório extensível 1\"1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF11114-03",desc:"Sifão lavatório botella 1\"1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF11114-04",desc:"Sifão lavatório sanfonado 1\"1/4 — saída 32mm",mat:"PVC",cat:"Sifões",dim:"1"1/4 / 32mm",un:"un",preco:"",nota:""},
+  {ref:"INXSF11114",desc:"Sifão lavatório cromado 1\"1/4 — saída 32mm",mat:"Inox/Cr",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
   {ref:"GENSF32",desc:"Sifão lavatório extensível dupla saída 32mm",mat:"PVC",cat:"Sifões",dim:"32mm",un:"un",preco:"",nota:""},
-  {ref:"GENSF1112",desc:"Sifão banheira/duche rígido 1pol1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
-  {ref:"GENSF1112-02",desc:"Sifão banheira/duche extensível 1pol1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
-  {ref:"GENSF1112-03",desc:"Sifão banheira/duche flexível 1pol1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112",desc:"Sifão banheira/duche rígido 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112-02",desc:"Sifão banheira/duche extensível 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112-03",desc:"Sifão banheira/duche flexível 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
   {ref:"GENSF40",desc:"Sifão base duche slim altura mínima 40mm",mat:"PVC",cat:"Sifões",dim:"40mm",un:"un",preco:"",nota:"Para bases rasas"},
   {ref:"GENVCC11",desc:"Kit sifão + válvula click-clack banheira",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"kit",preco:"",nota:""},
-  {ref:"GENSF1112-04",desc:"Sifão cozinha simples 1pol1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
-  {ref:"GENSF1112-05",desc:"Sifão cozinha dupla cuba 1pol1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
-  {ref:"GENSF1112-06",desc:"Sifão cozinha com saída máquina 1pol1/2",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112-04",desc:"Sifão cozinha simples 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112-05",desc:"Sifão cozinha dupla cuba 1\"1/2 — 40mm",mat:"PVC",cat:"Sifões",dim:"1"1/2 / 40mm",un:"un",preco:"",nota:""},
+  {ref:"GENSF1112-06",desc:"Sifão cozinha com saída máquina 1\"1/2",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
   {ref:"GENSF11",desc:"Sifão cozinha dupla cuba + saída máquina",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
-  {ref:"PVCVCC11114",desc:"Válvula click-clack lavatório 1pol1/4 — PVC branco",mat:"PVC",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"INXVCC11114",desc:"Válvula click-clack lavatório 1pol1/4 — inox mate",mat:"Inox",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"INXVCC11114-02",desc:"Válvula click-clack lavatório 1pol1/4 — cromo",mat:"Inox/Cr",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
-  {ref:"PVCVCC1112",desc:"Válvula click-clack banheira 1pol1/2 — PVC branco",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
-  {ref:"INXVCC1112",desc:"Válvula click-clack banheira 1pol1/2 — inox mate",mat:"Inox",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
-  {ref:"INXVCC1112-02",desc:"Válvula click-clack banheira 1pol1/2 — cromo",mat:"Inox/Cr",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"PVCVCC11114",desc:"Válvula click-clack lavatório 1\"1/4 — PVC branco",mat:"PVC",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXVCC11114",desc:"Válvula click-clack lavatório 1\"1/4 — inox mate",mat:"Inox",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"INXVCC11114-02",desc:"Válvula click-clack lavatório 1\"1/4 — cromo",mat:"Inox/Cr",cat:"Sifões",dim:"1"1/4",un:"un",preco:"",nota:""},
+  {ref:"PVCVCC1112",desc:"Válvula click-clack banheira 1\"1/2 — PVC branco",mat:"PVC",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXVCC1112",desc:"Válvula click-clack banheira 1\"1/2 — inox mate",mat:"Inox",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
+  {ref:"INXVCC1112-02",desc:"Válvula click-clack banheira 1\"1/2 — cromo",mat:"Inox/Cr",cat:"Sifões",dim:"1"1/2",un:"un",preco:"",nota:""},
   {ref:"PVCRL10",desc:"Ralo chão PVC 10x10cm — saída 50mm",mat:"PVC",cat:"Ralos",dim:"10x10cm / 50mm",un:"un",preco:"",nota:""},
   {ref:"INXRL10",desc:"Ralo chão Inox 10x10cm — saída 50mm",mat:"Inox",cat:"Ralos",dim:"10x10cm / 50mm",un:"un",preco:"",nota:""},
   {ref:"PVCRL15",desc:"Ralo chão PVC 15x15cm — saída 50mm",mat:"PVC",cat:"Ralos",dim:"15x15cm / 50mm",un:"un",preco:"",nota:""},
@@ -991,10 +1010,10 @@ const PRODUTOS = [
   {ref:"AQSTAC150-02",desc:"Termoacumulador elétrico 150L — monofásico horizontal",mat:"—",cat:"AQS",dim:"150L",un:"un",preco:"",nota:""},
   {ref:"AQSTAC200",desc:"Termoacumulador elétrico 200L — monofásico vertical",mat:"—",cat:"AQS",dim:"200L",un:"un",preco:"",nota:""},
   {ref:"AQSTAC200-02",desc:"Termoacumulador elétrico 200L — monofásico horizontal",mat:"—",cat:"AQS",dim:"200L",un:"un",preco:"",nota:""},
-  {ref:"LATGS334",desc:"Grupo de segurança AQS 3/4pol — 8bar",mat:"Latão",cat:"AQS",dim:"3/4" / 8bar",un:"un",preco:"",nota:""},
-  {ref:"LATGS11",desc:"Grupo de segurança AQS 1pol — 8bar",mat:"Latão",cat:"AQS",dim:"1" / 8bar",un:"un",preco:"",nota:""},
-  {ref:"LATLG112",desc:"Kit ligação termoacumulador 1/2pol",mat:"Latão",cat:"AQS",dim:"1/2"",un:"kit",preco:"",nota:""},
-  {ref:"LATLG334",desc:"Kit ligação termoacumulador 3/4pol",mat:"Latão",cat:"AQS",dim:"3/4"",un:"kit",preco:"",nota:""},
+  {ref:"LATGS334",desc:"Grupo de segurança AQS 3/4\" — 8bar",mat:"Latão",cat:"AQS",dim:"3/4" / 8bar",un:"un",preco:"",nota:""},
+  {ref:"LATGS11",desc:"Grupo de segurança AQS 1\" — 8bar",mat:"Latão",cat:"AQS",dim:"1" / 8bar",un:"un",preco:"",nota:""},
+  {ref:"LATLG112",desc:"Kit ligação termoacumulador 1/2\"",mat:"Latão",cat:"AQS",dim:"1/2"",un:"kit",preco:"",nota:""},
+  {ref:"LATLG334",desc:"Kit ligação termoacumulador 3/4\"",mat:"Latão",cat:"AQS",dim:"3/4"",un:"kit",preco:"",nota:""},
   {ref:"AQSTE00",desc:"Resistência elétrica 1500W 230V",mat:"—",cat:"AQS",dim:"—",un:"un",preco:"",nota:"Substituição"},
   {ref:"AQSTE00-02",desc:"Resistência elétrica 2000W 230V",mat:"—",cat:"AQS",dim:"—",un:"un",preco:"",nota:""},
   {ref:"AQSTAC00",desc:"Termóstato para termoacumulador",mat:"—",cat:"AQS",dim:"—",un:"un",preco:"",nota:""},
@@ -1005,364 +1024,376 @@ const PRODUTOS = [
   {ref:"AQSVX35",desc:"Vaso de expansão AQS 35L",mat:"Aço",cat:"AQS",dim:"35L",un:"un",preco:"",nota:""}
 ];
 
-// Catégories pour filtrage
-const CAT_GROUPS = {
-  'Multicamada': ['Tubagem Multicamada','Acess. Multicamada'],
-  'PPR': ['Tubagem PPR','Acess. PPR'],
-  'Pex': ['Tubagem Pex','Acess. Pex'],
-  'Cobre': ['Tubagem Cobre','Acess. Cobre','Consumíveis Cobre'],
-  'Inox': ['Tubagem Inox','Acess. Inox'],
-  'PVC': ['Saneamento PVC','Acess. Saneamento'],
-  'Válvulas': ['Válvulas','Contadores'],
-  'Sifões': ['Sifões','Ralos'],
-  'Fixações': ['Fixações'],
-  'Vedações': ['Vedações','Consumíveis'],
-  'AQS': ['AQS'],
+const CAT_GROUPS={
+  'Multicamada':['Tubagem Multicamada','Acess. Multicamada'],
+  'PPR':['Tubagem PPR','Acess. PPR'],
+  'Pex':['Tubagem Pex','Acess. Pex'],
+  'Cobre':['Tubagem Cobre','Acess. Cobre','Consumíveis Cobre'],
+  'Inox':['Tubagem Inox','Acess. Inox'],
+  'PVC':['Saneamento PVC','Acess. Saneamento'],
+  'Válvulas':['Válvulas','Contadores'],
+  'Sifões':['Sifões','Ralos'],
+  'Fixações':['Fixações'],
+  'Vedações':['Vedações','Consumíveis'],
+  'AQS':['AQS'],
 };
 
-// ============================================================
-// OBRAS
-// ============================================================
-const OBRAS = [
-  {nome:"Apartamento Av. da Boavista",cliente:"Sr. Carvalho",local:"Porto",estado:"Em curso",prog:65,data:"02/04/2024",valor:"2.800 €",
-   tarefas:[{t:"Substituição tubagem água fria",ok:true},{t:"Instalação caldeira",ok:true},{t:"Ligação à rede de gás",ok:true},{t:"Instalação torneiras casa de banho",ok:false},{t:"Verificação e testes finais",ok:false}],
-   nota:"Cliente prefere terminar antes de 20 maio."},
-  {nome:"Moradia Braga Norte",cliente:"Família Sousa",local:"Braga",estado:"A iniciar",prog:10,data:"15/05/2024",valor:"4.050 €",
-   tarefas:[{t:"Levantamento e medições",ok:true},{t:"Instalação tubagem multicamada",ok:false},{t:"Montagem sanitas e lavatórios",ok:false},{t:"Ligação à rede pública",ok:false},{t:"Testes de pressão",ok:false}],
-   nota:"Materiais a encomendar — ver separador Materiais."},
-  {nome:"Escritório Rua do Loureiro",cliente:"Lda. Monteiro",local:"Braga",estado:"Em curso",prog:80,data:"10/03/2024",valor:"1.085 €",
-   tarefas:[{t:"Remoção caldeira antiga",ok:true},{t:"Instalação caldeira nova 24kW",ok:true},{t:"Ligações de gás e água",ok:true},{t:"Testes e certificação",ok:false}],
-   nota:""},
+const OBRAS=[
+  {nome:"Apartamento Av. da Boavista",cliente:"Sr. Carvalho",local:"Porto",estado:"Em curso",prog:65,data:"02/04/2024",valor:"2.800",tarefas:[{t:"Substituição tubagem água fria",ok:true},{t:"Instalação caldeira",ok:true},{t:"Ligação à rede de gás",ok:true},{t:"Instalação torneiras casa de banho",ok:false},{t:"Verificação e testes finais",ok:false}],nota:"Cliente prefere terminar antes de 20 maio."},
+  {nome:"Moradia Braga Norte",cliente:"Família Sousa",local:"Braga",estado:"A iniciar",prog:10,data:"15/05/2024",valor:"4.050",tarefas:[{t:"Levantamento e medições",ok:true},{t:"Instalação tubagem multicamada",ok:false},{t:"Montagem sanitas e lavatórios",ok:false},{t:"Ligação à rede pública",ok:false},{t:"Testes de pressão",ok:false}],nota:"Materiais a encomendar — ver Materiais."},
+  {nome:"Escritório Rua do Loureiro",cliente:"Lda. Monteiro",local:"Braga",estado:"Em curso",prog:80,data:"10/03/2024",valor:"1.085",tarefas:[{t:"Remoção caldeira antiga",ok:true},{t:"Instalação caldeira nova 24kW",ok:true},{t:"Ligações de gás e água",ok:true},{t:"Testes e certificação",ok:false}],nota:""},
 ];
 
-// ============================================================
-// ORÇAMENTO STATE
-// ============================================================
-let orcLinhas = [];
-let orcCount  = 0;
+let orcLinhas=[],orcCount=0,catFiltro='',catSearch='',catPage=1;
+const PER_PAGE=40;
 
-// ============================================================
-// NAVIGATION
-// ============================================================
+function cfg(k,def){return localStorage.getItem('cfg_'+k)||def||'';}
+function loadConfig(){
+  document.getElementById('cfg-nome').value=cfg('nome');
+  document.getElementById('cfg-prof').value=cfg('prof','Canalizador');
+  document.getElementById('cfg-nif').value=cfg('nif');
+  document.getElementById('cfg-tel').value=cfg('tel');
+  document.getElementById('cfg-telem').value=cfg('telem');
+  document.getElementById('cfg-email').value=cfg('email');
+  document.getElementById('cfg-morada').value=cfg('morada');
+  document.getElementById('cfg-forn-nome').value=cfg('forn_nome','Sanitop Portugal');
+  document.getElementById('cfg-forn-email').value=cfg('forn_email','sanitop@sanitop.pt');
+  document.getElementById('cfg-forn-tel').value=cfg('forn_tel','351258105400');
+  document.getElementById('cfg-dia').value=cfg('dia','160');
+  document.getElementById('cfg-hora').value=cfg('hora','22');
+  const n=cfg('nome','Configurar');
+  document.getElementById('hdr-nome').textContent=n?('⚙ '+n):'⚙ Configurar';
+}
+function guardarConfig(){
+  ['nome','prof','nif','tel','telem','email','morada'].forEach(k=>{
+    localStorage.setItem('cfg_'+k,document.getElementById('cfg-'+k).value);
+  });
+  localStorage.setItem('cfg_forn_nome',document.getElementById('cfg-forn-nome').value);
+  localStorage.setItem('cfg_forn_email',document.getElementById('cfg-forn-email').value);
+  localStorage.setItem('cfg_forn_tel',document.getElementById('cfg-forn-tel').value);
+  localStorage.setItem('cfg_dia',document.getElementById('cfg-dia').value);
+  localStorage.setItem('cfg_hora',document.getElementById('cfg-hora').value);
+  const n=cfg('nome','');
+  document.getElementById('hdr-nome').textContent=n?('⚙ '+n):'⚙ Configurar';
+  const b=document.getElementById('saved-ok');
+  b.style.display='block';
+  setTimeout(()=>b.style.display='none',3000);
+}
+
 function showSec(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const idx={dashboard:0,obras:1,orcamentos:2,materiais:3,catalogo:4};
-  document.querySelectorAll('.nav-btn')[idx[id]].classList.add('active');
+  const idx={dashboard:0,obras:1,orcamentos:2,materiais:3,catalogo:4,config:5};
+  if(idx[id]!==undefined) document.querySelectorAll('.nav-btn')[idx[id]].classList.add('active');
   if(id==='obras') renderObras('todas');
-  if(id==='catalogo') renderCatalogo();
+  if(id==='catalogo') renderCat();
 }
 
-// ============================================================
-// OBRAS
-// ============================================================
-function renderObras(filtro){
-  const c=document.getElementById('obras-container'); c.innerHTML='';
-  const badgeClass={  'Em curso':'b-amber','A iniciar':'b-blue','Concluída':'b-green'};
+function renderObras(f){
+  const c=document.getElementById('obras-container');c.innerHTML='';
+  const bc={'Em curso':'b-amber','A iniciar':'b-blue','Concluída':'b-green'};
   OBRAS.forEach((o,i)=>{
-    if(filtro!=='todas' && !(filtro==='curso'&&o.estado==='Em curso') && !(filtro==='iniciar'&&o.estado==='A iniciar') && !(filtro==='concluida'&&o.estado==='Concluída')) return;
-    c.innerHTML+=`<div class="card card-clickable" onclick="openObra(${i})">
-      <div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${badgeClass[o.estado]||'b-blue'}">${o.estado}</span></div>
-      <div class="card-sub">${o.local} · ${o.cliente}</div>
+    if(f==='curso'&&o.estado!=='Em curso')return;
+    if(f==='iniciar'&&o.estado!=='A iniciar')return;
+    if(f==='concluida'&&o.estado!=='Concluída')return;
+    c.innerHTML+=`<div class="card card-click" onclick="openObra(${i})">
+      <div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${bc[o.estado]||'b-blue'}">${o.estado}</span></div>
+      <div class="card-sub">${o.local} &middot; ${o.cliente}</div>
       <div class="prog"><div class="prog-fill" style="width:${o.prog}%"></div></div>
       <div class="card-sub" style="margin-top:4px;font-size:11px">${o.prog}% concluído</div>
     </div>`;
   });
-  if(!c.innerHTML) c.innerHTML='<div class="empty"><span>🏗️</span>Nenhuma obra</div>';
+  if(!c.innerHTML)c.innerHTML='<div class="empty"><span class="ico">&#127959;</span>Nenhuma obra</div>';
 }
 function filtrarObras(f,btn){
   document.querySelectorAll('#obras .tabs-inner button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderObras(f);
+  btn.classList.add('active');renderObras(f);
 }
 function openObra(i){
   const o=OBRAS[i];
   document.getElementById('obras-lista').style.display='none';
-  const d=document.getElementById('obra-detalhe'); d.style.display='block';
-  const bClass={'Em curso':'b-amber','A iniciar':'b-blue','Concluída':'b-green'};
-  let tarefas=o.tarefas.map(t=>`<div class="chk-item${t.ok?' done':''}"><input type="checkbox"${t.ok?' checked':''}><span>${t.t}</span></div>`).join('');
-  let notaHtml=o.nota?`<div class="nota">${o.nota}</div>`:'';
-  d.innerHTML=`
-    <button class="back-btn" onclick="document.getElementById('obra-detalhe').style.display='none';document.getElementById('obras-lista').style.display='block'"><span>←</span>Voltar</button>
-    <div class="card"><div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${bClass[o.estado]||'b-blue'}">${o.estado}</span></div>
-    <div class="card-sub" style="margin-bottom:.6rem">${o.local} · ${o.cliente}</div>
-    <div class="row-d"><span class="lbl">Data início</span><span class="val">${o.data}</span></div>
-    <div class="row-d"><span class="lbl">Valor orçado</span><span class="val">${o.valor}</span></div>
-    <div class="prog" style="margin:.6rem 0 3px"><div class="prog-fill" style="width:${o.prog}%"></div></div>
-    <div class="card-sub" style="font-size:11px">${o.prog}% concluído</div></div>
-    <div class="card"><div class="sec-title" style="font-size:14px;margin-bottom:.6rem">Tarefas</div>${tarefas}${notaHtml}</div>
+  document.getElementById('obra-nova').style.display='none';
+  const d=document.getElementById('obra-detalhe');d.style.display='block';
+  const bc={'Em curso':'b-amber','A iniciar':'b-blue','Concluída':'b-green'};
+  const tarefas=o.tarefas.map(t=>`<div class="chk-item${t.ok?' done':''}"><input type="checkbox"${t.ok?' checked':''}><span>${t.t}</span></div>`).join('');
+  d.innerHTML=`<button class="back-btn" onclick="closeObra()">&#8592; Voltar</button>
+    <div class="card">
+      <div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${bc[o.estado]||'b-blue'}">${o.estado}</span></div>
+      <div class="card-sub" style="margin-bottom:.6rem">${o.local} &middot; ${o.cliente}</div>
+      <div class="row-d"><span class="lbl">Data início</span><span class="val">${o.data}</span></div>
+      <div class="row-d"><span class="lbl">Valor orçado</span><span class="val">${o.valor} €</span></div>
+      <div class="prog" style="margin:.6rem 0 3px"><div class="prog-fill" style="width:${o.prog}%"></div></div>
+      <div class="card-sub" style="font-size:11px">${o.prog}% concluído</div>
+    </div>
+    <div class="card"><div class="sec-title" style="font-size:14px;margin-bottom:.6rem">Tarefas</div>${tarefas}${o.nota?`<div class="nota" style="margin-top:.6rem">${o.nota}</div>`:''}</div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-sm" style="flex:1;justify-content:center" onclick="showSec('materiais')"><span>📦</span>Materiais</button>
-      <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="showSec('orcamentos')"><span>📄</span>Orçamento</button>
+      <button class="btn btn-sm" style="flex:1;justify-content:center" onclick="showSec('materiais')">&#128230; Materiais</button>
+      <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="showSec('orcamentos')">&#128196; Orçamento</button>
     </div>`;
 }
-function showNovaObra(){
-  document.getElementById('obras-lista').style.display='none';
-  document.getElementById('obra-form').style.display='block';
-}
+function closeObra(){document.getElementById('obra-detalhe').style.display='none';document.getElementById('obras-lista').style.display='block';}
+function showNovaObra(){document.getElementById('obras-lista').style.display='none';document.getElementById('obra-detalhe').style.display='none';document.getElementById('obra-nova').style.display='block';}
+function hideNovaObra(){document.getElementById('obra-nova').style.display='none';document.getElementById('obras-lista').style.display='block';}
+function criarObra(){alert('Funcionalidade disponível em breve!');}
 
-// ============================================================
-// CATÁLOGO
-// ============================================================
-let catFiltroAtual = '';
-let catSearchAtual = '';
-const PER_PAGE = 40;
-let catPage = 1;
-
-function getProdutosFiltrados(){
-  const q = catSearchAtual.toLowerCase();
+function getProdsFiltrados(){
+  const q=catSearch.toLowerCase();
   return PRODUTOS.filter(p=>{
-    const matchSearch = !q || p.ref.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.dim.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || p.mat.toLowerCase().includes(q);
-    let matchCat = true;
-    if(catFiltroAtual){
-      const cats = CAT_GROUPS[catFiltroAtual] || [];
-      matchCat = cats.some(c=> p.cat.includes(c)) || p.mat.includes(catFiltroAtual) || p.cat.includes(catFiltroAtual);
-    }
-    return matchSearch && matchCat;
+    const ms=!q||p.ref.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||p.dim.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)||p.mat.toLowerCase().includes(q);
+    if(!ms)return false;
+    if(!catFiltro)return true;
+    const cats=CAT_GROUPS[catFiltro]||[];
+    return cats.some(c=>p.cat.includes(c))||p.mat.includes(catFiltro)||p.cat.includes(catFiltro);
   });
 }
-
-function renderCatalogo(){
-  const prods = getProdutosFiltrados();
-  const total = prods.length;
-  const start = (catPage-1)*PER_PAGE;
-  const slice = prods.slice(start, start+PER_PAGE);
-
-  document.getElementById('cat-count').textContent = `${total} produtos`;
-
-  // Grouper par catégorie
-  const groups = {};
-  slice.forEach(p=>{ if(!groups[p.cat]) groups[p.cat]=[]; groups[p.cat].push(p); });
-
-  let html = '';
-  Object.entries(groups).forEach(([cat, items])=>{
-    html += `<div class="cat-header">${cat}</div>`;
+function renderCat(){
+  const prods=getProdsFiltrados();
+  document.getElementById('cat-count').textContent=prods.length+' produtos';
+  const start=(catPage-1)*PER_PAGE;
+  const slice=prods.slice(start,start+PER_PAGE);
+  const groups={};
+  slice.forEach(p=>{if(!groups[p.cat])groups[p.cat]=[];groups[p.cat].push(p);});
+  let html='';
+  Object.entries(groups).forEach(([cat,items])=>{
+    html+=`<div class="cat-header">${cat}</div>`;
     items.forEach(p=>{
-      html += `<div class="prod-card">
+      html+=`<div class="prod-card">
         <div class="prod-info">
           <div class="prod-ref">${p.ref}</div>
           <div class="prod-desc" title="${p.desc}">${p.desc}</div>
-          <div class="prod-meta">${p.dim} · ${p.un}${p.nota?' · '+p.nota:''}</div>
+          <div class="prod-meta">${p.dim} &middot; ${p.un}</div>
         </div>
-        <div style="text-align:right;flex-shrink:0">
-          ${p.preco ? `<div class="prod-preco">${p.preco} €</div>` : `<div class="prod-preco vazio">Preço a definir</div>`}
-          <button class="add-btn" style="margin-top:4px" onclick='addProdutoToOrc(${JSON.stringify(p).replace(/'/g,"&#39;")})'>+ Orç.</button>
+        <div class="prod-right">
+          ${p.preco?`<div class="prod-preco">${p.preco} €</div>`:`<div class="prod-preco vazio">s/ preço</div>`}
+          <button class="add-orc-btn" onclick='addFromCat(${JSON.stringify({ref:p.ref,desc:p.desc,un:p.un,preco:p.preco})})'>+ Orç.</button>
         </div>
       </div>`;
     });
   });
-
-  if(!html) html = '<div class="empty"><span>🔍</span>Nenhum produto encontrado</div>';
-  document.getElementById('cat-lista').innerHTML = html;
-
-  // Pagination
-  const totalPages = Math.ceil(total/PER_PAGE);
-  let pagHtml = '';
-  if(totalPages>1){
-    pagHtml = `<div style="display:flex;gap:6px;justify-content:center;align-items:center;padding:.5rem 0">`;
-    if(catPage>1) pagHtml+=`<button class="btn btn-sm" onclick="goPage(${catPage-1})"><span>‹</span></button>`;
-    pagHtml+=`<span style="font-size:13px;color:var(--text2)">${catPage} / ${totalPages}</span>`;
-    if(catPage<totalPages) pagHtml+=`<button class="btn btn-sm" onclick="goPage(${catPage+1})"><span>›</span></button>`;
-    pagHtml+=`</div>`;
+  if(!html)html='<div class="empty"><span style="font-size:40px;opacity:.3">&#128269;</span><br>Nenhum produto encontrado</div>';
+  document.getElementById('cat-lista').innerHTML=html;
+  const total=prods.length;const totalP=Math.ceil(total/PER_PAGE);
+  let pag='';
+  if(totalP>1){
+    pag='<div class="pag-wrap">';
+    if(catPage>1)pag+=`<button class="btn btn-sm" onclick="goPage(${catPage-1})">&#8249;</button>`;
+    pag+=`<span style="font-size:13px;color:var(--text2)">${catPage} / ${totalP}</span>`;
+    if(catPage<totalP)pag+=`<button class="btn btn-sm" onclick="goPage(${catPage+1})">&#8250;</button>`;
+    pag+='</div>';
   }
-  document.getElementById('cat-pag').innerHTML = pagHtml;
+  document.getElementById('cat-pag').innerHTML=pag;
 }
+function goPage(p){catPage=p;renderCat();window.scrollTo(0,0);}
+function filtrarCat(){catSearch=document.getElementById('cat-search').value;catPage=1;renderCat();}
+function setCatFiltro(f,btn){catFiltro=f;catPage=1;catSearch='';document.getElementById('cat-search').value='';document.querySelectorAll('#cat-tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCat();}
 
-function goPage(p){ catPage=p; renderCatalogo(); window.scrollTo(0,0); }
-function filtrarCatalogo(){ catSearchAtual=document.getElementById('cat-search').value; catPage=1; renderCatalogo(); }
-function setCatFiltro(f,btn){ catFiltroAtual=f; catPage=1; catSearchAtual=''; document.getElementById('cat-search').value=''; document.querySelectorAll('#cat-filtros button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderCatalogo(); }
-
-// ============================================================
-// ORÇAMENTOS
-// ============================================================
-function showOrcLista(){ document.getElementById('orc-lista').style.display='block'; document.getElementById('orc-form').style.display='none'; document.getElementById('orc-doc').style.display='none'; document.getElementById('orc-gerado').style.display='none'; }
-function showOrcForm(){ orcLinhas=[]; orcCount=0; document.getElementById('orc-linhas').innerHTML=''; calcOrcTotal(); document.getElementById('orc-lista').style.display='none'; document.getElementById('orc-form').style.display='block'; document.getElementById('orc-doc').style.display='none'; document.getElementById('orc-gerado').style.display='none'; addLinhaManual(); }
-function showOrcDoc(id){
-  document.getElementById('orc-lista').style.display='none';
-  document.getElementById('orc-form').style.display='none';
-  document.getElementById('orc-gerado').style.display='none';
-  const d=document.getElementById('orc-doc'); d.style.display='block';
-  const data_orc = id==='orc007'
-    ? {num:'ORC-2024-008',data:'13/05/2024',valido:'13/06/2024',estado:'Pendente',cliente:'Família Sousa',morada:'Rua do Cávado, 22 · 4720-010 Braga',nif:'234 567 890',tel:'916 789 012',obra:'Instalação canalização moradia Braga Norte',
-       linhas:[['Mão de obra','Instalação completa','3','dia','160,00','480,00'],['Tubo multicamada 16x2mm','Ref: MCTB16B5','15','m','4,50','67,50'],['Cotovelo multicamada 90° 16mm','Ref: MCC916','10','un','3,80','38,00'],['Torneira misturadora','Ref: TORN-MONO','2','un','70,00','140,00'],['Sifões e acessórios','Kit sanitários','1','un','77,00','77,00']],total:'802,50'}
-    : {num:'ORC-2024-007',data:'02/04/2024',valido:'02/05/2024',estado:'Aceite',cliente:'Lda. Monteiro',morada:'Rua do Loureiro, 8 · 4710-022 Braga',nif:'509 876 543',tel:'253 123 456',obra:'Substituição caldeira escritório',
-       linhas:[['Mão de obra','Instalação caldeira + ligações','2','dia','160,00','320,00'],['Caldeira mural gás 24kW','Ref: AQSTAC24','1','un','680,00','680,00'],['Kit instalação caldeira','Ref: AQSKIT34','1','kit','85,00','85,00']],total:'1.085,00'};
-  let linhasHtml=data_orc.linhas.map(l=>`<tr><td>${l[0]}<span class="sub-desc">${l[1]}</span></td><td style="text-align:center">${l[2]}</td><td style="text-align:center">${l[3]}</td><td>${l[4]} €</td><td>${l[5]} €</td></tr>`).join('');
-  d.innerHTML=`
-    <button class="back-btn" onclick="showOrcLista()"><span>←</span>Voltar</button>
+function showOrcLista(){['orc-form','orc-doc','orc-gerado'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('orc-lista').style.display='block';}
+function showOrcForm(){orcLinhas=[];orcCount=0;document.getElementById('orc-linhas').innerHTML='';calcTotal();['orc-lista','orc-doc','orc-gerado'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('orc-form').style.display='block';addLinhaManual();}
+function showOrcDoc(idx){
+  ['orc-lista','orc-form','orc-gerado'].forEach(id=>document.getElementById(id).style.display='none');
+  const d=document.getElementById('orc-doc');d.style.display='block';
+  const docs=[
+    {num:'ORC-2024-008',data:'13/05/2024',valido:'13/06/2024',estado:'b-amber',estad_txt:'Pendente',cliente:'Família Sousa',morada:'Rua do Cávado, 22 · 4720-010 Braga',nif:'234 567 890',tel:'916 789 012',obra:'Instalação canalização moradia Braga Norte',
+     linhas:[['Mão de obra','Instalação completa','3','dia','160,00','480,00'],['Tubo multicamada 16x2mm','Ref: MCTB16B5','15','m','4,50','67,50'],['Cotovelo multicamada 90 16mm','Ref: MCC916','10','un','3,80','38,00'],['Torneira misturadora','Ref: TORN-MONO','2','un','70,00','140,00'],['Sifões e acessórios','Kit sanitários','1','un','77,00','77,00']],total:'802,50'},
+    {num:'ORC-2024-007',data:'02/04/2024',valido:'02/05/2024',estado:'b-green',estad_txt:'Aceite',cliente:'Lda. Monteiro',morada:'Rua do Loureiro, 8 · 4710-022 Braga',nif:'509 876 543',tel:'253 123 456',obra:'Substituição caldeira escritório',
+     linhas:[['Mão de obra','Instalação caldeira + ligações','2','dia','160,00','320,00'],['Caldeira mural gás 24kW','Ref: AQSTAC24','1','un','680,00','680,00'],['Kit instalação caldeira','Ref: AQSKIT34','1','kit','85,00','85,00']],total:'1.085,00'},
+  ];
+  const o=docs[idx];
+  const nome=cfg('nome','João Ferreira');
+  const prof=cfg('prof','Canalizador');
+  const nif=cfg('nif','123 456 789');
+  const tel=cfg('tel','912 345 678');
+  const email=cfg('email','email@exemplo.pt');
+  const morada=cfg('morada','Rua das Flores, 14 · 4700-001 Braga');
+  let linhasHtml=o.linhas.map(l=>`<tr><td>${l[0]}<span class="sub-d">${l[1]}</span></td><td style="text-align:center">${l[2]}</td><td style="text-align:center">${l[3]}</td><td>${l[4]} €</td><td>${l[5]} €</td></tr>`).join('');
+  d.innerHTML=`<button class="back-btn" onclick="showOrcLista()">&#8592; Voltar</button>
     <div class="card">
-      <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div><div class="empresa-nome">João Ferreira — Canalizador</div><div class="empresa-info">NIF: 123 456 789<br>Rua das Flores, 14 · 4700-001 Braga<br>☎ 912 345 678 · joao@email.pt</div></div>
-        <div><div class="doc-title">Orçamento</div><div class="doc-meta">N.º ${data_orc.num}<br>Data: ${data_orc.data}<br>Válido: ${data_orc.valido}</div></div>
+      <div style="text-align:center;margin-bottom:.6rem"><span class="non-fiscal">DOCUMENTO NÃO FISCAL</span></div>
+      <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem">
+        <div><div class="empresa-nome">${nome}</div><div class="empresa-info">${prof}<br>NIF: ${nif}<br>${morada}<br>&#9742; ${tel} &middot; ${email}</div></div>
+        <div style="flex-shrink:0"><div class="doc-title">Orçamento</div><div class="doc-meta">N.º ${o.num}<br>${o.data}<br>Válido: ${o.valido}</div></div>
       </div></div>
-      <div class="cli-block"><div class="lbl">Cliente</div><div class="nome">${data_orc.cliente}</div><div class="sub">${data_orc.morada}</div><div class="sub">NIF: ${data_orc.nif} · ${data_orc.tel}</div></div>
-      <div class="card-sub" style="margin-bottom:.6rem"><strong>Obra:</strong> ${data_orc.obra}</div>
+      <div class="cli-block"><div class="lbl">Cliente</div><div class="nome">${o.cliente}</div><div class="sub">${o.morada}</div><div class="sub">NIF: ${o.nif} &middot; ${o.tel}</div></div>
+      <div class="card-sub" style="margin-bottom:.6rem"><strong>Obra:</strong> ${o.obra}</div>
       <table class="linhas"><thead><tr><th>Descrição</th><th style="text-align:center">Qtd</th><th style="text-align:center">Un</th><th>P.Unit.</th><th>Total</th></tr></thead><tbody>${linhasHtml}</tbody></table>
       <hr class="div">
-      <div class="row-d"><span class="lbl">Subtotal</span><span class="val">${data_orc.total} €</span></div>
+      <div class="row-d"><span class="lbl">Subtotal</span><span class="val">${o.total} €</span></div>
       <div class="row-d"><span class="lbl">IVA (23%)</span><span class="val">incluído</span></div>
-      <div class="total-box"><span class="t-lbl">Total</span><span class="t-val">${data_orc.total} €</span></div>
-      <div class="nota" style="margin-top:.6rem;font-size:11px"><span>ℹ️</span>Documento não fiscal. Fatura oficial via software certificado AT.</div>
+      <div class="total-box"><span class="t-lbl">Total</span><span class="t-val">${o.total} €</span></div>
+      <div class="nota nota-info" style="margin-top:.6rem;font-size:11px">&#8505;&#65039; Documento não fiscal. Fatura oficial via software certificado AT (Moloni, InvoiceXpress...).</div>
       <div style="display:flex;gap:8px;margin-top:.75rem">
-        <button class="btn btn-sm" style="flex:1;justify-content:center"><span>⬇️</span>PDF</button>
-        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><span>📤</span>Enviar</button>
+        <button class="btn btn-sm" style="flex:1;justify-content:center">&#11015;&#65039; PDF</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">&#128228; Enviar</button>
       </div>
     </div>`;
 }
-
-// Picker catálogo
-function showCatalogoPicker(){ document.getElementById('modal-picker').style.display='flex'; document.getElementById('picker-search').value=''; filtrarPicker(); }
-function closeModalPicker(){ document.getElementById('modal-picker').style.display='none'; }
-function filtrarPicker(){
-  const q=document.getElementById('picker-search').value.toLowerCase();
-  const prods=PRODUTOS.filter(p=>!q||p.ref.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||p.dim.toLowerCase().includes(q)).slice(0,60);
-  let html='';
-  prods.forEach(p=>{
-    html+=`<div style="display:flex;align-items:center;gap:.5rem;padding:7px 0;border-bottom:1px solid var(--border)">
-      <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace">${p.ref}</div><div style="font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.desc}</div><div style="font-size:11px;color:var(--text2)">${p.dim} · ${p.un}</div></div>
-      <button class="add-btn" onclick='selectProduto(${JSON.stringify(p).replace(/'/g,"&#39;")})'>Sel.</button>
-    </div>`;
-  });
-  if(!html) html='<div class="empty" style="padding:1rem">Nenhum resultado</div>';
-  document.getElementById('picker-lista').innerHTML=html;
-}
-function selectProduto(p){ addProdutoFromPicker(p); closeModalPicker(); }
-function addProdutoFromPicker(p){
-  orcCount++;
-  const id=orcCount;
-  orcLinhas.push(id);
-  const div=document.createElement('div');
-  div.id='linha-'+id;
-  div.className='orc-line';
-  div.innerHTML=`<button class="orc-line-remove" onclick="removeLinha(${id})"><span>🗑</span></button>
-    <div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace;margin-bottom:4px">${p.ref}</div>
-    <label>Descrição</label><input type="text" id="desc-${id}" value="${p.desc}" oninput="calcOrcTotal()">
-    <div class="form-row"><div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcOrcTotal()"></div>
-    <div><label>Unidade</label><select id="un-${id}"><option ${p.un==='un'?'selected':''}>un</option><option ${p.un==='dia'?'selected':''}>dia</option><option ${p.un==='hora'?'selected':''}>hora</option><option ${p.un.startsWith('m')?'selected':''}>m</option><option>ml</option><option>m²</option><option>kit</option><option>rolo</option><option>barra</option></select></div></div>
-    <div class="form-row"><div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="${p.preco||0}" min="0" step="0.01" oninput="calcOrcTotal()"></div>
-    <div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div></div>`;
-  document.getElementById('orc-linhas').appendChild(div);
-  calcOrcTotal();
-}
-function addProdutoToOrc(p){ showSec('orcamentos'); showOrcForm(); addProdutoFromPicker(p); }
 function addLinhaManual(){
-  orcCount++;
-  const id=orcCount;
-  orcLinhas.push(id);
-  const div=document.createElement('div');
-  div.id='linha-'+id;
-  div.className='orc-line';
-  div.innerHTML=`<button class="orc-line-remove" onclick="removeLinha(${id})"><span>🗑</span></button>
-    <label>Descrição</label><input type="text" id="desc-${id}" placeholder="Ex: Mão de obra / Deslocação..." oninput="calcOrcTotal()">
-    <div class="form-row"><div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcOrcTotal()"></div>
-    <div><label>Unidade</label><select id="un-${id}"><option>un</option><option>dia</option><option>hora</option><option>m</option><option>ml</option><option>m²</option><option>kit</option><option>vb</option></select></div></div>
-    <div class="form-row"><div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="0" min="0" step="0.01" oninput="calcOrcTotal()"></div>
-    <div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div></div>`;
-  document.getElementById('orc-linhas').appendChild(div);
-  calcOrcTotal();
+  orcCount++;const id=orcCount;orcLinhas.push(id);
+  const div=document.createElement('div');div.id='linha-'+id;div.className='orc-line';
+  div.innerHTML=`<button class="orc-line-del" onclick="delLinha(${id})">&#128465;</button>
+    <label>Descrição</label><input type="text" id="desc-${id}" placeholder="Ex: Mão de obra / Deslocação..." oninput="calcTotal()">
+    <div class="form-row">
+      <div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcTotal()"></div>
+      <div><label>Unidade</label><select id="un-${id}"><option>un</option><option>dia</option><option>hora</option><option>m</option><option>ml</option><option>m²</option><option>kit</option><option>vb</option></select></div>
+    </div>
+    <div class="form-row">
+      <div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="0" min="0" step="0.01" oninput="calcTotal()"></div>
+      <div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div>
+    </div>`;
+  document.getElementById('orc-linhas').appendChild(div);calcTotal();
 }
-function removeLinha(id){ const el=document.getElementById('linha-'+id); if(el) el.remove(); orcLinhas=orcLinhas.filter(l=>l!==id); calcOrcTotal(); }
-function calcOrcTotal(){
+function addFromCat(p){
+  orcCount++;const id=orcCount;orcLinhas.push(id);
+  const div=document.createElement('div');div.id='linha-'+id;div.className='orc-line';
+  div.innerHTML=`<button class="orc-line-del" onclick="delLinha(${id})">&#128465;</button>
+    <div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace;margin-bottom:4px">${p.ref}</div>
+    <label>Descrição</label><input type="text" id="desc-${id}" value="${p.desc}" oninput="calcTotal()">
+    <div class="form-row">
+      <div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcTotal()"></div>
+      <div><label>Unidade</label><select id="un-${id}"><option ${p.un==='un'?'selected':''}>un</option><option ${p.un==='dia'?'selected':''}>dia</option><option ${p.un==='hora'?'selected':''}>hora</option><option ${p.un&&p.un[0]==='m'?'selected':''}>m</option><option>ml</option><option>m²</option><option>kit</option></select></div>
+    </div>
+    <div class="form-row">
+      <div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="${p.preco||0}" min="0" step="0.01" oninput="calcTotal()"></div>
+      <div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div>
+    </div>`;
+  document.getElementById('orc-linhas').appendChild(div);calcTotal();
+}
+function delLinha(id){const el=document.getElementById('linha-'+id);if(el)el.remove();orcLinhas=orcLinhas.filter(l=>l!==id);calcTotal();}
+function calcTotal(){
   let total=0;
   orcLinhas.forEach(id=>{
-    const el=document.getElementById('linha-'+id); if(!el) return;
+    const el=document.getElementById('linha-'+id);if(!el)return;
     const q=parseFloat(document.getElementById('qtd-'+id)?.value)||0;
     const p=parseFloat(document.getElementById('pu-'+id)?.value)||0;
-    const t=q*p; total+=t;
-    const tel=document.getElementById('tot-'+id); if(tel) tel.textContent=t.toFixed(2).replace('.',',')+' €';
+    const t=q*p;total+=t;
+    const tel=document.getElementById('tot-'+id);if(tel)tel.textContent=t.toFixed(2).replace('.',',')+' €';
   });
-  document.getElementById('orc-total-preview').innerHTML=`<span class="t-lbl">Total</span><span class="t-val">${total.toFixed(2).replace('.',',')} €</span>`;
+  document.getElementById('orc-total').innerHTML=`<span class="t-lbl">Total</span><span class="t-val">${total.toFixed(2).replace('.',',')} €</span>`;
 }
 function gerarOrc(){
-  const nome=document.getElementById('cli-nome').value||'—';
-  const morada=document.getElementById('cli-morada').value||'';
-  const nif=document.getElementById('cli-nif').value||'';
-  const tel=document.getElementById('cli-tel').value||'';
-  const obra=document.getElementById('cli-obra').value||'';
-  let linhasHtml=''; let total=0;
+  const nome_cli=document.getElementById('cli-nome').value||'—';
+  const morada_cli=document.getElementById('cli-morada').value||'';
+  const nif_cli=document.getElementById('cli-nif').value||'';
+  const tel_cli=document.getElementById('cli-tel').value||'';
+  const obra_cli=document.getElementById('cli-obra').value||'';
+  let lHtml='';let total=0;
   orcLinhas.forEach(id=>{
-    const el=document.getElementById('linha-'+id); if(!el) return;
+    const el=document.getElementById('linha-'+id);if(!el)return;
     const desc=document.getElementById('desc-'+id)?.value||'—';
     const qtd=parseFloat(document.getElementById('qtd-'+id)?.value)||0;
     const un=document.getElementById('un-'+id)?.value||'';
     const pu=parseFloat(document.getElementById('pu-'+id)?.value)||0;
-    const t=qtd*pu; total+=t;
-    linhasHtml+=`<tr><td>${desc}</td><td style="text-align:center">${qtd}</td><td style="text-align:center">${un}</td><td>${pu.toFixed(2).replace('.',',')} €</td><td>${t.toFixed(2).replace('.',',')} €</td></tr>`;
+    const t=qtd*pu;total+=t;
+    lHtml+=`<tr><td>${desc}</td><td style="text-align:center">${qtd}</td><td style="text-align:center">${un}</td><td>${pu.toFixed(2).replace('.',',')} €</td><td>${t.toFixed(2).replace('.',',')} €</td></tr>`;
   });
   const today=new Date();
   const fmt=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
-  const valid=new Date(today); valid.setDate(valid.getDate()+30);
+  const valid=new Date(today);valid.setDate(valid.getDate()+30);
   const num='ORC-'+today.getFullYear()+'-'+(Math.floor(Math.random()*90)+10);
-  const cliInfo=[morada,nif?'NIF: '+nif:'',tel].filter(Boolean).join(' · ');
+  const cliInfo=[morada_cli,nif_cli?'NIF: '+nif_cli:'',tel_cli].filter(Boolean).join(' · ');
+  const nome=cfg('nome','(Nome não configurado)');
+  const prof=cfg('prof','Canalizador');
+  const nif=cfg('nif','—');
+  const tel=cfg('tel','—');
+  const email=cfg('email','—');
+  const morada=cfg('morada','—');
   document.getElementById('orc-form').style.display='none';
-  const d=document.getElementById('orc-gerado'); d.style.display='block';
-  d.innerHTML=`
-    <button class="back-btn" onclick="document.getElementById('orc-gerado').style.display='none';document.getElementById('orc-form').style.display='block'"><span>←</span>Editar</button>
+  const d=document.getElementById('orc-gerado');d.style.display='block';
+  d.innerHTML=`<button class="back-btn" onclick="document.getElementById('orc-gerado').style.display='none';document.getElementById('orc-form').style.display='block'">&#8592; Editar</button>
     <div class="card">
-      <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div><div class="empresa-nome">João Ferreira — Canalizador</div><div class="empresa-info">NIF: 123 456 789<br>Rua das Flores, 14 · 4700-001 Braga<br>☎ 912 345 678 · joao@email.pt</div></div>
-        <div><div class="doc-title">Orçamento</div><div class="doc-meta">N.º ${num}<br>Data: ${fmt(today)}<br>Válido: ${fmt(valid)}</div></div>
+      <div style="text-align:center;margin-bottom:.6rem"><span class="non-fiscal">DOCUMENTO NÃO FISCAL</span></div>
+      <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem">
+        <div><div class="empresa-nome">${nome}</div><div class="empresa-info">${prof}<br>NIF: ${nif}<br>${morada}<br>&#9742; ${tel} &middot; ${email}</div></div>
+        <div style="flex-shrink:0"><div class="doc-title">Orçamento</div><div class="doc-meta">N.º ${num}<br>${fmt(today)}<br>Válido: ${fmt(valid)}</div></div>
       </div></div>
-      <div class="cli-block"><div class="lbl">Cliente</div><div class="nome">${nome}</div>${cliInfo?`<div class="sub">${cliInfo}</div>`:''}</div>
-      ${obra?`<div class="card-sub" style="margin-bottom:.6rem"><strong>Obra:</strong> ${obra}</div>`:''}
-      <table class="linhas"><thead><tr><th>Descrição</th><th style="text-align:center">Qtd</th><th style="text-align:center">Un</th><th>P.Unit.</th><th>Total</th></tr></thead><tbody>${linhasHtml}</tbody></table>
+      <div class="cli-block"><div class="lbl">Cliente</div><div class="nome">${nome_cli}</div>${cliInfo?`<div class="sub">${cliInfo}</div>`:''}</div>
+      ${obra_cli?`<div class="card-sub" style="margin-bottom:.6rem"><strong>Obra:</strong> ${obra_cli}</div>`:''}
+      <table class="linhas"><thead><tr><th>Descrição</th><th style="text-align:center">Qtd</th><th style="text-align:center">Un</th><th>P.Unit.</th><th>Total</th></tr></thead><tbody>${lHtml}</tbody></table>
       <hr class="div">
       <div class="row-d"><span class="lbl">Subtotal</span><span class="val">${total.toFixed(2).replace('.',',')} €</span></div>
       <div class="row-d"><span class="lbl">IVA (23%)</span><span class="val">incluído</span></div>
       <div class="total-box"><span class="t-lbl">Total</span><span class="t-val">${total.toFixed(2).replace('.',',')} €</span></div>
-      <div class="nota" style="margin-top:.6rem;font-size:11px"><span>ℹ️</span>Documento não fiscal. Fatura oficial via software certificado AT.</div>
+      <div class="nota nota-info" style="margin-top:.6rem;font-size:11px">&#8505;&#65039; Documento não fiscal. Fatura oficial via software certificado AT.</div>
       <div style="display:flex;gap:8px;margin-top:.75rem">
-        <button class="btn btn-sm" style="flex:1;justify-content:center"><span>⬇️</span>PDF</button>
-        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><span>📤</span>Enviar cliente</button>
+        <button class="btn btn-sm" style="flex:1;justify-content:center">&#11015;&#65039; PDF</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">&#128228; Enviar cliente</button>
       </div>
     </div>`;
 }
-
-// ============================================================
-// MATERIAIS + ENVIO
-// ============================================================
-function updateMatStatus(obraId){
-  document.querySelectorAll(`#items-${obraId} .chk-item`).forEach(item=>{
-    const cb=item.querySelector('input[type=checkbox]');
-    if(cb.checked) item.classList.add('done'); else item.classList.remove('done');
+function showPicker(){document.getElementById('modal-picker').style.display='flex';document.getElementById('picker-q').value='';filtrarPicker();}
+function closePicker(){document.getElementById('modal-picker').style.display='none';}
+function filtrarPicker(){
+  const q=document.getElementById('picker-q').value.toLowerCase();
+  const prods=PRODUTOS.filter(p=>!q||p.ref.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||p.dim.toLowerCase().includes(q)).slice(0,50);
+  let html='';
+  prods.forEach(p=>{
+    html+=`<div style="display:flex;align-items:center;gap:.5rem;padding:7px 0;border-bottom:1px solid var(--border)">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace">${p.ref}</div>
+        <div style="font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.desc}</div>
+        <div style="font-size:11px;color:var(--text2)">${p.dim} · ${p.un}</div>
+      </div>
+      <button class="add-orc-btn" onclick='selectPicker(${JSON.stringify({ref:p.ref,desc:p.desc,un:p.un,preco:p.preco})})'>Sel.</button>
+    </div>`;
   });
+  if(!html)html='<div class="empty">Sem resultados</div>';
+  document.getElementById('picker-lista').innerHTML=html;
 }
-function buildMsg(obraId, obraName, fornName){
-  const items=document.querySelectorAll(`#items-${obraId} .chk-item`);
-  const pendentes=[];
-  items.forEach(item=>{ if(!item.querySelector('input').checked) pendentes.push(`  • ${item.dataset.item} — ${item.dataset.qty}`); });
-  const today=new Date(); const fmt=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
-  if(!pendentes.length) return `Bom dia ${fornName},\n\nNão há materiais pendentes para a obra "${obraName}".\n\nObrigado,\nJoão Ferreira – Canalizador\n☎ 912 345 678`;
-  return `Bom dia ${fornName},\n\nPedido de encomenda — ${fmt(today)}\nObra: ${obraName}\n\nMateriais necessários:\n${pendentes.join('\n')}\n\nPor favor confirmar disponibilidade e prazo de entrega.\n\nObrigado,\nJoão Ferreira – Canalizador\n☎ 912 345 678`;
+function selectPicker(p){showSec('orcamentos');showOrcForm();addFromCat(p);closePicker();}
+
+function updateMat(cb){const item=cb.closest('.chk-item');if(cb.checked)item.classList.add('done');else item.classList.remove('done');}
+function buildMsg(containerId,obraName,fornName){
+  const items=document.querySelectorAll('#'+containerId+' .chk-item');
+  const pend=[];
+  items.forEach(item=>{if(!item.querySelector('input').checked)pend.push('  • '+item.dataset.item+' — '+item.dataset.qty);});
+  const today=new Date();const fmt=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+  const nome=cfg('nome','João Ferreira');const tel=cfg('tel','');
+  if(!pend.length)return `Bom dia ${fornName},
+
+Não há materiais pendentes para "${obraName}".
+
+Obrigado,
+${nome}${tel?' — ☎ '+tel:''}`;
+  return `Bom dia ${fornName},
+
+Pedido de encomenda — ${fmt(today)}
+Obra: ${obraName}
+
+Materiais necessários:
+${pend.join('\n')}
+
+Por favor confirmar disponibilidade e prazo.
+
+Obrigado,
+${nome}${tel?' — ☎ '+tel:''}`;
 }
-const OBRA_NAMES={braga:'Moradia Braga Norte',boavista:'Apartamento Av. da Boavista'};
-function enviarWA(obraId, fornName, numero){
-  const msg=buildMsg(obraId, OBRA_NAMES[obraId], fornName);
+function enviarWA(cid,fornName,numero){
+  const obraNms={braga:'Moradia Braga Norte',boavista:'Apartamento Av. da Boavista'};
+  const msg=buildMsg('items-'+cid,obraNms[cid],fornName);
   document.getElementById('envio-title').textContent='WhatsApp → '+fornName;
   document.getElementById('envio-preview').textContent=msg;
-  const btn=document.getElementById('envio-confirm');
-  btn.innerHTML='<span>💬</span>Abrir WhatsApp';
-  btn.style.background='#25D366'; btn.style.borderColor='#25D366';
-  btn.onclick=()=>{ window.open('https://wa.me/'+numero+'?text='+encodeURIComponent(msg),'_blank'); closeModalEnvio(); };
+  const btn=document.getElementById('envio-btn');
+  btn.innerHTML='&#128172; Abrir WhatsApp';btn.style.background='#25D366';btn.style.borderColor='#25D366';
+  btn.onclick=()=>{window.open('https://wa.me/'+numero+'?text='+encodeURIComponent(msg),'_blank');closeEnvio();};
   document.getElementById('modal-envio').style.display='flex';
 }
-function enviarEmail(obraId, fornName, email){
-  const msg=buildMsg(obraId, OBRA_NAMES[obraId], fornName);
-  const subj='Pedido de encomenda — '+OBRA_NAMES[obraId];
+function enviarEmail(cid,fornName,email){
+  const obraNms={braga:'Moradia Braga Norte',boavista:'Apartamento Av. da Boavista'};
+  const msg=buildMsg('items-'+cid,obraNms[cid],fornName);
+  const subj='Pedido de encomenda — '+obraNms[cid];
   document.getElementById('envio-title').textContent='Email → '+fornName;
   document.getElementById('envio-preview').textContent=msg;
-  const btn=document.getElementById('envio-confirm');
-  btn.innerHTML='<span>✉️</span>Abrir email';
-  btn.style.background='var(--blue)'; btn.style.borderColor='var(--blue)';
-  btn.onclick=()=>{ window.open('mailto:'+email+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg),'_blank'); closeModalEnvio(); };
+  const btn=document.getElementById('envio-btn');
+  btn.innerHTML='&#9993; Abrir email';btn.style.background='var(--blue)';btn.style.borderColor='var(--blue)';
+  btn.onclick=()=>{window.open('mailto:'+email+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg),'_blank');closeEnvio();};
   document.getElementById('modal-envio').style.display='flex';
 }
-function closeModalEnvio(){ document.getElementById('modal-envio').style.display='none'; }
+function closeEnvio(){document.getElementById('modal-envio').style.display='none';}
 
-// Init
 renderObras('todas');
-renderCatalogo();
+renderCat();
+loadConfig();
 </script>
 </body>
 </html>
