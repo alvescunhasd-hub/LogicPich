@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Logiciel Plomberie</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -146,18 +146,18 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
 
 <div class="header">
   <div>
-    <div class="header-title"><i class="ti ti-tool" style="margin-right:5px"></i>Logiciel Plomberie</div>
+    <div class="header-title"><span>🔧</span>Logiciel Plomberie</div>
     <div class="header-sub">Gestão de Obras · Sanitop Portugal</div>
   </div>
   <div style="font-size:11px;text-align:right;opacity:.8">João Ferreira<br>Canalizador</div>
 </div>
 
 <nav class="nav">
-  <button class="nav-btn active" onclick="showSec('dashboard')"><i class="ti ti-home"></i>Início</button>
-  <button class="nav-btn" onclick="showSec('obras')"><i class="ti ti-building"></i>Obras</button>
-  <button class="nav-btn" onclick="showSec('orcamentos')"><i class="ti ti-file-text"></i>Orçamentos</button>
-  <button class="nav-btn" onclick="showSec('materiais')"><i class="ti ti-package"></i>Materiais</button>
-  <button class="nav-btn" onclick="showSec('catalogo')"><i class="ti ti-list-search"></i>Catálogo</button>
+  <button class="nav-btn active" onclick="showSec('dashboard')"><span>🏠</span>Início</button>
+  <button class="nav-btn" onclick="showSec('obras')"><span>🏗️</span>Obras</button>
+  <button class="nav-btn" onclick="showSec('orcamentos')"><span>📄</span>Orçamentos</button>
+  <button class="nav-btn" onclick="showSec('materiais')"><span>📦</span>Materiais</button>
+  <button class="nav-btn" onclick="showSec('catalogo')"><span>🔍</span>Catálogo</button>
 </nav>
 
 <!-- ======================== DASHBOARD ======================== -->
@@ -187,13 +187,13 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
     <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
     <div class="card-sub" style="margin-top:4px;font-size:11px">80% concluído</div>
   </div>
-  <div class="nota"><i class="ti ti-bell" style="margin-right:5px"></i><strong>Lembrete:</strong> Encomenda pendente para "Braga Norte" — ver Materiais.</div>
+  <div class="nota"><span>🔔</span><strong>Lembrete:</strong> Encomenda pendente para "Braga Norte" — ver Materiais.</div>
 </div>
 
 <!-- ======================== OBRAS ======================== -->
 <div id="obras" class="section">
   <div id="obras-lista">
-    <div class="sec-header"><span class="sec-title">Obras</span><button class="btn btn-primary btn-sm" onclick="showNovaObra()"><i class="ti ti-plus"></i>Nova</button></div>
+    <div class="sec-header"><span class="sec-title">Obras</span><button class="btn btn-primary btn-sm" onclick="showNovaObra()"><span>+</span>Nova</button></div>
     <div class="tabs-inner">
       <button class="active" onclick="filtrarObras('todas',this)">Todas</button>
       <button onclick="filtrarObras('curso',this)">Em curso</button>
@@ -204,7 +204,7 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
   </div>
   <div id="obra-detalhe" style="display:none"></div>
   <div id="obra-form" style="display:none">
-    <button class="back-btn" onclick="document.getElementById('obra-form').style.display='none';document.getElementById('obras-lista').style.display='block'"><i class="ti ti-arrow-left"></i>Voltar</button>
+    <button class="back-btn" onclick="document.getElementById('obra-form').style.display='none';document.getElementById('obras-lista').style.display='block'"><span>←</span>Voltar</button>
     <div class="card">
       <div class="sec-title" style="margin-bottom:.75rem">Nova Obra</div>
       <label>Nome da obra</label><input type="text" placeholder="Ex: Moradia Sr. Silva">
@@ -212,7 +212,7 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
       <label>Morada / Localização</label><input type="text" placeholder="Cidade ou morada">
       <div class="form-row"><div><label>Data início</label><input type="text" placeholder="dd/mm/aaaa"></div><div><label>Valor est. (€)</label><input type="number" placeholder="0"></div></div>
       <label>Notas</label><textarea rows="3" placeholder="Descrição dos trabalhos..."></textarea>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px"><i class="ti ti-check"></i>Criar Obra</button>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px"><span>✓</span>Criar Obra</button>
     </div>
   </div>
 </div>
@@ -220,7 +220,7 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
 <!-- ======================== ORÇAMENTOS ======================== -->
 <div id="orcamentos" class="section">
   <div id="orc-lista">
-    <div class="sec-header"><span class="sec-title">Orçamentos</span><button class="btn btn-primary btn-sm" onclick="showOrcForm()"><i class="ti ti-plus"></i>Novo</button></div>
+    <div class="sec-header"><span class="sec-title">Orçamentos</span><button class="btn btn-primary btn-sm" onclick="showOrcForm()"><span>+</span>Novo</button></div>
     <div class="card card-clickable" onclick="showOrcDoc('orc007')">
       <div class="card-row"><span class="card-title">ORC-2024-008</span><span class="badge b-amber">Pendente</span></div>
       <div class="card-sub">Família Sousa · Moradia Braga Norte</div>
@@ -233,7 +233,7 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
     </div>
   </div>
   <div id="orc-form" style="display:none">
-    <button class="back-btn" onclick="showOrcLista()"><i class="ti ti-arrow-left"></i>Voltar</button>
+    <button class="back-btn" onclick="showOrcLista()"><span>←</span>Voltar</button>
     <div class="card">
       <div class="sec-title" style="margin-bottom:.75rem">Novo Orçamento</div>
       <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Dados do cliente</div>
@@ -244,10 +244,10 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
       <hr class="div">
       <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Linhas do orçamento</div>
       <div id="orc-linhas"></div>
-      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addLinhaManual()"><i class="ti ti-pencil"></i>Linha manual</button>
-      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:.75rem;background:var(--blue-l);color:var(--blue);border-color:var(--blue)" onclick="showCatalogoPicker()"><i class="ti ti-list-search"></i>Adicionar do catálogo</button>
+      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addLinhaManual()"><span>✏️</span>Linha manual</button>
+      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:.75rem;background:var(--blue-l);color:var(--blue);border-color:var(--blue)" onclick="showCatalogoPicker()"><span>🔍</span>Adicionar do catálogo</button>
       <div class="total-box" id="orc-total-preview"><span class="t-lbl">Total</span><span class="t-val">0,00 €</span></div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.75rem" onclick="gerarOrc()"><i class="ti ti-eye"></i>Visualizar orçamento</button>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.75rem" onclick="gerarOrc()"><span>👁</span>Visualizar orçamento</button>
     </div>
   </div>
   <div id="orc-doc" style="display:none"></div>
@@ -273,8 +273,8 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
       <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0">
         <div><div style="font-size:13px;font-weight:600">Sanitop Portugal</div><div style="font-size:11px;color:var(--text2)">sanitop@sanitop.pt · +351 258 105 400</div></div>
         <div style="display:flex;gap:6px">
-          <button class="btn btn-wa btn-sm" onclick="enviarWA('braga','Sanitop Portugal','351258105400')"><i class="ti ti-brand-whatsapp"></i>WA</button>
-          <button class="btn btn-primary btn-sm" onclick="enviarEmail('braga','Sanitop Portugal','sanitop@sanitop.pt')"><i class="ti ti-mail"></i>Email</button>
+          <button class="btn btn-wa btn-sm" onclick="enviarWA('braga','Sanitop Portugal','351258105400')"><span>💬</span>WA</button>
+          <button class="btn btn-primary btn-sm" onclick="enviarEmail('braga','Sanitop Portugal','sanitop@sanitop.pt')"><span>✉️</span>Email</button>
         </div>
       </div>
     </div>
@@ -291,7 +291,7 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
 <!-- ======================== CATÁLOGO ======================== -->
 <div id="catalogo" class="section">
   <div class="sec-header"><span class="sec-title">Catálogo Sanitop</span><span style="font-size:11px;color:var(--text2)" id="cat-count"></span></div>
-  <div class="search-box"><i class="ti ti-search"></i><input type="text" id="cat-search" placeholder="Pesquisar ref., descrição, dim... ex: MCC9, PPR 20mm" oninput="filtrarCatalogo()"></div>
+  <div class="search-box"><span>🔍</span><input type="text" id="cat-search" placeholder="Pesquisar ref., descrição, dim... ex: MCC9, PPR 20mm" oninput="filtrarCatalogo()"></div>
   <div class="tabs-inner" id="cat-filtros" style="overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px">
     <button class="active" onclick="setCatFiltro('',this)">Todos</button>
     <button onclick="setCatFiltro('Multicamada',this)">Multicamada</button>
@@ -312,8 +312,8 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
 <!-- MODAL PICKER CATÁLOGO -->
 <div id="modal-picker" class="modal-ov" style="display:none" onclick="if(event.target===this)closeModalPicker()">
   <div class="modal" style="max-height:80vh;overflow-y:auto">
-    <div class="modal-title"><i class="ti ti-list-search" style="margin-right:6px"></i>Selecionar produto do catálogo</div>
-    <div class="search-box"><i class="ti ti-search"></i><input type="text" id="picker-search" placeholder="Pesquisar..." oninput="filtrarPicker()" style="margin:0"></div>
+    <div class="modal-title"><span>🔍</span>Selecionar produto do catálogo</div>
+    <div class="search-box"><span>🔍</span><input type="text" id="picker-search" placeholder="Pesquisar..." oninput="filtrarPicker()" style="margin:0"></div>
     <div id="picker-lista" style="margin-top:8px;max-height:350px;overflow-y:auto"></div>
     <button class="btn" style="width:100%;justify-content:center;margin-top:.5rem" onclick="closeModalPicker()">Cancelar</button>
   </div>
@@ -325,7 +325,7 @@ table.linhas .sub-desc{font-size:10px;color:var(--text2);display:block}
     <div class="modal-title" id="envio-title"></div>
     <div class="modal-preview" id="envio-preview"></div>
     <div style="display:flex;gap:8px">
-      <button class="btn" style="flex:1;justify-content:center" onclick="closeModalEnvio()"><i class="ti ti-x"></i>Cancelar</button>
+      <button class="btn" style="flex:1;justify-content:center" onclick="closeModalEnvio()"><span>✕</span>Cancelar</button>
       <button class="btn" id="envio-confirm" style="flex:1;justify-content:center;color:#fff"></button>
     </div>
   </div>
@@ -1069,7 +1069,7 @@ function renderObras(filtro){
       <div class="card-sub" style="margin-top:4px;font-size:11px">${o.prog}% concluído</div>
     </div>`;
   });
-  if(!c.innerHTML) c.innerHTML='<div class="empty"><i class="ti ti-building"></i>Nenhuma obra</div>';
+  if(!c.innerHTML) c.innerHTML='<div class="empty"><span>🏗️</span>Nenhuma obra</div>';
 }
 function filtrarObras(f,btn){
   document.querySelectorAll('#obras .tabs-inner button').forEach(b=>b.classList.remove('active'));
@@ -1084,7 +1084,7 @@ function openObra(i){
   let tarefas=o.tarefas.map(t=>`<div class="chk-item${t.ok?' done':''}"><input type="checkbox"${t.ok?' checked':''}><span>${t.t}</span></div>`).join('');
   let notaHtml=o.nota?`<div class="nota">${o.nota}</div>`:'';
   d.innerHTML=`
-    <button class="back-btn" onclick="document.getElementById('obra-detalhe').style.display='none';document.getElementById('obras-lista').style.display='block'"><i class="ti ti-arrow-left"></i>Voltar</button>
+    <button class="back-btn" onclick="document.getElementById('obra-detalhe').style.display='none';document.getElementById('obras-lista').style.display='block'"><span>←</span>Voltar</button>
     <div class="card"><div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${bClass[o.estado]||'b-blue'}">${o.estado}</span></div>
     <div class="card-sub" style="margin-bottom:.6rem">${o.local} · ${o.cliente}</div>
     <div class="row-d"><span class="lbl">Data início</span><span class="val">${o.data}</span></div>
@@ -1093,8 +1093,8 @@ function openObra(i){
     <div class="card-sub" style="font-size:11px">${o.prog}% concluído</div></div>
     <div class="card"><div class="sec-title" style="font-size:14px;margin-bottom:.6rem">Tarefas</div>${tarefas}${notaHtml}</div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-sm" style="flex:1;justify-content:center" onclick="showSec('materiais')"><i class="ti ti-package"></i>Materiais</button>
-      <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="showSec('orcamentos')"><i class="ti ti-file-text"></i>Orçamento</button>
+      <button class="btn btn-sm" style="flex:1;justify-content:center" onclick="showSec('materiais')"><span>📦</span>Materiais</button>
+      <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="showSec('orcamentos')"><span>📄</span>Orçamento</button>
     </div>`;
 }
 function showNovaObra(){
@@ -1153,7 +1153,7 @@ function renderCatalogo(){
     });
   });
 
-  if(!html) html = '<div class="empty"><i class="ti ti-search"></i>Nenhum produto encontrado</div>';
+  if(!html) html = '<div class="empty"><span>🔍</span>Nenhum produto encontrado</div>';
   document.getElementById('cat-lista').innerHTML = html;
 
   // Pagination
@@ -1161,9 +1161,9 @@ function renderCatalogo(){
   let pagHtml = '';
   if(totalPages>1){
     pagHtml = `<div style="display:flex;gap:6px;justify-content:center;align-items:center;padding:.5rem 0">`;
-    if(catPage>1) pagHtml+=`<button class="btn btn-sm" onclick="goPage(${catPage-1})"><i class="ti ti-chevron-left"></i></button>`;
+    if(catPage>1) pagHtml+=`<button class="btn btn-sm" onclick="goPage(${catPage-1})"><span>‹</span></button>`;
     pagHtml+=`<span style="font-size:13px;color:var(--text2)">${catPage} / ${totalPages}</span>`;
-    if(catPage<totalPages) pagHtml+=`<button class="btn btn-sm" onclick="goPage(${catPage+1})"><i class="ti ti-chevron-right"></i></button>`;
+    if(catPage<totalPages) pagHtml+=`<button class="btn btn-sm" onclick="goPage(${catPage+1})"><span>›</span></button>`;
     pagHtml+=`</div>`;
   }
   document.getElementById('cat-pag').innerHTML = pagHtml;
@@ -1190,7 +1190,7 @@ function showOrcDoc(id){
        linhas:[['Mão de obra','Instalação caldeira + ligações','2','dia','160,00','320,00'],['Caldeira mural gás 24kW','Ref: AQSTAC24','1','un','680,00','680,00'],['Kit instalação caldeira','Ref: AQSKIT34','1','kit','85,00','85,00']],total:'1.085,00'};
   let linhasHtml=data_orc.linhas.map(l=>`<tr><td>${l[0]}<span class="sub-desc">${l[1]}</span></td><td style="text-align:center">${l[2]}</td><td style="text-align:center">${l[3]}</td><td>${l[4]} €</td><td>${l[5]} €</td></tr>`).join('');
   d.innerHTML=`
-    <button class="back-btn" onclick="showOrcLista()"><i class="ti ti-arrow-left"></i>Voltar</button>
+    <button class="back-btn" onclick="showOrcLista()"><span>←</span>Voltar</button>
     <div class="card">
       <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div><div class="empresa-nome">João Ferreira — Canalizador</div><div class="empresa-info">NIF: 123 456 789<br>Rua das Flores, 14 · 4700-001 Braga<br>☎ 912 345 678 · joao@email.pt</div></div>
@@ -1203,10 +1203,10 @@ function showOrcDoc(id){
       <div class="row-d"><span class="lbl">Subtotal</span><span class="val">${data_orc.total} €</span></div>
       <div class="row-d"><span class="lbl">IVA (23%)</span><span class="val">incluído</span></div>
       <div class="total-box"><span class="t-lbl">Total</span><span class="t-val">${data_orc.total} €</span></div>
-      <div class="nota" style="margin-top:.6rem;font-size:11px"><i class="ti ti-info-circle" style="margin-right:4px"></i>Documento não fiscal. Fatura oficial via software certificado AT.</div>
+      <div class="nota" style="margin-top:.6rem;font-size:11px"><span>ℹ️</span>Documento não fiscal. Fatura oficial via software certificado AT.</div>
       <div style="display:flex;gap:8px;margin-top:.75rem">
-        <button class="btn btn-sm" style="flex:1;justify-content:center"><i class="ti ti-file-download"></i>PDF</button>
-        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><i class="ti ti-send"></i>Enviar</button>
+        <button class="btn btn-sm" style="flex:1;justify-content:center"><span>⬇️</span>PDF</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><span>📤</span>Enviar</button>
       </div>
     </div>`;
 }
@@ -1235,7 +1235,7 @@ function addProdutoFromPicker(p){
   const div=document.createElement('div');
   div.id='linha-'+id;
   div.className='orc-line';
-  div.innerHTML=`<button class="orc-line-remove" onclick="removeLinha(${id})"><i class="ti ti-trash"></i></button>
+  div.innerHTML=`<button class="orc-line-remove" onclick="removeLinha(${id})"><span>🗑</span></button>
     <div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace;margin-bottom:4px">${p.ref}</div>
     <label>Descrição</label><input type="text" id="desc-${id}" value="${p.desc}" oninput="calcOrcTotal()">
     <div class="form-row"><div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcOrcTotal()"></div>
@@ -1253,7 +1253,7 @@ function addLinhaManual(){
   const div=document.createElement('div');
   div.id='linha-'+id;
   div.className='orc-line';
-  div.innerHTML=`<button class="orc-line-remove" onclick="removeLinha(${id})"><i class="ti ti-trash"></i></button>
+  div.innerHTML=`<button class="orc-line-remove" onclick="removeLinha(${id})"><span>🗑</span></button>
     <label>Descrição</label><input type="text" id="desc-${id}" placeholder="Ex: Mão de obra / Deslocação..." oninput="calcOrcTotal()">
     <div class="form-row"><div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcOrcTotal()"></div>
     <div><label>Unidade</label><select id="un-${id}"><option>un</option><option>dia</option><option>hora</option><option>m</option><option>ml</option><option>m²</option><option>kit</option><option>vb</option></select></div></div>
@@ -1298,7 +1298,7 @@ function gerarOrc(){
   document.getElementById('orc-form').style.display='none';
   const d=document.getElementById('orc-gerado'); d.style.display='block';
   d.innerHTML=`
-    <button class="back-btn" onclick="document.getElementById('orc-gerado').style.display='none';document.getElementById('orc-form').style.display='block'"><i class="ti ti-arrow-left"></i>Editar</button>
+    <button class="back-btn" onclick="document.getElementById('orc-gerado').style.display='none';document.getElementById('orc-form').style.display='block'"><span>←</span>Editar</button>
     <div class="card">
       <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div><div class="empresa-nome">João Ferreira — Canalizador</div><div class="empresa-info">NIF: 123 456 789<br>Rua das Flores, 14 · 4700-001 Braga<br>☎ 912 345 678 · joao@email.pt</div></div>
@@ -1311,10 +1311,10 @@ function gerarOrc(){
       <div class="row-d"><span class="lbl">Subtotal</span><span class="val">${total.toFixed(2).replace('.',',')} €</span></div>
       <div class="row-d"><span class="lbl">IVA (23%)</span><span class="val">incluído</span></div>
       <div class="total-box"><span class="t-lbl">Total</span><span class="t-val">${total.toFixed(2).replace('.',',')} €</span></div>
-      <div class="nota" style="margin-top:.6rem;font-size:11px"><i class="ti ti-info-circle" style="margin-right:4px"></i>Documento não fiscal. Fatura oficial via software certificado AT.</div>
+      <div class="nota" style="margin-top:.6rem;font-size:11px"><span>ℹ️</span>Documento não fiscal. Fatura oficial via software certificado AT.</div>
       <div style="display:flex;gap:8px;margin-top:.75rem">
-        <button class="btn btn-sm" style="flex:1;justify-content:center"><i class="ti ti-file-download"></i>PDF</button>
-        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><i class="ti ti-send"></i>Enviar cliente</button>
+        <button class="btn btn-sm" style="flex:1;justify-content:center"><span>⬇️</span>PDF</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><span>📤</span>Enviar cliente</button>
       </div>
     </div>`;
 }
@@ -1342,7 +1342,7 @@ function enviarWA(obraId, fornName, numero){
   document.getElementById('envio-title').textContent='WhatsApp → '+fornName;
   document.getElementById('envio-preview').textContent=msg;
   const btn=document.getElementById('envio-confirm');
-  btn.innerHTML='<i class="ti ti-brand-whatsapp"></i>Abrir WhatsApp';
+  btn.innerHTML='<span>💬</span>Abrir WhatsApp';
   btn.style.background='#25D366'; btn.style.borderColor='#25D366';
   btn.onclick=()=>{ window.open('https://wa.me/'+numero+'?text='+encodeURIComponent(msg),'_blank'); closeModalEnvio(); };
   document.getElementById('modal-envio').style.display='flex';
@@ -1353,7 +1353,7 @@ function enviarEmail(obraId, fornName, email){
   document.getElementById('envio-title').textContent='Email → '+fornName;
   document.getElementById('envio-preview').textContent=msg;
   const btn=document.getElementById('envio-confirm');
-  btn.innerHTML='<i class="ti ti-mail"></i>Abrir email';
+  btn.innerHTML='<span>✉️</span>Abrir email';
   btn.style.background='var(--blue)'; btn.style.borderColor='var(--blue)';
   btn.onclick=()=>{ window.open('mailto:'+email+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg),'_blank'); closeModalEnvio(); };
   document.getElementById('modal-envio').style.display='flex';
