@@ -6,28 +6,18 @@
 <title>ObraFácil</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --blue:#185FA5;--blue-l:#E6F1FB;--blue-m:#378ADD;
-  --green:#3B6D11;--green-l:#EAF3DE;
-  --amber:#854F0B;--amber-l:#FAEEDA;
-  --red:#A32D2D;--red-l:#FCEBEB;
-  --bg:#F4F3EE;--card:#FFFFFF;--text:#1A1917;--text2:#6B6960;--border:#E0DDD5;
-  --wa:#25D366;--wa-d:#128C7E;
-}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;padding-bottom:20px}
-.header{background:var(--blue);color:#fff;padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between;position:relative}
+:root{--blue:#185FA5;--blue-l:#E6F1FB;--blue-m:#378ADD;--green:#3B6D11;--green-l:#EAF3DE;--amber:#854F0B;--amber-l:#FAEEDA;--red:#A32D2D;--red-l:#FCEBEB;--bg:#F4F3EE;--card:#FFFFFF;--text:#1A1917;--text2:#6B6960;--border:#E0DDD5;--wa:#25D366}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
+.header{background:var(--blue);color:#fff;padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between}
 .header-title{font-size:17px;font-weight:700}
 .header-sub{font-size:11px;opacity:.75;margin-top:1px}
-.header-user{font-size:11px;text-align:right;opacity:.85;cursor:pointer}
-.nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);position:relative;overflow-x:auto}
-.nav-btn{flex:1;min-width:55px;padding:10px 4px 8px;border:none;background:none;cursor:pointer;font-size:10px;font-weight:600;color:var(--text2);border-bottom:2.5px solid transparent;display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap;transition:color .15s}
-.nav-btn .ico{font-size:20px;line-height:1}
+.nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto}
+.nav-btn{flex:1;min-width:55px;padding:10px 4px 8px;border:none;background:none;cursor:pointer;font-size:10px;font-weight:600;color:var(--text2);border-bottom:2.5px solid transparent;display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap}
 .nav-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
 .section{display:none;padding:.75rem}
 .section.active{display:block}
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;margin-bottom:.65rem}
-.card-click{cursor:pointer;transition:transform .1s}
-.card-click:active{transform:scale(.99)}
+.clickable{cursor:pointer}
 .card-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
 .card-title{font-size:15px;font-weight:600}
 .card-sub{font-size:12px;color:var(--text2)}
@@ -40,10 +30,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem .9rem}
 .stat-lbl{font-size:11px;color:var(--text2);margin-bottom:3px}
 .stat-val{font-size:22px;font-weight:700}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:13px;font-weight:600;color:var(--text);transition:background .15s;text-decoration:none}
-.btn:active{background:var(--bg)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:13px;font-weight:600;color:var(--text)}
 .btn-primary{background:var(--blue);color:#fff;border-color:var(--blue)}
-.btn-primary:active{background:#0C447C}
 .btn-wa{background:var(--wa);color:#fff;border-color:var(--wa)}
 .btn-sm{padding:6px 11px;font-size:12px}
 .sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
@@ -54,18 +42,17 @@ hr.div{border:none;border-top:1px solid var(--border);margin:.65rem 0}
 .row-d .lbl{color:var(--text2)}
 .row-d .val{font-weight:500}
 .prog{height:5px;background:var(--bg);border-radius:3px;margin-top:7px;overflow:hidden}
-.prog-fill{height:100%;border-radius:3px;background:var(--blue-m);transition:width .3s}
-input,select,textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;background:var(--card);color:var(--text);margin-bottom:7px;outline:none;-webkit-appearance:none}
-input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,95,165,.1)}
+.prog-fill{height:100%;border-radius:3px;background:var(--blue-m)}
+input,select,textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;background:var(--card);color:var(--text);margin-bottom:7px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue)}
 label{font-size:12px;color:var(--text2);display:block;margin-bottom:3px;font-weight:500}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .total-box{background:var(--blue-l);border-radius:10px;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;margin-top:.6rem}
-.total-box .t-lbl{font-size:13px;font-weight:600;color:var(--blue)}
-.total-box .t-val{font-size:20px;font-weight:700;color:var(--blue)}
+.t-lbl{font-size:13px;font-weight:600;color:var(--blue)}
+.t-val{font-size:20px;font-weight:700;color:var(--blue)}
 .nota{background:var(--amber-l);border-radius:8px;padding:.65rem .9rem;font-size:12px;color:var(--amber);margin-top:.6rem;line-height:1.5}
 .nota-info{background:var(--blue-l);color:var(--blue)}
-.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;background:var(--bg);color:var(--text2);margin:1px}
-.chk-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.4}
+.chk-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
 .chk-item:last-child{border-bottom:none}
 .chk-item input[type=checkbox]{width:18px;height:18px;cursor:pointer;flex-shrink:0;accent-color:var(--blue)}
 .chk-item.done span{text-decoration:line-through;color:var(--text2)}
@@ -76,19 +63,18 @@ label{font-size:12px;color:var(--text2);display:block;margin-bottom:3px;font-wei
 .tabs-inner button{padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--card);font-size:12px;cursor:pointer;color:var(--text2);white-space:nowrap;font-weight:500}
 .tabs-inner button.active{background:var(--blue-l);color:var(--blue);border-color:var(--blue)}
 .search-wrap{position:relative;margin-bottom:.75rem}
-.search-wrap input{padding-left:40px;margin:0}
-.search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--text2);pointer-events:none}
+.search-wrap input{padding-left:36px;margin:0}
+.search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text2);pointer-events:none;font-size:16px}
 .prod-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem .85rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.7rem}
 .prod-info{flex:1;min-width:0}
-.prod-ref{font-size:11px;font-weight:700;color:var(--blue);font-family:monospace;letter-spacing:.3px}
+.prod-ref{font-size:11px;font-weight:700;color:var(--blue);font-family:monospace}
 .prod-desc{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .prod-meta{font-size:11px;color:var(--text2);margin-top:1px}
 .prod-right{text-align:right;flex-shrink:0}
 .prod-preco{font-size:13px;font-weight:700;color:var(--blue)}
-.prod-preco.vazio{font-size:11px;color:var(--text2)}
-.add-orc-btn{display:block;background:var(--blue);color:#fff;border:none;border-radius:7px;padding:5px 10px;font-size:12px;font-weight:600;cursor:pointer;margin-top:4px;white-space:nowrap}
-.add-orc-btn:active{background:#0C447C}
-.cat-header{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;padding:.5rem 0 .3rem;border-bottom:1px solid var(--border);margin-bottom:.4rem;margin-top:.5rem}
+.prod-sem{font-size:11px;color:var(--text2)}
+.add-orc{display:block;background:var(--blue);color:#fff;border:none;border-radius:7px;padding:5px 10px;font-size:12px;font-weight:600;cursor:pointer;margin-top:4px}
+.cat-hdr{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;padding:.5rem 0 .3rem;border-bottom:1px solid var(--border);margin-bottom:.4rem;margin-top:.5rem}
 .doc-header{border-bottom:2px solid var(--blue);padding-bottom:.9rem;margin-bottom:.9rem}
 .empresa-nome{font-size:17px;font-weight:700;color:var(--blue)}
 .empresa-info{font-size:11px;color:var(--text2);line-height:1.9;margin-top:3px}
@@ -103,20 +89,19 @@ table.linhas th{font-size:10px;font-weight:700;color:var(--text2);padding:5px 3p
 table.linhas th:nth-child(n+3){text-align:right}
 table.linhas td{padding:7px 3px;border-bottom:1px solid var(--border);vertical-align:top}
 table.linhas td:nth-child(n+3){text-align:right;font-weight:500;white-space:nowrap}
-table.linhas .sub-d{font-size:10px;color:var(--text2);display:block}
+.sub-d{font-size:10px;color:var(--text2);display:block}
 .non-fiscal{font-size:10px;font-weight:700;letter-spacing:.8px;color:var(--text2);border:1px solid var(--border);display:inline-block;padding:2px 9px;border-radius:4px;margin-bottom:8px}
 .orc-line{background:var(--bg);border-radius:8px;padding:.75rem;margin-bottom:6px;position:relative}
-.orc-line-del{position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:var(--red);font-size:18px;line-height:1;padding:2px}
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;z-index:200}
+.orc-del{position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:var(--red);font-size:18px;line-height:1;padding:2px}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:flex-end;justify-content:center}
+.modal-ov.open{display:flex}
 .modal{background:var(--card);border-radius:16px 16px 0 0;padding:1.25rem;width:100%;max-width:540px;max-height:85vh;overflow-y:auto}
 .modal-title{font-size:15px;font-weight:700;margin-bottom:.75rem}
 .modal-preview{background:var(--bg);border-radius:8px;padding:.75rem;font-size:12px;line-height:1.8;max-height:200px;overflow-y:auto;margin-bottom:.75rem;white-space:pre-wrap;font-family:monospace}
 .pag-wrap{display:flex;gap:8px;justify-content:center;align-items:center;padding:.75rem 0}
 .empty{text-align:center;padding:2rem 1rem;color:var(--text2)}
-.empty .ico{font-size:40px;display:block;margin-bottom:.75rem;opacity:.3}
-.config-section{margin-bottom:1rem}
-.config-section-title{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
-.saved-banner{background:var(--green-l);color:var(--green);border-radius:8px;padding:.6rem 1rem;font-size:13px;font-weight:600;text-align:center;margin-bottom:.75rem;display:none}
+.saved-ok{background:var(--green-l);color:var(--green);border-radius:8px;padding:.6rem 1rem;font-size:13px;font-weight:600;text-align:center;margin-bottom:.75rem;display:none}
+.cfg-title{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 </style>
 </head>
 <body>
@@ -126,22 +111,22 @@ table.linhas .sub-d{font-size:10px;color:var(--text2);display:block}
     <div class="header-title">&#128295; ObraFácil</div>
     <div class="header-sub">Gestão de Obras · Sanitop Portugal</div>
   </div>
-  <div class="header-user" onclick="showSec('config')">
+  <div id="hdr-user" style="font-size:11px;text-align:right;opacity:.85;cursor:pointer">
     <span id="hdr-nome">&#9881; Configurar</span>
     <div style="font-size:10px;opacity:.7">Toque para editar</div>
   </div>
 </div>
 
-<nav class="nav" role="navigation" aria-label="Menu principal">
-  <button class="nav-btn active" onclick="showSec('dashboard')"><span class="ico">&#127968;</span>Início</button>
-  <button class="nav-btn" onclick="showSec('obras')"><span class="ico">&#127959;</span>Obras</button>
-  <button class="nav-btn" onclick="showSec('orcamentos')"><span class="ico">&#128196;</span>Orçamentos</button>
-  <button class="nav-btn" onclick="showSec('materiais')"><span class="ico">&#128230;</span>Materiais</button>
-  <button class="nav-btn" onclick="showSec('catalogo')"><span class="ico">&#128269;</span>Catálogo</button>
-  <button class="nav-btn" onclick="showSec('config')"><span class="ico">&#9881;</span>Config.</button>
+<nav class="nav">
+  <button class="nav-btn active" data-sec="dashboard">&#127968;<br>Início</button>
+  <button class="nav-btn" data-sec="obras">&#127959;<br>Obras</button>
+  <button class="nav-btn" data-sec="orcamentos">&#128196;<br>Orç.</button>
+  <button class="nav-btn" data-sec="materiais">&#128230;<br>Mat.</button>
+  <button class="nav-btn" data-sec="catalogo">&#128269;<br>Catál.</button>
+  <button class="nav-btn" data-sec="config">&#9881;<br>Config.</button>
 </nav>
 
-<!-- ===== DASHBOARD ===== -->
+<!-- DASHBOARD -->
 <div id="dashboard" class="section active">
   <div class="stats">
     <div class="stat"><div class="stat-lbl">Obras em curso</div><div class="stat-val" style="color:var(--blue)">3</div></div>
@@ -150,19 +135,19 @@ table.linhas .sub-d{font-size:10px;color:var(--text2);display:block}
     <div class="stat"><div class="stat-lbl">A faturar (€)</div><div class="stat-val">4.850</div></div>
   </div>
   <div class="sec-title" style="margin-bottom:.6rem">Obras recentes</div>
-  <div class="card card-click" onclick="openObra(0)">
+  <div class="card clickable" data-action="openObra" data-idx="0">
     <div class="card-row"><span class="card-title">Apartamento Av. da Boavista</span><span class="badge b-amber">Em curso</span></div>
     <div class="card-sub">Porto &middot; Sr. Carvalho</div>
     <div class="prog"><div class="prog-fill" style="width:65%"></div></div>
     <div class="card-sub" style="margin-top:4px;font-size:11px">65% concluído</div>
   </div>
-  <div class="card card-click" onclick="openObra(1)">
+  <div class="card clickable" data-action="openObra" data-idx="1">
     <div class="card-row"><span class="card-title">Moradia Braga Norte</span><span class="badge b-blue">A iniciar</span></div>
     <div class="card-sub">Braga &middot; Família Sousa</div>
     <div class="prog"><div class="prog-fill" style="width:10%"></div></div>
     <div class="card-sub" style="margin-top:4px;font-size:11px">10% concluído</div>
   </div>
-  <div class="card card-click" onclick="openObra(2)">
+  <div class="card clickable" data-action="openObra" data-idx="2">
     <div class="card-row"><span class="card-title">Escritório Rua do Loureiro</span><span class="badge b-amber">Em curso</span></div>
     <div class="card-sub">Braga &middot; Lda. Monteiro</div>
     <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
@@ -171,183 +156,159 @@ table.linhas .sub-d{font-size:10px;color:var(--text2);display:block}
   <div class="nota">&#128276; <strong>Lembrete:</strong> Encomenda pendente para "Braga Norte" — ver Materiais.</div>
 </div>
 
-<!-- ===== OBRAS ===== -->
+<!-- OBRAS -->
 <div id="obras" class="section">
   <div id="obras-lista">
-    <div class="sec-header"><span class="sec-title">Obras</span><button class="btn btn-primary btn-sm" onclick="showNovaObra()">+ Nova</button></div>
-    <div class="tabs-inner">
-      <button class="active" onclick="filtrarObras('todas',this)">Todas</button>
-      <button onclick="filtrarObras('curso',this)">Em curso</button>
-      <button onclick="filtrarObras('iniciar',this)">A iniciar</button>
-      <button onclick="filtrarObras('concluida',this)">Concluídas</button>
+    <div class="sec-header"><span class="sec-title">Obras</span><button class="btn btn-primary btn-sm" id="btn-nova-obra">+ Nova</button></div>
+    <div class="tabs-inner" id="obras-tabs">
+      <button data-filtro="todas" class="active">Todas</button>
+      <button data-filtro="curso">Em curso</button>
+      <button data-filtro="iniciar">A iniciar</button>
+      <button data-filtro="concluida">Concluídas</button>
     </div>
     <div id="obras-container"></div>
   </div>
   <div id="obra-detalhe" style="display:none"></div>
   <div id="obra-nova" style="display:none">
-    <button class="back-btn" onclick="hideNovaObra()">&#8592; Voltar</button>
+    <button class="back-btn" id="btn-back-nova">&#8592; Voltar</button>
     <div class="card">
       <div class="sec-title" style="margin-bottom:.75rem">Nova Obra</div>
       <label>Nome da obra</label><input type="text" id="nova-nome" placeholder="Ex: Moradia Sr. Silva">
       <label>Cliente</label><input type="text" id="nova-cliente" placeholder="Nome do cliente">
-      <label>Morada / Localização</label><input type="text" id="nova-local" placeholder="Cidade ou morada">
-      <div class="form-row">
-        <div><label>Data início</label><input type="text" id="nova-data" placeholder="dd/mm/aaaa"></div>
-        <div><label>Valor est. (€)</label><input type="number" id="nova-valor" placeholder="0"></div>
-      </div>
+      <label>Localização</label><input type="text" id="nova-local" placeholder="Cidade ou morada">
+      <div class="form-row"><div><label>Data início</label><input type="text" id="nova-data" placeholder="dd/mm/aaaa"></div><div><label>Valor est. (€)</label><input type="number" id="nova-valor" placeholder="0"></div></div>
       <label>Notas</label><textarea rows="3" id="nova-nota" placeholder="Descrição dos trabalhos..."></textarea>
-      <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="criarObra()">&#10003; Criar Obra</button>
+      <button class="btn btn-primary" id="btn-criar-obra" style="width:100%;justify-content:center">&#10003; Criar Obra</button>
     </div>
   </div>
 </div>
 
-<!-- ===== ORÇAMENTOS ===== -->
+<!-- ORÇAMENTOS -->
 <div id="orcamentos" class="section">
   <div id="orc-lista">
-    <div class="sec-header"><span class="sec-title">Orçamentos</span><button class="btn btn-primary btn-sm" onclick="showOrcForm()">+ Novo</button></div>
-    <div class="card card-click" onclick="showOrcDoc(0)">
+    <div class="sec-header"><span class="sec-title">Orçamentos</span><button class="btn btn-primary btn-sm" id="btn-novo-orc">+ Novo</button></div>
+    <div class="card clickable" data-action="showOrcDoc" data-idx="0">
       <div class="card-row"><span class="card-title">ORC-2024-008</span><span class="badge b-amber">Pendente</span></div>
       <div class="card-sub">Família Sousa &middot; Moradia Braga Norte</div>
       <div class="card-sub" style="margin-top:3px;font-size:12px;color:var(--blue)">802,50 € &rarr;</div>
     </div>
-    <div class="card card-click" onclick="showOrcDoc(1)">
+    <div class="card clickable" data-action="showOrcDoc" data-idx="1">
       <div class="card-row"><span class="card-title">ORC-2024-007</span><span class="badge b-green">Aceite</span></div>
       <div class="card-sub">Lda. Monteiro &middot; Escritório Rua do Loureiro</div>
       <div class="card-sub" style="margin-top:3px;font-size:12px;color:var(--blue)">1.085,00 € &rarr;</div>
     </div>
   </div>
   <div id="orc-form" style="display:none">
-    <button class="back-btn" onclick="showOrcLista()">&#8592; Voltar</button>
+    <button class="back-btn" id="btn-back-orc">&#8592; Voltar</button>
     <div class="card">
       <div class="sec-title" style="margin-bottom:.75rem">Novo Orçamento</div>
-      <div class="config-section-title">Dados do cliente</div>
+      <div class="cfg-title">Dados do cliente</div>
       <label>Nome / Empresa</label><input type="text" id="cli-nome" placeholder="Sr. Manuel Silva">
       <label>Morada</label><input type="text" id="cli-morada" placeholder="Rua, nº, código postal">
-      <div class="form-row">
-        <div><label>NIF</label><input type="text" id="cli-nif" placeholder="123 456 789"></div>
-        <div><label>Telefone</label><input type="text" id="cli-tel" placeholder="9xx xxx xxx"></div>
-      </div>
+      <div class="form-row"><div><label>NIF</label><input type="text" id="cli-nif" placeholder="123 456 789"></div><div><label>Telefone</label><input type="text" id="cli-tel" placeholder="9xx xxx xxx"></div></div>
       <label>Obra / Descrição</label><input type="text" id="cli-obra" placeholder="Ex: Instalação canalização">
       <hr class="div">
-      <div class="config-section-title">Linhas do orçamento</div>
+      <div class="cfg-title">Linhas do orçamento</div>
       <div id="orc-linhas"></div>
-      <button class="btn btn-sm" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addLinhaManual()">&#9998; Linha manual</button>
-      <button class="btn btn-sm btn-primary" style="width:100%;justify-content:center;margin-bottom:.75rem" onclick="showPicker()">&#128269; Adicionar do catálogo</button>
+      <button class="btn btn-sm" id="btn-add-manual" style="width:100%;justify-content:center;margin-bottom:6px">&#9998; Linha manual</button>
+      <button class="btn btn-primary btn-sm" id="btn-add-cat" style="width:100%;justify-content:center;margin-bottom:.75rem">&#128269; Adicionar do catálogo</button>
       <div class="total-box" id="orc-total"><span class="t-lbl">Total</span><span class="t-val">0,00 €</span></div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.75rem" onclick="gerarOrc()">&#128065; Visualizar orçamento</button>
+      <button class="btn btn-primary" id="btn-gerar-orc" style="width:100%;justify-content:center;margin-top:.75rem">&#128065; Visualizar orçamento</button>
     </div>
   </div>
   <div id="orc-doc" style="display:none"></div>
   <div id="orc-gerado" style="display:none"></div>
 </div>
 
-<!-- ===== MATERIAIS ===== -->
+<!-- MATERIAIS -->
 <div id="materiais" class="section">
   <div class="sec-title" style="margin-bottom:.75rem">Materiais por obra</div>
   <div class="card">
     <div class="card-row"><span class="card-title">Moradia Braga Norte</span><span class="badge b-red">Encomenda pendente</span></div>
     <div class="card-sub" style="margin-bottom:.6rem">Cliente: Família Sousa</div>
     <div id="items-braga">
-      <div class="chk-item" data-item="Tubo multicamada 16x2mm" data-qty="20 m" data-forn="Sanitop Portugal"><input type="checkbox" onchange="updateMat(this)"><span>Tubo multicamada 16x2mm (MCTB16B5)</span><span class="chk-qty">20 m</span></div>
-      <div class="chk-item" data-item="Cotovelo multicamada 16mm 90" data-qty="10 un" data-forn="Sanitop Portugal"><input type="checkbox" onchange="updateMat(this)"><span>Cotovelo multicamada 16mm 90° (MCC916)</span><span class="chk-qty">10 un</span></div>
-      <div class="chk-item" data-item="Torneira misturadora monocomando" data-qty="2 un" data-forn="Bruma"><input type="checkbox" onchange="updateMat(this)"><span>Torneira misturadora monocomando</span><span class="chk-qty">2 un</span></div>
-      <div class="chk-item done" data-item="Silicone sanitario branco 280ml" data-qty="2 un" data-forn="Sanitop Portugal"><input type="checkbox" checked onchange="updateMat(this)"><span>Silicone sanitário branco 280ml (SILSIL00)</span><span class="chk-qty">2 un</span></div>
-      <div class="chk-item done" data-item="Valvula corte lato 1/2pol F/F" data-qty="4 un" data-forn="Sanitop Portugal"><input type="checkbox" checked onchange="updateMat(this)"><span>Válvula corte latão 1/2pol (LATVC12)</span><span class="chk-qty">4 un</span></div>
+      <div class="chk-item" data-item="Tubo multicamada 16x2mm" data-qty="20 m"><input type="checkbox"><span>Tubo multicamada 16x2mm (MCTB16B5)</span><span class="chk-qty">20 m</span></div>
+      <div class="chk-item" data-item="Cotovelo multicamada 16mm 90" data-qty="10 un"><input type="checkbox"><span>Cotovelo multicamada 16mm 90° (MCC916)</span><span class="chk-qty">10 un</span></div>
+      <div class="chk-item" data-item="Torneira misturadora" data-qty="2 un"><input type="checkbox"><span>Torneira misturadora monocomando</span><span class="chk-qty">2 un</span></div>
+      <div class="chk-item done" data-item="Silicone sanitario branco" data-qty="2 un"><input type="checkbox" checked><span>Silicone sanitário branco (SILSIL00)</span><span class="chk-qty">2 un</span></div>
+      <div class="chk-item done" data-item="Valvula corte 1/2pol" data-qty="4 un"><input type="checkbox" checked><span>Válvula corte latão 1/2pol (LATVC12)</span><span class="chk-qty">4 un</span></div>
     </div>
     <hr class="div">
-    <div class="config-section-title" style="margin-bottom:8px">Enviar encomenda</div>
     <div style="background:var(--bg);border-radius:8px;padding:.7rem">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div><div style="font-size:13px;font-weight:600">Sanitop Portugal</div><div style="font-size:11px;color:var(--text2)">sanitop@sanitop.pt</div></div>
         <div style="display:flex;gap:6px">
-          <button class="btn btn-wa btn-sm" onclick="enviarWA('braga','Sanitop Portugal','351258105400')">&#128172; WA</button>
-          <button class="btn btn-primary btn-sm" onclick="enviarEmail('braga','Sanitop Portugal','sanitop@sanitop.pt')">&#9993; Email</button>
+          <button class="btn btn-wa btn-sm" id="btn-wa-braga">&#128172; WA</button>
+          <button class="btn btn-primary btn-sm" id="btn-email-braga">&#9993; Email</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-row"><span class="card-title">Apartamento Av. da Boavista</span><span class="badge b-green">Materiais OK</span></div>
-    <div class="card-sub" style="margin-bottom:.6rem">Cliente: Sr. Carvalho</div>
-    <div class="chk-item done"><input type="checkbox" checked><span>Caldeira mural a gás 24kW (AQSTAC24)</span><span class="chk-qty">1 un</span></div>
-    <div class="chk-item done"><input type="checkbox" checked><span>Tubo cobre 18x1mm barra 5m (CUTB18B5)</span><span class="chk-qty">8 m</span></div>
-    <div class="chk-item done"><input type="checkbox" checked><span>Kit ligação termoacumulador 3/4pol (AQSKIT34)</span><span class="chk-qty">1 kit</span></div>
-  </div>
 </div>
 
-<!-- ===== CATÁLOGO ===== -->
+<!-- CATÁLOGO -->
 <div id="catalogo" class="section">
   <div class="sec-header"><span class="sec-title">Catálogo Sanitop</span><span id="cat-count" style="font-size:11px;color:var(--text2)"></span></div>
-  <div class="search-wrap"><span class="search-ico">&#128269;</span><input type="text" id="cat-search" placeholder="Ref., descrição, dimensão... ex: MCC9, PPR 20mm" oninput="filtrarCat()"></div>
+  <div class="search-wrap"><span class="search-ico">&#128269;</span><input type="text" id="cat-search" placeholder="Ref., descrição... ex: MCC9, PPR 20mm"></div>
   <div class="tabs-inner" id="cat-tabs">
-    <button class="active" onclick="setCatFiltro('',this)">Todos</button>
-    <button onclick="setCatFiltro('Multicamada',this)">Multicamada</button>
-    <button onclick="setCatFiltro('PPR',this)">PPR</button>
-    <button onclick="setCatFiltro('Pex',this)">Pex</button>
-    <button onclick="setCatFiltro('Cobre',this)">Cobre</button>
-    <button onclick="setCatFiltro('Inox',this)">Inox</button>
-    <button onclick="setCatFiltro('PVC',this)">PVC/Sanea.</button>
-    <button onclick="setCatFiltro('Válvulas',this)">Válvulas</button>
-    <button onclick="setCatFiltro('Sifões',this)">Sifões</button>
-    <button onclick="setCatFiltro('Fixações',this)">Fixações</button>
-    <button onclick="setCatFiltro('AQS',this)">AQS</button>
+    <button data-cat="" class="active">Todos</button>
+    <button data-cat="Multicamada">Multicamada</button>
+    <button data-cat="PPR">PPR</button>
+    <button data-cat="Pex">Pex</button>
+    <button data-cat="Cobre">Cobre</button>
+    <button data-cat="Inox">Inox</button>
+    <button data-cat="PVC">PVC/Sanea.</button>
+    <button data-cat="Válvulas">Válvulas</button>
+    <button data-cat="Sifões">Sifões</button>
+    <button data-cat="Fixações">Fixações</button>
+    <button data-cat="AQS">AQS</button>
   </div>
   <div id="cat-lista"></div>
   <div id="cat-pag"></div>
 </div>
 
-<!-- ===== CONFIGURAÇÕES ===== -->
+<!-- CONFIG -->
 <div id="config" class="section">
   <div class="sec-title" style="margin-bottom:.75rem">&#9881; Configurações</div>
-  <div id="saved-ok" class="saved-banner">&#10003; Dados guardados com sucesso!</div>
+  <div id="saved-ok" class="saved-ok">&#10003; Dados guardados!</div>
   <div class="card">
-    <div class="config-section-title">Dados do profissional</div>
-    <label>Nome completo / Empresa</label><input type="text" id="cfg-nome" placeholder="Ex: João Ferreira">
-    <label>Profissão</label><input type="text" id="cfg-prof" placeholder="Ex: Canalizador">
+    <div class="cfg-title">Dados do profissional</div>
+    <label>Nome / Empresa</label><input type="text" id="cfg-nome" placeholder="João Ferreira">
+    <label>Profissão</label><input type="text" id="cfg-prof" placeholder="Canalizador">
     <label>NIF</label><input type="text" id="cfg-nif" placeholder="123 456 789">
-    <div class="form-row">
-      <div><label>Telefone</label><input type="text" id="cfg-tel" placeholder="912 345 678"></div>
-      <div><label>Telemóvel</label><input type="text" id="cfg-telem" placeholder="9xx xxx xxx"></div>
-    </div>
-    <label>Email</label><input type="email" id="cfg-email" placeholder="email@exemplo.pt">
+    <div class="form-row"><div><label>Telefone</label><input type="text" id="cfg-tel" placeholder="912 345 678"></div><div><label>Email</label><input type="email" id="cfg-email" placeholder="email@exemplo.pt"></div></div>
     <label>Morada</label><input type="text" id="cfg-morada" placeholder="Rua, nº, código postal, cidade">
   </div>
   <div class="card">
-    <div class="config-section-title">Fornecedor principal</div>
-    <label>Nome do fornecedor</label><input type="text" id="cfg-forn-nome" placeholder="Ex: Sanitop Portugal">
-    <div class="form-row">
-      <div><label>Email fornecedor</label><input type="text" id="cfg-forn-email" placeholder="fornecedor@email.pt"></div>
-      <div><label>WhatsApp / Tel.</label><input type="text" id="cfg-forn-tel" placeholder="351258105400"></div>
-    </div>
+    <div class="cfg-title">Fornecedor principal</div>
+    <label>Nome</label><input type="text" id="cfg-forn-nome" placeholder="Sanitop Portugal">
+    <div class="form-row"><div><label>Email</label><input type="text" id="cfg-forn-email" placeholder="sanitop@sanitop.pt"></div><div><label>WhatsApp (c/ indicativo)</label><input type="text" id="cfg-forn-tel" placeholder="351258105400"></div></div>
   </div>
   <div class="card">
-    <div class="config-section-title">Taxas de mão de obra</div>
-    <div class="form-row">
-      <div><label>Preço por dia (€)</label><input type="number" id="cfg-dia" placeholder="160"></div>
-      <div><label>Preço por hora (€)</label><input type="number" id="cfg-hora" placeholder="22"></div>
-    </div>
+    <div class="cfg-title">Tarifas de mão de obra</div>
+    <div class="form-row"><div><label>Por dia (€)</label><input type="number" id="cfg-dia" placeholder="160"></div><div><label>Por hora (€)</label><input type="number" id="cfg-hora" placeholder="22"></div></div>
   </div>
-  <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:15px;padding:12px" onclick="guardarConfig()">&#10003; Guardar configurações</button>
-  <div class="nota nota-info" style="margin-top:.75rem">&#8505;&#65039; Os seus dados aparecem automaticamente em todos os orçamentos e documentos.</div>
+  <button class="btn btn-primary" id="btn-guardar" style="width:100%;justify-content:center;font-size:15px;padding:12px">&#10003; Guardar</button>
+  <div class="nota nota-info" style="margin-top:.75rem">&#8505; Os seus dados aparecem automaticamente em todos os orçamentos.</div>
 </div>
 
 <!-- MODAL PICKER -->
-<div id="modal-picker" class="modal-ov" style="display:none">
+<div id="modal-picker" class="modal-ov">
   <div class="modal">
-    <div class="modal-title">&#128269; Selecionar produto do catálogo</div>
-    <div class="search-wrap" style="margin-bottom:.5rem"><span class="search-ico">&#128269;</span><input type="text" id="picker-q" placeholder="Pesquisar..." oninput="filtrarPicker()" style="margin:0"></div>
-    <div id="picker-lista" style="max-height:320px;overflow-y:auto"></div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:.5rem" onclick="closePicker()">Cancelar</button>
+    <div class="modal-title">&#128269; Selecionar produto</div>
+    <div class="search-wrap"><span class="search-ico">&#128269;</span><input type="text" id="picker-q" placeholder="Pesquisar..." style="margin:0"></div>
+    <div id="picker-lista" style="max-height:320px;overflow-y:auto;margin-top:8px"></div>
+    <button class="btn" id="btn-close-picker" style="width:100%;justify-content:center;margin-top:.5rem">Cancelar</button>
   </div>
 </div>
 
 <!-- MODAL ENVIO -->
-<div id="modal-envio" class="modal-ov" style="display:none">
+<div id="modal-envio" class="modal-ov">
   <div class="modal">
     <div class="modal-title" id="envio-title"></div>
     <div class="modal-preview" id="envio-preview"></div>
     <div style="display:flex;gap:8px">
-      <button class="btn" style="flex:1;justify-content:center" onclick="closeEnvio()">&#10005; Cancelar</button>
+      <button class="btn" id="btn-close-envio" style="flex:1;justify-content:center">&#10005; Cancelar</button>
       <button id="envio-btn" class="btn" style="flex:1;justify-content:center;color:#fff"></button>
     </div>
   </div>
@@ -1024,71 +985,33 @@ const PRODUTOS=[
   {ref:"AQSVX35",desc:"Vaso de expansão AQS 35L",mat:"Aço",cat:"AQS",dim:"35L",un:"un",preco:"",nota:""}
 ];
 
-const CAT_GROUPS={
-  'Multicamada':['Tubagem Multicamada','Acess. Multicamada'],
-  'PPR':['Tubagem PPR','Acess. PPR'],
-  'Pex':['Tubagem Pex','Acess. Pex'],
-  'Cobre':['Tubagem Cobre','Acess. Cobre','Consumíveis Cobre'],
-  'Inox':['Tubagem Inox','Acess. Inox'],
-  'PVC':['Saneamento PVC','Acess. Saneamento'],
-  'Válvulas':['Válvulas','Contadores'],
-  'Sifões':['Sifões','Ralos'],
-  'Fixações':['Fixações'],
-  'Vedações':['Vedações','Consumíveis'],
-  'AQS':['AQS'],
-};
+const CAT_GROUPS={'Multicamada':['Tubagem Multicamada','Acess. Multicamada'],'PPR':['Tubagem PPR','Acess. PPR'],'Pex':['Tubagem Pex','Acess. Pex'],'Cobre':['Tubagem Cobre','Acess. Cobre','Consumíveis Cobre'],'Inox':['Tubagem Inox','Acess. Inox'],'PVC':['Saneamento PVC','Acess. Saneamento'],'Válvulas':['Válvulas','Contadores'],'Sifões':['Sifões','Ralos'],'Fixações':['Fixações'],'Vedações':['Vedações','Consumíveis'],'AQS':['AQS']};
 
 const OBRAS=[
   {nome:"Apartamento Av. da Boavista",cliente:"Sr. Carvalho",local:"Porto",estado:"Em curso",prog:65,data:"02/04/2024",valor:"2.800",tarefas:[{t:"Substituição tubagem água fria",ok:true},{t:"Instalação caldeira",ok:true},{t:"Ligação à rede de gás",ok:true},{t:"Instalação torneiras casa de banho",ok:false},{t:"Verificação e testes finais",ok:false}],nota:"Cliente prefere terminar antes de 20 maio."},
-  {nome:"Moradia Braga Norte",cliente:"Família Sousa",local:"Braga",estado:"A iniciar",prog:10,data:"15/05/2024",valor:"4.050",tarefas:[{t:"Levantamento e medições",ok:true},{t:"Instalação tubagem multicamada",ok:false},{t:"Montagem sanitas e lavatórios",ok:false},{t:"Ligação à rede pública",ok:false},{t:"Testes de pressão",ok:false}],nota:"Materiais a encomendar — ver Materiais."},
+  {nome:"Moradia Braga Norte",cliente:"Família Sousa",local:"Braga",estado:"A iniciar",prog:10,data:"15/05/2024",valor:"4.050",tarefas:[{t:"Levantamento e medições",ok:true},{t:"Instalação tubagem multicamada",ok:false},{t:"Montagem sanitas e lavatórios",ok:false},{t:"Ligação à rede pública",ok:false},{t:"Testes de pressão",ok:false}],nota:"Materiais a encomendar."},
   {nome:"Escritório Rua do Loureiro",cliente:"Lda. Monteiro",local:"Braga",estado:"Em curso",prog:80,data:"10/03/2024",valor:"1.085",tarefas:[{t:"Remoção caldeira antiga",ok:true},{t:"Instalação caldeira nova 24kW",ok:true},{t:"Ligações de gás e água",ok:true},{t:"Testes e certificação",ok:false}],nota:""},
 ];
 
 let orcLinhas=[],orcCount=0,catFiltro='',catSearch='',catPage=1;
-const PER_PAGE=40;
+const PER=40;
 
-function cfg(k,def){return localStorage.getItem('cfg_'+k)||def||'';}
-function loadConfig(){
-  document.getElementById('cfg-nome').value=cfg('nome');
-  document.getElementById('cfg-prof').value=cfg('prof','Canalizador');
-  document.getElementById('cfg-nif').value=cfg('nif');
-  document.getElementById('cfg-tel').value=cfg('tel');
-  document.getElementById('cfg-telem').value=cfg('telem');
-  document.getElementById('cfg-email').value=cfg('email');
-  document.getElementById('cfg-morada').value=cfg('morada');
-  document.getElementById('cfg-forn-nome').value=cfg('forn_nome','Sanitop Portugal');
-  document.getElementById('cfg-forn-email').value=cfg('forn_email','sanitop@sanitop.pt');
-  document.getElementById('cfg-forn-tel').value=cfg('forn_tel','351258105400');
-  document.getElementById('cfg-dia').value=cfg('dia','160');
-  document.getElementById('cfg-hora').value=cfg('hora','22');
-  const n=cfg('nome','Configurar');
-  document.getElementById('hdr-nome').textContent=n?('⚙ '+n):'⚙ Configurar';
-}
-function guardarConfig(){
-  ['nome','prof','nif','tel','telem','email','morada'].forEach(k=>{
-    localStorage.setItem('cfg_'+k,document.getElementById('cfg-'+k).value);
-  });
-  localStorage.setItem('cfg_forn_nome',document.getElementById('cfg-forn-nome').value);
-  localStorage.setItem('cfg_forn_email',document.getElementById('cfg-forn-email').value);
-  localStorage.setItem('cfg_forn_tel',document.getElementById('cfg-forn-tel').value);
-  localStorage.setItem('cfg_dia',document.getElementById('cfg-dia').value);
-  localStorage.setItem('cfg_hora',document.getElementById('cfg-hora').value);
-  const n=cfg('nome','');
-  document.getElementById('hdr-nome').textContent=n?('⚙ '+n):'⚙ Configurar';
-  const b=document.getElementById('saved-ok');
-  b.style.display='block';
-  setTimeout(()=>b.style.display='none',3000);
-}
+function cfg(k,def){try{return localStorage.getItem('cfg_'+k)||def||'';}catch(e){return def||'';}}
 
 function showSec(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const idx={dashboard:0,obras:1,orcamentos:2,materiais:3,catalogo:4,config:5};
-  if(idx[id]!==undefined) document.querySelectorAll('.nav-btn')[idx[id]].classList.add('active');
+  document.querySelector('.nav-btn[data-sec="'+id+'"]').classList.add('active');
   if(id==='obras') renderObras('todas');
   if(id==='catalogo') renderCat();
 }
+
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){showSec(this.dataset.sec);});
+});
+
+document.getElementById('hdr-user').addEventListener('click',function(){showSec('config');});
 
 function renderObras(f){
   const c=document.getElementById('obras-container');c.innerHTML='';
@@ -1097,19 +1020,31 @@ function renderObras(f){
     if(f==='curso'&&o.estado!=='Em curso')return;
     if(f==='iniciar'&&o.estado!=='A iniciar')return;
     if(f==='concluida'&&o.estado!=='Concluída')return;
-    c.innerHTML+=`<div class="card card-click" onclick="openObra(${i})">
-      <div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${bc[o.estado]||'b-blue'}">${o.estado}</span></div>
-      <div class="card-sub">${o.local} &middot; ${o.cliente}</div>
-      <div class="prog"><div class="prog-fill" style="width:${o.prog}%"></div></div>
-      <div class="card-sub" style="margin-top:4px;font-size:11px">${o.prog}% concluído</div>
-    </div>`;
+    const d=document.createElement('div');
+    d.className='card clickable';
+    d.innerHTML=`<div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${bc[o.estado]||'b-blue'}">${o.estado}</span></div><div class="card-sub">${o.local} &middot; ${o.cliente}</div><div class="prog"><div class="prog-fill" style="width:${o.prog}%"></div></div><div class="card-sub" style="margin-top:4px;font-size:11px">${o.prog}% concluído</div>`;
+    d.addEventListener('click',function(){openObra(i);});
+    c.appendChild(d);
   });
-  if(!c.innerHTML)c.innerHTML='<div class="empty"><span class="ico">&#127959;</span>Nenhuma obra</div>';
+  if(!c.innerHTML)c.innerHTML='<div class="empty">Nenhuma obra</div>';
 }
-function filtrarObras(f,btn){
-  document.querySelectorAll('#obras .tabs-inner button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');renderObras(f);
-}
+
+document.getElementById('obras-tabs').addEventListener('click',function(e){
+  const btn=e.target.closest('button');if(!btn)return;
+  document.querySelectorAll('#obras-tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');renderObras(btn.dataset.filtro);
+});
+
+document.getElementById('btn-nova-obra').addEventListener('click',function(){
+  document.getElementById('obras-lista').style.display='none';
+  document.getElementById('obra-nova').style.display='block';
+});
+document.getElementById('btn-back-nova').addEventListener('click',function(){
+  document.getElementById('obra-nova').style.display='none';
+  document.getElementById('obras-lista').style.display='block';
+});
+document.getElementById('btn-criar-obra').addEventListener('click',function(){alert('Funcionalidade disponível em breve!');});
+
 function openObra(i){
   const o=OBRAS[i];
   document.getElementById('obras-lista').style.display='none';
@@ -1117,97 +1052,48 @@ function openObra(i){
   const d=document.getElementById('obra-detalhe');d.style.display='block';
   const bc={'Em curso':'b-amber','A iniciar':'b-blue','Concluída':'b-green'};
   const tarefas=o.tarefas.map(t=>`<div class="chk-item${t.ok?' done':''}"><input type="checkbox"${t.ok?' checked':''}><span>${t.t}</span></div>`).join('');
-  d.innerHTML=`<button class="back-btn" onclick="closeObra()">&#8592; Voltar</button>
-    <div class="card">
-      <div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${bc[o.estado]||'b-blue'}">${o.estado}</span></div>
-      <div class="card-sub" style="margin-bottom:.6rem">${o.local} &middot; ${o.cliente}</div>
-      <div class="row-d"><span class="lbl">Data início</span><span class="val">${o.data}</span></div>
-      <div class="row-d"><span class="lbl">Valor orçado</span><span class="val">${o.valor} €</span></div>
-      <div class="prog" style="margin:.6rem 0 3px"><div class="prog-fill" style="width:${o.prog}%"></div></div>
-      <div class="card-sub" style="font-size:11px">${o.prog}% concluído</div>
-    </div>
-    <div class="card"><div class="sec-title" style="font-size:14px;margin-bottom:.6rem">Tarefas</div>${tarefas}${o.nota?`<div class="nota" style="margin-top:.6rem">${o.nota}</div>`:''}</div>
+  d.innerHTML=`<button class="back-btn" id="btn-back-detalhe">&#8592; Voltar</button>
+    <div class="card"><div class="card-row"><span class="card-title">${o.nome}</span><span class="badge ${bc[o.estado]||'b-blue'}">${o.estado}</span></div>
+    <div class="card-sub" style="margin-bottom:.6rem">${o.local} &middot; ${o.cliente}</div>
+    <div class="row-d"><span class="lbl">Data início</span><span class="val">${o.data}</span></div>
+    <div class="row-d"><span class="lbl">Valor orçado</span><span class="val">${o.valor} €</span></div>
+    <div class="prog" style="margin:.6rem 0 3px"><div class="prog-fill" style="width:${o.prog}%"></div></div>
+    <div class="card-sub" style="font-size:11px">${o.prog}% concluído</div></div>
+    <div class="card"><div class="sec-title" style="font-size:14px;margin-bottom:.6rem">Tarefas</div>${tarefas}${o.nota?`<div class="nota">${o.nota}</div>`:''}</div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-sm" style="flex:1;justify-content:center" onclick="showSec('materiais')">&#128230; Materiais</button>
-      <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="showSec('orcamentos')">&#128196; Orçamento</button>
+      <button class="btn btn-sm" id="btn-ver-mat" style="flex:1;justify-content:center">&#128230; Materiais</button>
+      <button class="btn btn-primary btn-sm" id="btn-ver-orc" style="flex:1;justify-content:center">&#128196; Orçamento</button>
     </div>`;
+  document.getElementById('btn-back-detalhe').addEventListener('click',function(){d.style.display='none';document.getElementById('obras-lista').style.display='block';});
+  document.getElementById('btn-ver-mat').addEventListener('click',function(){showSec('materiais');});
+  document.getElementById('btn-ver-orc').addEventListener('click',function(){showSec('orcamentos');});
 }
-function closeObra(){document.getElementById('obra-detalhe').style.display='none';document.getElementById('obras-lista').style.display='block';}
-function showNovaObra(){document.getElementById('obras-lista').style.display='none';document.getElementById('obra-detalhe').style.display='none';document.getElementById('obra-nova').style.display='block';}
-function hideNovaObra(){document.getElementById('obra-nova').style.display='none';document.getElementById('obras-lista').style.display='block';}
-function criarObra(){alert('Funcionalidade disponível em breve!');}
 
-function getProdsFiltrados(){
-  const q=catSearch.toLowerCase();
-  return PRODUTOS.filter(p=>{
-    const ms=!q||p.ref.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||p.dim.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)||p.mat.toLowerCase().includes(q);
-    if(!ms)return false;
-    if(!catFiltro)return true;
-    const cats=CAT_GROUPS[catFiltro]||[];
-    return cats.some(c=>p.cat.includes(c))||p.mat.includes(catFiltro)||p.cat.includes(catFiltro);
-  });
-}
-function renderCat(){
-  const prods=getProdsFiltrados();
-  document.getElementById('cat-count').textContent=prods.length+' produtos';
-  const start=(catPage-1)*PER_PAGE;
-  const slice=prods.slice(start,start+PER_PAGE);
-  const groups={};
-  slice.forEach(p=>{if(!groups[p.cat])groups[p.cat]=[];groups[p.cat].push(p);});
-  let html='';
-  Object.entries(groups).forEach(([cat,items])=>{
-    html+=`<div class="cat-header">${cat}</div>`;
-    items.forEach(p=>{
-      html+=`<div class="prod-card">
-        <div class="prod-info">
-          <div class="prod-ref">${p.ref}</div>
-          <div class="prod-desc" title="${p.desc}">${p.desc}</div>
-          <div class="prod-meta">${p.dim} &middot; ${p.un}</div>
-        </div>
-        <div class="prod-right">
-          ${p.preco?`<div class="prod-preco">${p.preco} €</div>`:`<div class="prod-preco vazio">s/ preço</div>`}
-          <button class="add-orc-btn" onclick='addFromCat(${JSON.stringify({ref:p.ref,desc:p.desc,un:p.un,preco:p.preco})})'>+ Orç.</button>
-        </div>
-      </div>`;
-    });
-  });
-  if(!html)html='<div class="empty"><span style="font-size:40px;opacity:.3">&#128269;</span><br>Nenhum produto encontrado</div>';
-  document.getElementById('cat-lista').innerHTML=html;
-  const total=prods.length;const totalP=Math.ceil(total/PER_PAGE);
-  let pag='';
-  if(totalP>1){
-    pag='<div class="pag-wrap">';
-    if(catPage>1)pag+=`<button class="btn btn-sm" onclick="goPage(${catPage-1})">&#8249;</button>`;
-    pag+=`<span style="font-size:13px;color:var(--text2)">${catPage} / ${totalP}</span>`;
-    if(catPage<totalP)pag+=`<button class="btn btn-sm" onclick="goPage(${catPage+1})">&#8250;</button>`;
-    pag+='</div>';
-  }
-  document.getElementById('cat-pag').innerHTML=pag;
-}
-function goPage(p){catPage=p;renderCat();window.scrollTo(0,0);}
-function filtrarCat(){catSearch=document.getElementById('cat-search').value;catPage=1;renderCat();}
-function setCatFiltro(f,btn){catFiltro=f;catPage=1;catSearch='';document.getElementById('cat-search').value='';document.querySelectorAll('#cat-tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCat();}
+document.querySelectorAll('[data-action="openObra"]').forEach(el=>{
+  el.addEventListener('click',function(){openObra(parseInt(this.dataset.idx));});
+});
 
 function showOrcLista(){['orc-form','orc-doc','orc-gerado'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('orc-lista').style.display='block';}
 function showOrcForm(){orcLinhas=[];orcCount=0;document.getElementById('orc-linhas').innerHTML='';calcTotal();['orc-lista','orc-doc','orc-gerado'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('orc-form').style.display='block';addLinhaManual();}
+
+document.getElementById('btn-novo-orc').addEventListener('click',showOrcForm);
+document.getElementById('btn-back-orc').addEventListener('click',showOrcLista);
+
+document.querySelectorAll('[data-action="showOrcDoc"]').forEach(el=>{
+  el.addEventListener('click',function(){showOrcDoc(parseInt(this.dataset.idx));});
+});
+
 function showOrcDoc(idx){
   ['orc-lista','orc-form','orc-gerado'].forEach(id=>document.getElementById(id).style.display='none');
   const d=document.getElementById('orc-doc');d.style.display='block';
   const docs=[
-    {num:'ORC-2024-008',data:'13/05/2024',valido:'13/06/2024',estado:'b-amber',estad_txt:'Pendente',cliente:'Família Sousa',morada:'Rua do Cávado, 22 · 4720-010 Braga',nif:'234 567 890',tel:'916 789 012',obra:'Instalação canalização moradia Braga Norte',
-     linhas:[['Mão de obra','Instalação completa','3','dia','160,00','480,00'],['Tubo multicamada 16x2mm','Ref: MCTB16B5','15','m','4,50','67,50'],['Cotovelo multicamada 90 16mm','Ref: MCC916','10','un','3,80','38,00'],['Torneira misturadora','Ref: TORN-MONO','2','un','70,00','140,00'],['Sifões e acessórios','Kit sanitários','1','un','77,00','77,00']],total:'802,50'},
-    {num:'ORC-2024-007',data:'02/04/2024',valido:'02/05/2024',estado:'b-green',estad_txt:'Aceite',cliente:'Lda. Monteiro',morada:'Rua do Loureiro, 8 · 4710-022 Braga',nif:'509 876 543',tel:'253 123 456',obra:'Substituição caldeira escritório',
-     linhas:[['Mão de obra','Instalação caldeira + ligações','2','dia','160,00','320,00'],['Caldeira mural gás 24kW','Ref: AQSTAC24','1','un','680,00','680,00'],['Kit instalação caldeira','Ref: AQSKIT34','1','kit','85,00','85,00']],total:'1.085,00'},
+    {num:'ORC-2024-008',data:'13/05/2024',valido:'13/06/2024',estado:'b-amber',cliente:'Família Sousa',morada:'Rua do Cávado, 22 · 4720-010 Braga',nif:'234 567 890',tel:'916 789 012',obra:'Instalação canalização moradia Braga Norte',linhas:[['Mão de obra','3 dias','3','dia','160,00','480,00'],['Tubo multicamada 16x2mm','MCTB16B5','15','m','4,50','67,50'],['Cotovelo multicamada 90° 16mm','MCC916','10','un','3,80','38,00'],['Torneiras misturadoras','TORN-MONO','2','un','70,00','140,00'],['Sifões e acessórios','Kit sanitários','1','un','77,00','77,00']],total:'802,50'},
+    {num:'ORC-2024-007',data:'02/04/2024',valido:'02/05/2024',estado:'b-green',cliente:'Lda. Monteiro',morada:'Rua do Loureiro, 8 · 4710-022 Braga',nif:'509 876 543',tel:'253 123 456',obra:'Substituição caldeira escritório',linhas:[['Mão de obra','2 dias','2','dia','160,00','320,00'],['Caldeira mural gás 24kW','AQSTAC24','1','un','680,00','680,00'],['Kit instalação caldeira','AQSKIT34','1','kit','85,00','85,00']],total:'1.085,00'},
   ];
   const o=docs[idx];
-  const nome=cfg('nome','João Ferreira');
-  const prof=cfg('prof','Canalizador');
-  const nif=cfg('nif','123 456 789');
-  const tel=cfg('tel','912 345 678');
-  const email=cfg('email','email@exemplo.pt');
-  const morada=cfg('morada','Rua das Flores, 14 · 4700-001 Braga');
-  let linhasHtml=o.linhas.map(l=>`<tr><td>${l[0]}<span class="sub-d">${l[1]}</span></td><td style="text-align:center">${l[2]}</td><td style="text-align:center">${l[3]}</td><td>${l[4]} €</td><td>${l[5]} €</td></tr>`).join('');
-  d.innerHTML=`<button class="back-btn" onclick="showOrcLista()">&#8592; Voltar</button>
+  const nome=cfg('nome','(Configure o seu nome)');const prof=cfg('prof','Canalizador');const nif=cfg('nif','—');const tel=cfg('tel','—');const email=cfg('email','—');const morada=cfg('morada','—');
+  let lH=o.linhas.map(l=>`<tr><td>${l[0]}<span class="sub-d">${l[1]}</span></td><td style="text-align:center">${l[2]}</td><td style="text-align:center">${l[3]}</td><td>${l[4]} €</td><td>${l[5]} €</td></tr>`).join('');
+  d.innerHTML=`<button class="back-btn" id="btn-back-doc">&#8592; Voltar</button>
     <div class="card">
       <div style="text-align:center;margin-bottom:.6rem"><span class="non-fiscal">DOCUMENTO NÃO FISCAL</span></div>
       <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem">
@@ -1216,49 +1102,48 @@ function showOrcDoc(idx){
       </div></div>
       <div class="cli-block"><div class="lbl">Cliente</div><div class="nome">${o.cliente}</div><div class="sub">${o.morada}</div><div class="sub">NIF: ${o.nif} &middot; ${o.tel}</div></div>
       <div class="card-sub" style="margin-bottom:.6rem"><strong>Obra:</strong> ${o.obra}</div>
-      <table class="linhas"><thead><tr><th>Descrição</th><th style="text-align:center">Qtd</th><th style="text-align:center">Un</th><th>P.Unit.</th><th>Total</th></tr></thead><tbody>${linhasHtml}</tbody></table>
+      <table class="linhas"><thead><tr><th>Descrição</th><th style="text-align:center">Qtd</th><th style="text-align:center">Un</th><th>P.Unit.</th><th>Total</th></tr></thead><tbody>${lH}</tbody></table>
       <hr class="div">
       <div class="row-d"><span class="lbl">Subtotal</span><span class="val">${o.total} €</span></div>
-      <div class="row-d"><span class="lbl">IVA (23%)</span><span class="val">incluído</span></div>
       <div class="total-box"><span class="t-lbl">Total</span><span class="t-val">${o.total} €</span></div>
-      <div class="nota nota-info" style="margin-top:.6rem;font-size:11px">&#8505;&#65039; Documento não fiscal. Fatura oficial via software certificado AT (Moloni, InvoiceXpress...).</div>
+      <div class="nota nota-info" style="margin-top:.6rem;font-size:11px">&#8505; Documento não fiscal. Fatura oficial via Moloni ou InvoiceXpress.</div>
       <div style="display:flex;gap:8px;margin-top:.75rem">
-        <button class="btn btn-sm" style="flex:1;justify-content:center">&#11015;&#65039; PDF</button>
+        <button class="btn btn-sm" style="flex:1;justify-content:center">&#11015; PDF</button>
         <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">&#128228; Enviar</button>
       </div>
     </div>`;
+  document.getElementById('btn-back-doc').addEventListener('click',showOrcLista);
 }
+
+document.getElementById('btn-add-manual').addEventListener('click',addLinhaManual);
+document.getElementById('btn-add-cat').addEventListener('click',function(){document.getElementById('modal-picker').classList.add('open');document.getElementById('picker-q').value='';filtrarPicker();});
+document.getElementById('btn-gerar-orc').addEventListener('click',gerarOrc);
+
 function addLinhaManual(){
   orcCount++;const id=orcCount;orcLinhas.push(id);
   const div=document.createElement('div');div.id='linha-'+id;div.className='orc-line';
-  div.innerHTML=`<button class="orc-line-del" onclick="delLinha(${id})">&#128465;</button>
-    <label>Descrição</label><input type="text" id="desc-${id}" placeholder="Ex: Mão de obra / Deslocação..." oninput="calcTotal()">
-    <div class="form-row">
-      <div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcTotal()"></div>
-      <div><label>Unidade</label><select id="un-${id}"><option>un</option><option>dia</option><option>hora</option><option>m</option><option>ml</option><option>m²</option><option>kit</option><option>vb</option></select></div>
-    </div>
-    <div class="form-row">
-      <div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="0" min="0" step="0.01" oninput="calcTotal()"></div>
-      <div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div>
-    </div>`;
+  div.innerHTML=`<button class="orc-del" data-id="${id}">&#128465;</button>
+    <label>Descrição</label><input type="text" id="desc-${id}" placeholder="Mão de obra / Deslocação...">
+    <div class="form-row"><div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5"></div><div><label>Unidade</label><select id="un-${id}"><option>un</option><option>dia</option><option>hora</option><option>m</option><option>ml</option><option>m²</option><option>kit</option><option>vb</option></select></div></div>
+    <div class="form-row"><div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="0" min="0" step="0.01"></div><div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div></div>`;
+  div.querySelector('.orc-del').addEventListener('click',function(){delLinha(parseInt(this.dataset.id));});
+  div.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',calcTotal));
   document.getElementById('orc-linhas').appendChild(div);calcTotal();
 }
+
 function addFromCat(p){
   orcCount++;const id=orcCount;orcLinhas.push(id);
   const div=document.createElement('div');div.id='linha-'+id;div.className='orc-line';
-  div.innerHTML=`<button class="orc-line-del" onclick="delLinha(${id})">&#128465;</button>
+  div.innerHTML=`<button class="orc-del" data-id="${id}">&#128465;</button>
     <div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace;margin-bottom:4px">${p.ref}</div>
-    <label>Descrição</label><input type="text" id="desc-${id}" value="${p.desc}" oninput="calcTotal()">
-    <div class="form-row">
-      <div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5" oninput="calcTotal()"></div>
-      <div><label>Unidade</label><select id="un-${id}"><option ${p.un==='un'?'selected':''}>un</option><option ${p.un==='dia'?'selected':''}>dia</option><option ${p.un==='hora'?'selected':''}>hora</option><option ${p.un&&p.un[0]==='m'?'selected':''}>m</option><option>ml</option><option>m²</option><option>kit</option></select></div>
-    </div>
-    <div class="form-row">
-      <div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="${p.preco||0}" min="0" step="0.01" oninput="calcTotal()"></div>
-      <div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div>
-    </div>`;
+    <label>Descrição</label><input type="text" id="desc-${id}" value="${p.desc}">
+    <div class="form-row"><div><label>Qtd</label><input type="number" id="qtd-${id}" value="1" min="0" step="0.5"></div><div><label>Unidade</label><select id="un-${id}"><option>un</option><option>dia</option><option>hora</option><option>m</option><option>ml</option><option>m²</option><option>kit</option></select></div></div>
+    <div class="form-row"><div><label>Preço unit. (€)</label><input type="number" id="pu-${id}" value="${p.preco||0}" min="0" step="0.01"></div><div style="display:flex;align-items:flex-end;padding-bottom:7px"><span id="tot-${id}" style="font-size:14px;font-weight:700;color:var(--blue)">0,00 €</span></div></div>`;
+  div.querySelector('.orc-del').addEventListener('click',function(){delLinha(parseInt(this.dataset.id));});
+  div.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',calcTotal));
   document.getElementById('orc-linhas').appendChild(div);calcTotal();
 }
+
 function delLinha(id){const el=document.getElementById('linha-'+id);if(el)el.remove();orcLinhas=orcLinhas.filter(l=>l!==id);calcTotal();}
 function calcTotal(){
   let total=0;
@@ -1271,13 +1156,14 @@ function calcTotal(){
   });
   document.getElementById('orc-total').innerHTML=`<span class="t-lbl">Total</span><span class="t-val">${total.toFixed(2).replace('.',',')} €</span>`;
 }
+
 function gerarOrc(){
-  const nome_cli=document.getElementById('cli-nome').value||'—';
-  const morada_cli=document.getElementById('cli-morada').value||'';
-  const nif_cli=document.getElementById('cli-nif').value||'';
-  const tel_cli=document.getElementById('cli-tel').value||'';
-  const obra_cli=document.getElementById('cli-obra').value||'';
-  let lHtml='';let total=0;
+  const nc=document.getElementById('cli-nome').value||'—';
+  const mc=document.getElementById('cli-morada').value||'';
+  const nifc=document.getElementById('cli-nif').value||'';
+  const tc=document.getElementById('cli-tel').value||'';
+  const oc=document.getElementById('cli-obra').value||'';
+  let lH='';let total=0;
   orcLinhas.forEach(id=>{
     const el=document.getElementById('linha-'+id);if(!el)return;
     const desc=document.getElementById('desc-'+id)?.value||'—';
@@ -1285,111 +1171,181 @@ function gerarOrc(){
     const un=document.getElementById('un-'+id)?.value||'';
     const pu=parseFloat(document.getElementById('pu-'+id)?.value)||0;
     const t=qtd*pu;total+=t;
-    lHtml+=`<tr><td>${desc}</td><td style="text-align:center">${qtd}</td><td style="text-align:center">${un}</td><td>${pu.toFixed(2).replace('.',',')} €</td><td>${t.toFixed(2).replace('.',',')} €</td></tr>`;
+    lH+=`<tr><td>${desc}</td><td style="text-align:center">${qtd}</td><td style="text-align:center">${un}</td><td>${pu.toFixed(2).replace('.',',')} €</td><td>${t.toFixed(2).replace('.',',')} €</td></tr>`;
   });
   const today=new Date();
   const fmt=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
   const valid=new Date(today);valid.setDate(valid.getDate()+30);
   const num='ORC-'+today.getFullYear()+'-'+(Math.floor(Math.random()*90)+10);
-  const cliInfo=[morada_cli,nif_cli?'NIF: '+nif_cli:'',tel_cli].filter(Boolean).join(' · ');
-  const nome=cfg('nome','(Nome não configurado)');
-  const prof=cfg('prof','Canalizador');
-  const nif=cfg('nif','—');
-  const tel=cfg('tel','—');
-  const email=cfg('email','—');
-  const morada=cfg('morada','—');
+  const nome=cfg('nome','(Configure o seu nome)');const prof=cfg('prof','Canalizador');const nif=cfg('nif','—');const tel=cfg('tel','—');const email=cfg('email','—');const morada=cfg('morada','—');
+  const cliInfo=[mc,nifc?'NIF: '+nifc:'',tc].filter(Boolean).join(' · ');
   document.getElementById('orc-form').style.display='none';
   const d=document.getElementById('orc-gerado');d.style.display='block';
-  d.innerHTML=`<button class="back-btn" onclick="document.getElementById('orc-gerado').style.display='none';document.getElementById('orc-form').style.display='block'">&#8592; Editar</button>
+  d.innerHTML=`<button class="back-btn" id="btn-back-gerado">&#8592; Editar</button>
     <div class="card">
       <div style="text-align:center;margin-bottom:.6rem"><span class="non-fiscal">DOCUMENTO NÃO FISCAL</span></div>
       <div class="doc-header"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem">
         <div><div class="empresa-nome">${nome}</div><div class="empresa-info">${prof}<br>NIF: ${nif}<br>${morada}<br>&#9742; ${tel} &middot; ${email}</div></div>
         <div style="flex-shrink:0"><div class="doc-title">Orçamento</div><div class="doc-meta">N.º ${num}<br>${fmt(today)}<br>Válido: ${fmt(valid)}</div></div>
       </div></div>
-      <div class="cli-block"><div class="lbl">Cliente</div><div class="nome">${nome_cli}</div>${cliInfo?`<div class="sub">${cliInfo}</div>`:''}</div>
-      ${obra_cli?`<div class="card-sub" style="margin-bottom:.6rem"><strong>Obra:</strong> ${obra_cli}</div>`:''}
-      <table class="linhas"><thead><tr><th>Descrição</th><th style="text-align:center">Qtd</th><th style="text-align:center">Un</th><th>P.Unit.</th><th>Total</th></tr></thead><tbody>${lHtml}</tbody></table>
+      <div class="cli-block"><div class="lbl">Cliente</div><div class="nome">${nc}</div>${cliInfo?`<div class="sub">${cliInfo}</div>`:''}</div>
+      ${oc?`<div class="card-sub" style="margin-bottom:.6rem"><strong>Obra:</strong> ${oc}</div>`:''}
+      <table class="linhas"><thead><tr><th>Descrição</th><th style="text-align:center">Qtd</th><th style="text-align:center">Un</th><th>P.Unit.</th><th>Total</th></tr></thead><tbody>${lH}</tbody></table>
       <hr class="div">
       <div class="row-d"><span class="lbl">Subtotal</span><span class="val">${total.toFixed(2).replace('.',',')} €</span></div>
-      <div class="row-d"><span class="lbl">IVA (23%)</span><span class="val">incluído</span></div>
       <div class="total-box"><span class="t-lbl">Total</span><span class="t-val">${total.toFixed(2).replace('.',',')} €</span></div>
-      <div class="nota nota-info" style="margin-top:.6rem;font-size:11px">&#8505;&#65039; Documento não fiscal. Fatura oficial via software certificado AT.</div>
+      <div class="nota nota-info" style="margin-top:.6rem;font-size:11px">&#8505; Documento não fiscal.</div>
       <div style="display:flex;gap:8px;margin-top:.75rem">
-        <button class="btn btn-sm" style="flex:1;justify-content:center">&#11015;&#65039; PDF</button>
-        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">&#128228; Enviar cliente</button>
+        <button class="btn btn-sm" style="flex:1;justify-content:center">&#11015; PDF</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">&#128228; Enviar</button>
       </div>
     </div>`;
+  document.getElementById('btn-back-gerado').addEventListener('click',function(){d.style.display='none';document.getElementById('orc-form').style.display='block';});
 }
-function showPicker(){document.getElementById('modal-picker').style.display='flex';document.getElementById('picker-q').value='';filtrarPicker();}
-function closePicker(){document.getElementById('modal-picker').style.display='none';}
+
+function getProdsFiltrados(){
+  const q=catSearch.toLowerCase();
+  return PRODUTOS.filter(p=>{
+    const ms=!q||p.ref.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||p.dim.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q);
+    if(!ms)return false;
+    if(!catFiltro)return true;
+    const cats=CAT_GROUPS[catFiltro]||[];
+    return cats.some(c=>p.cat.includes(c))||p.mat.includes(catFiltro)||p.cat.includes(catFiltro);
+  });
+}
+
+function renderCat(){
+  const prods=getProdsFiltrados();
+  document.getElementById('cat-count').textContent=prods.length+' produtos';
+  const start=(catPage-1)*PER;
+  const slice=prods.slice(start,start+PER);
+  const groups={};
+  slice.forEach(p=>{if(!groups[p.cat])groups[p.cat]=[];groups[p.cat].push(p);});
+  const lista=document.getElementById('cat-lista');
+  lista.innerHTML='';
+  Object.entries(groups).forEach(([cat,items])=>{
+    const hdr=document.createElement('div');hdr.className='cat-hdr';hdr.textContent=cat;lista.appendChild(hdr);
+    items.forEach(p=>{
+      const div=document.createElement('div');div.className='prod-card';
+      div.innerHTML=`<div class="prod-info"><div class="prod-ref">${p.ref}</div><div class="prod-desc" title="${p.desc}">${p.desc}</div><div class="prod-meta">${p.dim} &middot; ${p.un}</div></div>
+        <div class="prod-right">${p.preco?`<div class="prod-preco">${p.preco} €</div>`:'<div class="prod-sem">s/ preço</div>'}
+        <button class="add-orc">+ Orç.</button></div>`;
+      div.querySelector('.add-orc').addEventListener('click',function(){addFromCat(p);showSec('orcamentos');showOrcForm();addFromCat(p);document.getElementById('orc-form').style.display='block';});
+      lista.appendChild(div);
+    });
+  });
+  if(!lista.innerHTML)lista.innerHTML='<div class="empty">Nenhum produto encontrado</div>';
+  const total=prods.length;const totalP=Math.ceil(total/PER);
+  const pag=document.getElementById('cat-pag');pag.innerHTML='';
+  if(totalP>1){
+    pag.className='pag-wrap';
+    if(catPage>1){const b=document.createElement('button');b.className='btn btn-sm';b.textContent='‹';b.addEventListener('click',function(){catPage--;renderCat();});pag.appendChild(b);}
+    const s=document.createElement('span');s.style.cssText='font-size:13px;color:var(--text2)';s.textContent=catPage+' / '+totalP;pag.appendChild(s);
+    if(catPage<totalP){const b=document.createElement('button');b.className='btn btn-sm';b.textContent='›';b.addEventListener('click',function(){catPage++;renderCat();});pag.appendChild(b);}
+  }
+}
+
+document.getElementById('cat-search').addEventListener('input',function(){catSearch=this.value;catPage=1;renderCat();});
+document.getElementById('cat-tabs').addEventListener('click',function(e){
+  const btn=e.target.closest('button');if(!btn)return;
+  document.querySelectorAll('#cat-tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');catFiltro=btn.dataset.cat;catPage=1;catSearch='';document.getElementById('cat-search').value='';renderCat();
+});
+
 function filtrarPicker(){
   const q=document.getElementById('picker-q').value.toLowerCase();
   const prods=PRODUTOS.filter(p=>!q||p.ref.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||p.dim.toLowerCase().includes(q)).slice(0,50);
-  let html='';
+  const lista=document.getElementById('picker-lista');lista.innerHTML='';
   prods.forEach(p=>{
-    html+=`<div style="display:flex;align-items:center;gap:.5rem;padding:7px 0;border-bottom:1px solid var(--border)">
-      <div style="flex:1;min-width:0">
-        <div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace">${p.ref}</div>
-        <div style="font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.desc}</div>
-        <div style="font-size:11px;color:var(--text2)">${p.dim} · ${p.un}</div>
-      </div>
-      <button class="add-orc-btn" onclick='selectPicker(${JSON.stringify({ref:p.ref,desc:p.desc,un:p.un,preco:p.preco})})'>Sel.</button>
-    </div>`;
+    const div=document.createElement('div');
+    div.style.cssText='display:flex;align-items:center;gap:.5rem;padding:7px 0;border-bottom:1px solid var(--border)';
+    div.innerHTML=`<div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:700;color:var(--blue);font-family:monospace">${p.ref}</div><div style="font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.desc}</div><div style="font-size:11px;color:var(--text2)">${p.dim} &middot; ${p.un}</div></div><button class="add-orc">Sel.</button>`;
+    div.querySelector('.add-orc').addEventListener('click',function(){addFromCat(p);document.getElementById('modal-picker').classList.remove('open');});
+    lista.appendChild(div);
   });
-  if(!html)html='<div class="empty">Sem resultados</div>';
-  document.getElementById('picker-lista').innerHTML=html;
+  if(!lista.innerHTML)lista.innerHTML='<div class="empty">Sem resultados</div>';
 }
-function selectPicker(p){showSec('orcamentos');showOrcForm();addFromCat(p);closePicker();}
+document.getElementById('picker-q').addEventListener('input',filtrarPicker);
+document.getElementById('btn-close-picker').addEventListener('click',function(){document.getElementById('modal-picker').classList.remove('open');});
 
-function updateMat(cb){const item=cb.closest('.chk-item');if(cb.checked)item.classList.add('done');else item.classList.remove('done');}
-function buildMsg(containerId,obraName,fornName){
-  const items=document.querySelectorAll('#'+containerId+' .chk-item');
-  const pend=[];
-  items.forEach(item=>{if(!item.querySelector('input').checked)pend.push('  • '+item.dataset.item+' — '+item.dataset.qty);});
+document.getElementById('items-braga').addEventListener('change',function(e){
+  if(e.target.type==='checkbox'){const item=e.target.closest('.chk-item');if(e.target.checked)item.classList.add('done');else item.classList.remove('done');}
+});
+
+function buildMsg(cid,obraName,fornName){
+  const items=document.querySelectorAll('#items-'+cid+' .chk-item');
+  const pend=[];items.forEach(item=>{if(!item.querySelector('input').checked)pend.push('  * '+item.dataset.item+' — '+item.dataset.qty);});
   const today=new Date();const fmt=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
-  const nome=cfg('nome','João Ferreira');const tel=cfg('tel','');
-  if(!pend.length)return `Bom dia ${fornName},
+  const nome=cfg('nome','Canalizador');const tel=cfg('tel','');
+  if(!pend.length)return 'Bom dia '+fornName+',
 
-Não há materiais pendentes para "${obraName}".
-
-Obrigado,
-${nome}${tel?' — ☎ '+tel:''}`;
-  return `Bom dia ${fornName},
-
-Pedido de encomenda — ${fmt(today)}
-Obra: ${obraName}
-
-Materiais necessários:
-${pend.join('\n')}
-
-Por favor confirmar disponibilidade e prazo.
+Nao ha materiais pendentes para "'+obraName+'".
 
 Obrigado,
-${nome}${tel?' — ☎ '+tel:''}`;
+'+nome+(tel?' - '+tel:'');
+  return 'Bom dia '+fornName+',
+
+Pedido de encomenda - '+fmt(today)+'
+Obra: '+obraName+'
+
+Materiais necessarios:
+'+pend.join('
+')+'
+
+Por favor confirmar disponibilidade.
+
+Obrigado,
+'+nome+(tel?' - '+tel:'');
 }
-function enviarWA(cid,fornName,numero){
-  const obraNms={braga:'Moradia Braga Norte',boavista:'Apartamento Av. da Boavista'};
-  const msg=buildMsg('items-'+cid,obraNms[cid],fornName);
-  document.getElementById('envio-title').textContent='WhatsApp → '+fornName;
+
+document.getElementById('btn-wa-braga').addEventListener('click',function(){
+  const forn=cfg('forn_nome','Sanitop Portugal');const tel=cfg('forn_tel','351258105400');
+  const msg=buildMsg('braga','Moradia Braga Norte',forn);
+  document.getElementById('envio-title').textContent='WhatsApp -> '+forn;
   document.getElementById('envio-preview').textContent=msg;
-  const btn=document.getElementById('envio-btn');
-  btn.innerHTML='&#128172; Abrir WhatsApp';btn.style.background='#25D366';btn.style.borderColor='#25D366';
-  btn.onclick=()=>{window.open('https://wa.me/'+numero+'?text='+encodeURIComponent(msg),'_blank');closeEnvio();};
-  document.getElementById('modal-envio').style.display='flex';
-}
-function enviarEmail(cid,fornName,email){
-  const obraNms={braga:'Moradia Braga Norte',boavista:'Apartamento Av. da Boavista'};
-  const msg=buildMsg('items-'+cid,obraNms[cid],fornName);
-  const subj='Pedido de encomenda — '+obraNms[cid];
-  document.getElementById('envio-title').textContent='Email → '+fornName;
+  const btn=document.getElementById('envio-btn');btn.textContent='Abrir WhatsApp';btn.style.background='#25D366';btn.style.borderColor='#25D366';
+  btn.onclick=function(){window.open('https://wa.me/'+tel+'?text='+encodeURIComponent(msg),'_blank');document.getElementById('modal-envio').classList.remove('open');};
+  document.getElementById('modal-envio').classList.add('open');
+});
+document.getElementById('btn-email-braga').addEventListener('click',function(){
+  const forn=cfg('forn_nome','Sanitop Portugal');const email=cfg('forn_email','sanitop@sanitop.pt');
+  const msg=buildMsg('braga','Moradia Braga Norte',forn);
+  document.getElementById('envio-title').textContent='Email -> '+forn;
   document.getElementById('envio-preview').textContent=msg;
-  const btn=document.getElementById('envio-btn');
-  btn.innerHTML='&#9993; Abrir email';btn.style.background='var(--blue)';btn.style.borderColor='var(--blue)';
-  btn.onclick=()=>{window.open('mailto:'+email+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg),'_blank');closeEnvio();};
-  document.getElementById('modal-envio').style.display='flex';
+  const btn=document.getElementById('envio-btn');btn.textContent='Abrir Email';btn.style.background='var(--blue)';btn.style.borderColor='var(--blue)';
+  btn.onclick=function(){window.open('mailto:'+email+'?subject=Pedido+encomenda&body='+encodeURIComponent(msg),'_blank');document.getElementById('modal-envio').classList.remove('open');};
+  document.getElementById('modal-envio').classList.add('open');
+});
+document.getElementById('btn-close-envio').addEventListener('click',function(){document.getElementById('modal-envio').classList.remove('open');});
+
+function loadConfig(){
+  document.getElementById('cfg-nome').value=cfg('nome');
+  document.getElementById('cfg-prof').value=cfg('prof','Canalizador');
+  document.getElementById('cfg-nif').value=cfg('nif');
+  document.getElementById('cfg-tel').value=cfg('tel');
+  document.getElementById('cfg-email').value=cfg('email');
+  document.getElementById('cfg-morada').value=cfg('morada');
+  document.getElementById('cfg-forn-nome').value=cfg('forn_nome','Sanitop Portugal');
+  document.getElementById('cfg-forn-email').value=cfg('forn_email','sanitop@sanitop.pt');
+  document.getElementById('cfg-forn-tel').value=cfg('forn_tel','351258105400');
+  document.getElementById('cfg-dia').value=cfg('dia','160');
+  document.getElementById('cfg-hora').value=cfg('hora','22');
+  const n=cfg('nome');document.getElementById('hdr-nome').textContent=n?n:'&#9881; Configurar';
 }
-function closeEnvio(){document.getElementById('modal-envio').style.display='none';}
+
+document.getElementById('btn-guardar').addEventListener('click',function(){
+  try{
+    ['nome','prof','nif','tel','email','morada'].forEach(k=>localStorage.setItem('cfg_'+k,document.getElementById('cfg-'+k).value));
+    localStorage.setItem('cfg_forn_nome',document.getElementById('cfg-forn-nome').value);
+    localStorage.setItem('cfg_forn_email',document.getElementById('cfg-forn-email').value);
+    localStorage.setItem('cfg_forn_tel',document.getElementById('cfg-forn-tel').value);
+    localStorage.setItem('cfg_dia',document.getElementById('cfg-dia').value);
+    localStorage.setItem('cfg_hora',document.getElementById('cfg-hora').value);
+    const n=document.getElementById('cfg-nome').value;
+    document.getElementById('hdr-nome').textContent=n?n:'&#9881; Configurar';
+    const b=document.getElementById('saved-ok');b.style.display='block';setTimeout(()=>b.style.display='none',3000);
+  }catch(e){alert('Erro ao guardar. Verifique as permissões do browser.');}
+});
 
 renderObras('todas');
 renderCat();
