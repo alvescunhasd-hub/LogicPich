@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -1274,28 +1275,17 @@ document.getElementById('items-braga').addEventListener('change',function(e){
 
 function buildMsg(cid,obraName,fornName){
   const items=document.querySelectorAll('#items-'+cid+' .chk-item');
-  const pend=[];items.forEach(item=>{if(!item.querySelector('input').checked)pend.push('  * '+item.dataset.item+' — '+item.dataset.qty);});
-  const today=new Date();const fmt=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
-  const nome=cfg('nome','Canalizador');const tel=cfg('tel','');
-  if(!pend.length)return 'Bom dia '+fornName+',
-
-Nao ha materiais pendentes para "'+obraName+'".
-
-Obrigado,
-'+nome+(tel?' - '+tel:'');
-  return 'Bom dia '+fornName+',
-
-Pedido de encomenda - '+fmt(today)+'
-Obra: '+obraName+'
-
-Materiais necessarios:
-'+pend.join('
-')+'
-
-Por favor confirmar disponibilidade.
-
-Obrigado,
-'+nome+(tel?' - '+tel:'');
+  const pend=[];
+  items.forEach(item=>{if(!item.querySelector('input').checked)pend.push('  * '+item.dataset.item+' - '+item.dataset.qty);});
+  const today=new Date();
+  const fmt=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+  const nome=cfg('nome','Canalizador');
+  const tel=cfg('tel','');
+  const assinatura=nome+(tel?' - Tel: '+tel:'');
+  if(!pend.length){
+    return ['Bom dia '+fornName+',','','Nao ha materiais pendentes para '+obraName+'.','','Obrigado,',assinatura].join('\n');
+  }
+  return ['Bom dia '+fornName+',','','Pedido de encomenda - '+fmt(today),'Obra: '+obraName,'','Materiais necessarios:'].concat(pend).concat(['','Por favor confirmar disponibilidade.','','Obrigado,',assinatura]).join('\n');
 }
 
 document.getElementById('btn-wa-braga').addEventListener('click',function(){
